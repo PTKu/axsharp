@@ -1,4 +1,4 @@
-﻿// AXSharp.Presentation.Blazor.Controls
+// AXSharp.Presentation.Blazor.Controls
 // Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
 // Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
@@ -28,37 +28,50 @@ namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
     /// </summary>
     public partial class RenderableContentControl : ComponentBase, IDisposable
     {
+        private string _presentation;
+
+        /// <summary>
+        /// Gets or sets polling interval for this control and nested controls.
+        /// [!NOTE] Nested element can have different polling setting that will override this property.
+        /// </summary>
+        [Parameter] public int PollingInterval { get; set; } = 250;
+
         /// <summary>
         /// Parameter Context accept ITwinElement instance, which is used as base model for UI generation.
         /// </summary>
         [Parameter]
         public object Context { get; set; }
+
         /// <summary>
         /// Parameter Presentation specify mode, in which view UI is generated. Type PresentationType is used.
         /// </summary>
         [Parameter]
-        public string Presentation { get; set; }
+        public string Presentation
+        {
+            get => _presentation;
+            set
+            {
+                _presentation = value;
+                this.OnInitialized();
+            } 
+        }
+
+
         /// <summary>
         /// Parameter Class, in which RenderableContentenControl will be wrapped.
         /// </summary>
         [Parameter]
         public string Class { get; set; }
-          /// <summary>
+        /// <summary>
         /// Parameter LayoutClass, in which layouts will be wrapped.
         /// </summary>
         [Parameter]
         public string LayoutClass { get; set; }
-          /// <summary>
+        /// <summary>
         /// Parameter LayoutChildrenClass, in which children of layouts will be wrapped.
         /// </summary>
         [Parameter]
         public string LayoutChildrenClass { get; set; }
-
-        /// <summary>
-        /// Gets or sets polling interval for PLC variables of this controls context in ms.
-        /// </summary>
-        [Parameter]
-        public int PollingInterval { get; set; } = 250;
 
         [Inject]
         public ComponentService ComponentService { get; set; }
@@ -74,30 +87,30 @@ namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
         private ITwinElement _context { get; set; }
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             try
             {
                 _context = (ITwinElement)Context;
                 _context.StartPolling(this.PollingInterval);
             }
-            catch 
+            catch
             {
                 throw new ParameterWrongTypeRendererException(Context.GetType().ToString());
             }
-            
-            base.OnInitialized();
         }
         protected override void OnParametersSet()
         {
-            
+
             Type layoutType = TryLoadLayoutTypeFromProperty(_context);
             if (layoutType == null)
-            { 
+            {
                 layoutType = TryLoadLayoutType(_context);
             }
             if (layoutType != null) MainLayoutType = layoutType;
 
             _groupContainer = TryLoadGroupTypeFromProperty(_context);
-            if(_groupContainer == null) _groupContainer = TryLoadGroupType(_context);
+            if (_groupContainer == null) _groupContainer = TryLoadGroupType(_context);
 
             if (String.IsNullOrEmpty(Presentation)) Presentation = "";
             _viewModelCache.ResetCounter();
@@ -134,12 +147,12 @@ namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
                     component = ViewLocatorBuilder(twinType.BaseType, presentationName);
                 }
                 if (component != null) return component;
-            }                
+            }
             return null;
         }
 
 
-       
+
 
         /// <summary>
         /// Method to build Generic component name from passed parameters, which instance will be found in assembly.
@@ -182,7 +195,7 @@ namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
             {
                 __builder.AddAttribute(1, "Component", twin);
             }
-            else if(component is IRenderableViewModelBase)
+            else if (component is IRenderableViewModelBase)
             {
                 __builder.AddAttribute(1, "TwinContainer", new TwinContainerObject(twin, _viewModelCache.CreateCacheId(_navigationManager.Uri, twin.Symbol, Presentation.ToLower())));
             }
@@ -284,7 +297,7 @@ namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
             }
             return group;
         }
-       
+
         private bool HasRenderIgnoreAttribute(string presentationType, ITwinElement element)
         {
             var renderIngoreAttribute = AttributesHandler.GetIgnoreRenderingAttribute(element);
@@ -313,7 +326,8 @@ namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
             {
                 Type genericTypeArg = primitiveKidType.GenericTypeArguments[0];
                 return (baseName, genericTypeArg);
-            } else
+            }
+            else
             {
                 return GetGenericInfo(primitiveKidType.BaseType);
             }
@@ -355,11 +369,12 @@ namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
                 return "Display";
             }
             return Presentation;
-            
+
         }
-        public void Dispose()
+
+        public virtual void Dispose()
         {
-            this._context?.StopPolling();
+            _context?.StopPolling();
             _viewModelCache.ResetCounter();
         }
     }

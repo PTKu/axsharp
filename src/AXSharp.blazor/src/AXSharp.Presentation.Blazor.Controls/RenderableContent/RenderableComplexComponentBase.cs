@@ -17,7 +17,7 @@ using AXSharp.Presentation.Blazor.Interfaces;
 namespace AXSharp.Presentation.Blazor.Controls.RenderableContent
 {
     /// <summary>
-    ///  Base class for complex componenets with only code-behind.
+    ///  Base class for complex components with only code-behind.
     /// </summary>
     public class RenderableComplexComponentBase<T> : RenderableComponentBase, IRenderableComplexComponentBase
     {
