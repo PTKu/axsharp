@@ -1,0 +1,4 @@
+﻿@import "tailwindcss";
+@source "./";
+@import "../../../../../src/AXSharp.Presentation.Blazor.Controls/wwwroot/css/operon-variables.css";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

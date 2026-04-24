@@ -1,12 +1,13 @@
 ﻿// AXSharp.ConnectorLegacyTests
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AXSharp.Connector.Localizations;
@@ -19,6 +20,15 @@ namespace AXSharp.Connector.Tests
         public string Symbol => "testTwinObjectSymbol";
 
         public string AttributeName => "testTwinObjectAttributeName";
+        public string GetAttributeName(CultureInfo culture)
+        {
+            return this.Translate(this.AttributeName, culture);
+        }
+
+        public string GetHumanReadable(CultureInfo culture)
+        {
+            return this.Translate(this.HumanReadable, culture);
+        }
 
         public string HumanReadable => "testTwinObjectHumanReadable";
 
@@ -48,12 +58,12 @@ namespace AXSharp.Connector.Tests
             return dummyConnector;
         }
 
-        public Task<T> OnlineToPlain<T>()
+        public Task<T> OnlineToPlain<T>(eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }
 
-        public Task PlainToOnline<T>(T plain)
+        public Task PlainToOnline<T>(T plain, eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }
@@ -68,12 +78,17 @@ namespace AXSharp.Connector.Tests
             throw new NotImplementedException();
         }
 
-        public object OnlineToPlain()
+        public Task<bool> AnyChangeAsync<T>(T plain)
         {
             throw new NotImplementedException();
         }
 
-        public void PlainToOnline(object plain)
+        public object OnlineToPlain(eAccessPriority priority = eAccessPriority.Normal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PlainToOnline(object plain, eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }

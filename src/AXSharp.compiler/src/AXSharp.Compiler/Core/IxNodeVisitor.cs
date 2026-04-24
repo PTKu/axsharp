@@ -1,9 +1,9 @@
-﻿// AXSharp.Compiler
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// AXSharp.Compiler
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 /*
  * NOTE we do use combined syntax semantics tree visitor. In short we start in syntactic node using root of `FileSyntax` then we cross the
@@ -34,369 +34,385 @@ namespace AXSharp.Compiler.Core;
 ///         Variables etc).
 ///     </remarks>
 /// </summary>
-public partial class IxNodeVisitor : ISemanticNodeVisitor<ICombinedThreeVisitor>
+public partial class IxNodeVisitor : ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>
 {
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IPartialSemanticTree partialSemanticTree,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IPartialSemanticTree partialSemanticTree,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISymbol symbol, ICombinedThreeVisitor data)
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISymbol symbol, ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IPragma pragma, ICombinedThreeVisitor data)
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IPragma pragma, ICombinedThreeVisitor data)
     {
         data.CreatePragma(pragma, data);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IConfigurationDeclaration configurationDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IConfigurationDeclaration configurationDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateConfigDeclaration(configurationDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ITaskConfigurationDeclaration taskConfigurationDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ITaskConfigurationDeclaration taskConfigurationDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ITaskDeclaration taskDeclaration, ICombinedThreeVisitor data)
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ITaskDeclaration taskDeclaration, ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(
         IProgramConfigurationDeclaration programConfigurationDeclaration, ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(INamespaceDeclaration namespaceDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(INamespaceDeclaration namespaceDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IUsingDirective usingDirective, ICombinedThreeVisitor data)
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IUsingDirective usingDirective, ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IProgramDeclaration programDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IProgramDeclaration programDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IClassDeclaration classDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IClassDeclaration classDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateClassDeclaration(classDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IInterfaceDeclaration interfaceDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IInterfaceDeclaration interfaceDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateInterfaceDeclaration(interfaceDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IFunctionDeclaration functionDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IFunctionDeclaration functionDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IFunctionBlockDeclaration functionBlockDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IFunctionBlockDeclaration functionBlockDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IMethodDeclaration methodDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IMethodDeclaration methodDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IMethodPrototypeDeclaration methodPrototypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IClassMethodDeclaration methodDeclaration, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IMethodPrototypeDeclaration methodPrototypeDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IScalarTypeDeclaration scalarTypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IScalarTypeDeclaration scalarTypeDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateScalarTypeDeclaration(scalarTypeDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IStructuredTypeDeclaration structuredTypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IStructuredTypeDeclaration structuredTypeDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateStructuredType(structuredTypeDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IArrayTypeDeclaration arrayTypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IArrayTypeDeclaration arrayTypeDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateArrayTypeDeclaration(arrayTypeDeclaration, this);
+        return default;
     }
     
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IEnumTypeDeclaration enumTypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IEnumTypeDeclaration enumTypeDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateEnumTypeDeclaration(enumTypeDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(INamedValueTypeDeclaration namedValueTypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(INamedValueTypeDeclaration namedValueTypeDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateNamedValueTypeDeclaration(namedValueTypeDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IReferenceTypeDeclaration referenceTypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IReferenceTypeDeclaration referenceTypeDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateReferenceToDeclaration(referenceTypeDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IStringTypeDeclaration stringTypeDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IStringTypeDeclaration stringTypeDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateStringTypeDeclaration(stringTypeDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IDimension dimension, ICombinedThreeVisitor data)
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IDimension dimension, ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IFieldDeclaration fieldDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IFieldDeclaration fieldDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateFieldDeclaration(fieldDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IVariableDeclaration variableDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IVariableDeclaration variableDeclaration,
         ICombinedThreeVisitor data)
     {
         data.CreateVariableDeclaration(variableDeclaration, this);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IEnumValueDeclaration enumValueDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IEnumValueDeclaration enumValueDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(INamedValueDeclaration namedValueDeclaration,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(INamedValueDeclaration namedValueDeclaration,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticInitializerExpression initializerExpression,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticInitializerExpression initializerExpression,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticArrayInitializer arrayInitializer,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticArrayInitializer arrayInitializer,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticStructureInitializer structureInitializer,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticStructureInitializer structureInitializer,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticMemberInitializer memberInitializer,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticMemberInitializer memberInitializer,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticTypeAccess semanticTypeAccess,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticTypeAccess semanticTypeAccess,
         ICombinedThreeVisitor data)
     {
         data.CreateSemanticTypeAccess(semanticTypeAccess, this);
+        return default;
     }
 
-    public void Visit(IDocComment semanticTypeAccess, ICombinedThreeVisitor data)
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IDocComment semanticTypeAccess, ICombinedThreeVisitor data)
     {
         data.CreateDocComment(semanticTypeAccess, data);
+        return default;
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticInstructionList instrList,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticInstructionList instrList,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticAssignmentInstruction assignment,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticAssignmentInstruction assignment,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticUnsafeAssignmentInstruction assignment,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticUnsafeAssignmentInstruction assignment,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticAssignmentAttemptInstruction assignmentAttempt,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticAssignmentAttemptInstruction assignmentAttempt,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticExpressionInstruction expression,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticExpressionInstruction expression,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticIfConditionalStatement condStatement,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticIfConditionalStatement condStatement,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IConditionalInstructionList condInstrList,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IConditionalInstructionList condInstrList,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticCaseStatement caseStatement,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticCaseStatement caseStatement,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticCaseSelection caseSelection,
+  
+    
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticSubrange subrange, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticForStatement forStatement,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticSubrange subrange, ICombinedThreeVisitor data)
-    {
-        throw new NotImplementedException();
-    }
-
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticForStatement forStatement,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticWhileStatement whileStatement,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticWhileStatement whileStatement,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticRepeatStatement repeatStatement,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticRepeatStatement repeatStatement,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticContinueInstruction continueInstruction,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticContinueInstruction continueInstruction,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticExitInstruction exitInstruction,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticExitInstruction exitInstruction,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticReturnStatement returnStatement,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticReturnStatement returnStatement,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticAsmStatement asmStatement,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticAsmStatement asmStatement,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticConstantExpression constExpr,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticConstantExpression constExpr,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticIdentifierAccess identifierAccess,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticIdentifierAccess identifierAccess,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticBinaryExpression binExpr,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticBinaryExpression binExpr,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticUnaryExpression unaryExpression,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticUnaryExpression unaryExpression,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticQualifiedEnumAccess qualifiedEnumAccess,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticQualifiedEnumAccess qualifiedEnumAccess,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticMemberAccessExpression memberAccessExpression,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticMemberAccessExpression memberAccessExpression,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticArrayAccessExpression arrayAccessExpression,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticArrayAccessExpression arrayAccessExpression,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticCallExpression call, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticParameterList paramList, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticParameterAssignment paramAssignment,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticCallExpression call, ICombinedThreeVisitor data)
-    {
-        throw new NotImplementedException();
-    }
-
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticParameterList paramList, ICombinedThreeVisitor data)
-    {
-        throw new NotImplementedException();
-    }
-
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(ISemanticParameterAssignment paramAssignment,
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(IPartialAccessExpression partialAccessExpression,
         ICombinedThreeVisitor data)
     {
-        throw new NotImplementedException();
-    }
-
-    void ISemanticNodeVisitor<ICombinedThreeVisitor>.Visit(IPartialAccessExpression partialAccessExpression,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }
 
@@ -486,6 +502,11 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         data.CreateEnumTypeDeclaration(enumTypeDeclarationSyntax, semantics, this);
     }
 
+    public void Accept(IEnumValueListSyntax enumValueListSyntax, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(
         INamedValueTypeDeclarationSyntax namedValueTypeDeclarationSyntax,
         ICombinedThreeVisitor data)
@@ -520,9 +541,11 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
 
     private string GetFullyQualifiedNameFromCurrentSyntaxTree(string typeName)
     {
-        return string.IsNullOrEmpty(_containingNamespace.Replace('|', '.'))
+        var qualified = string.IsNullOrEmpty(_containingNamespace.Replace('|', '.'))
             ? typeName
             : $"{_containingNamespace}.{typeName}";
+
+        return qualified.Replace("|", ".");
     }
 
     #region NotImplemented
@@ -589,15 +612,13 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException("Uses semantics");
     }
 
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IPragmaSyntax pragmaSyntax, ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException("Uses semantics");
-    }
-
-
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IExpressionInitializerSyntax expressionInitializerSyntax,
         ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    public void Accept(IExpressionPrefixStatementSyntax expressionPrefixStatementSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -606,7 +627,6 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
     {
         throw new NotSupportedException();
     }
-
 
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IExtendsListSyntax extendsListSyntax,
         ICombinedThreeVisitor data)
@@ -620,21 +640,7 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(ITaskConfigSyntax taskConfigSyntax,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IProgConfigSyntax progConfigSyntax,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
-
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(
-        IAbstractMethodDeclarationSyntax abstractMethodDeclarationSyntax, ICombinedThreeVisitor data)
+    public void Accept(ITaskInitSpecSyntax taskInitSpecSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -670,12 +676,6 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
     }
 
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IAnonymousReferenceTypeSyntax anonymousReferenceTypeSyntax,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IArgumentExpressionSyntax argumentExpressionSyntax,
         ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
@@ -735,10 +735,30 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
+    public void Accept(IArrayRepetitionInitializerSyntax arrayRepetitionInitializerSyntax, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IArrayTypeDeclarationSyntax arrayTypeDeclarationSyntax,
         ICombinedThreeVisitor data)
     {
-        throw new NotSupportedException();
+        try
+        {
+            // Read Locations SourceText property using reflection.
+            var locationType = arrayTypeDeclarationSyntax.Location.GetType();
+            var sourceTextProperty = locationType.GetProperty("SourceText");
+            var sourceText = sourceTextProperty?.GetValue(arrayTypeDeclarationSyntax.Location);
+            var sourceTextType = sourceText?.GetType();
+            var fileNameProperty = sourceTextType?.GetProperty("Filename") ?? sourceTextType?.GetProperty("FileName");
+            var fileName = fileNameProperty?.GetValue(sourceText) as string ?? "unknown file";
+
+            Log.Logger.Warning($"Array types as declared in '{fileName}' are not supported at this time.");
+        }
+        catch (Exception)
+        {
+            Log.Logger.Warning($"Array types as declared in 'an unknown location' are not supported at this time.");
+        }                
     }
 
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IAsmStatementSyntax asmStatementSyntax,
@@ -771,25 +791,7 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(ICallParamAssignmentLhsSyntax callParamAssignmentLhsSyntax,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(ICaseListElemSyntax caseListElemSyntax,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(ICaseListSyntax caseListSyntax, ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(ICaseSelectionSyntax caseSelectionSyntax,
-        ICombinedThreeVisitor data)
+    public void Accept(ICaseListStatementSyntax caseListStatementSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -811,8 +813,12 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(ICommaCaseListElemSyntax commaCaseListElemSyntax,
-        ICombinedThreeVisitor data)
+    public void Accept(IConditionalAndExpressionSyntax conditionalAndExpressionSyntax, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    public void Accept(IConditionalOrExpressionSyntax conditionalOrExpressionSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -901,11 +907,6 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(
-        IExternFunctionDeclarationSyntax externFunctionDeclarationSyntax, ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
 
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IForStatementSyntax forStatementSyntax,
         ICombinedThreeVisitor data)
@@ -956,6 +957,11 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
+    public void Accept(IKeywordStatementSyntax keywordStatementSyntax, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IListElementSyntax listElementSyntax,
         ICombinedThreeVisitor data)
     {
@@ -993,13 +999,12 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(INamedParamListSyntax namedParamListSyntax,
-        ICombinedThreeVisitor data)
+    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(INamedTypeSyntax namedTypeSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(INamedTypeSyntax namedTypeSyntax, ICombinedThreeVisitor data)
+    public void Accept(INamedValueListSyntax namedValueListSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -1018,6 +1023,11 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
 
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(INamespaceElementSyntax namespaceElementSyntax,
         ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    public void Accept(INonReferenceTypeSyntax nonReferenceTypeSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -1076,16 +1086,15 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
+    public void Accept(IProgramConfigurationSyntax programConfigurationSyntax, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IProgramDeclarationSyntax programDeclarationSyntax,
         ICombinedThreeVisitor data)
     {
         // We ignore PROGRAM declarations.
-    }
-
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IQualifiedEnumAccessSyntax qualifiedEnumAccessSyntax,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
     }
 
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IQualifiedIdentifierListSyntax qualifiedIdentifierListSyntax,
@@ -1155,12 +1164,6 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IStatementPartSyntax statementPartSyntax,
-        ICombinedThreeVisitor data)
-    {
-        throw new NotSupportedException();
-    }
-
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IStatementSyntax statementSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
@@ -1176,6 +1179,16 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
 
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IStructureInitializerSyntax structureInitializerSyntax,
         ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    public void Accept(IStSyntax stSyntax, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    public void Accept(ISubCaseListSyntax subCaseListSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -1203,6 +1216,11 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
+    public void Accept(ITaskInstanceSyntax taskInstanceSyntax, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
     void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IThisAccessSyntax thisAccessSyntax,
         ICombinedThreeVisitor data)
     {
@@ -1221,8 +1239,7 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
         throw new NotSupportedException();
     }
 
-    void ISyntaxNodeVisitor<ICombinedThreeVisitor>.Accept(IUnnamedParamListSyntax unnamedParamListSyntax,
-        ICombinedThreeVisitor data)
+    public void Accept(IUnaryArithmeticExpressionSyntax unaryArithmeticExpressionSyntax, ICombinedThreeVisitor data)
     {
         throw new NotSupportedException();
     }
@@ -1258,4 +1275,14 @@ public partial class IxNodeVisitor : ISyntaxNodeVisitor<ICombinedThreeVisitor>
     }
 
     #endregion
+
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticEmptyInstruction emptyInstruction, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
+
+    Unit ISemanticNodeVisitor<Unit, ICombinedThreeVisitor>.Visit(ISemanticCaseSelectionStatement caseSelectionStatement, ICombinedThreeVisitor data)
+    {
+        throw new NotSupportedException();
+    }
 }

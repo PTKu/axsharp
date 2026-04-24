@@ -1,9 +1,9 @@
-﻿// AXSharp.Compiler.Cs
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// AXSharp.Compiler.Cs
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using System.Text;
 using AX.ST.Semantic;
@@ -36,7 +36,8 @@ internal class CsOnlinerPlainerPlainToOnlineBuilder : ICombinedThreeVisitor
     
     public void CreateFieldDeclaration(IFieldDeclaration fieldDeclaration, IxNodeVisitor visitor)
     {
-        if (fieldDeclaration.IsMemberEligibleForTranspile(SourceBuilder, "POCO"))
+        var eligibility = fieldDeclaration.IsMemberEligibleForDataExchange(SourceBuilder, "POCO");
+        if (eligibility.isEligible)
         {
             CreateAssignment(fieldDeclaration.Type, fieldDeclaration);
         }
@@ -49,7 +50,8 @@ internal class CsOnlinerPlainerPlainToOnlineBuilder : ICombinedThreeVisitor
 
     public void CreateVariableDeclaration(IVariableDeclaration variableDeclaration, IxNodeVisitor visitor)
     {
-        if (variableDeclaration.IsMemberEligibleForTranspile(SourceBuilder, "POCO"))
+        var eligibility = variableDeclaration.IsMemberEligibleForTranspile(SourceBuilder, "POCO");
+        if (eligibility.isEligibe)
         {
             CreateAssignment(variableDeclaration.Type, variableDeclaration);
         }
@@ -64,36 +66,58 @@ internal class CsOnlinerPlainerPlainToOnlineBuilder : ICombinedThreeVisitor
             case IClassDeclaration classDeclaration:
             //case IAnonymousTypeDeclaration anonymousTypeDeclaration:
             case IStructuredTypeDeclaration structuredTypeDeclaration:
-                AddToSource($" await this.{declaration.Name}.{MethodName}Async(plain.{declaration.Name});");
+                AddToSource($"#pragma warning disable CS0612\n");
+                AddToSource($" await this.{declaration.Name}.{MethodNameNoac}Async(plain.{declaration.Name});");
+                AddToSource($"#pragma warning restore CS0612\n");
                 break;
             case IArrayTypeDeclaration arrayTypeDeclaration:
-                
-
-                switch (arrayTypeDeclaration.ElementTypeAccess.Type)
+                var arrayEligibility = arrayTypeDeclaration.IsMemberEligibleForConstructor(SourceBuilder);
+                if (arrayEligibility.isEligibe)
                 {
-                    case IClassDeclaration classDeclaration:
-                    case IStructuredTypeDeclaration structuredTypeDeclaration:
-                        AddToSource($"var _{declaration.Name}_i_FE8484DAB3 = 0;");
-                        AddToSource($"{declaration.Name}.Select(p => p.{MethodName}Async(plain.{declaration.Name}[_{declaration.Name}_i_FE8484DAB3++])).ToArray();");
-                        break;
-                    case IScalarTypeDeclaration scalarTypeDeclaration:
-                    case IStringTypeDeclaration stringTypeDeclaration:
-                        AddToSource($"var _{declaration.Name}_i_FE8484DAB3 = 0;");
-                        AddToSource($"{declaration.Name}.Select(p => p.Cyclic = plain.{declaration.Name}[_{declaration.Name}_i_FE8484DAB3++]).ToArray();");
-                        break;
+                    switch (arrayTypeDeclaration.ElementTypeAccess.Type)
+                    {
+                        case IClassDeclaration classDeclaration:
+                        case IStructuredTypeDeclaration structuredTypeDeclaration:
+                            AddToSource($"var _{declaration.Name}_i_FE8484DAB3 = 0;");
+                            AddToSource($"#pragma warning disable CS0612\n");
+                            AddToSource(
+                                $"{declaration.Name}.Select(p => p.{MethodNameNoac}Async(plain.{declaration.Name}[_{declaration.Name}_i_FE8484DAB3++])).ToArray();");
+                            AddToSource($"#pragma warning restore CS0612\n");
+                            break;
+                        case IScalarTypeDeclaration scalarTypeDeclaration:
+                        case IStringTypeDeclaration stringTypeDeclaration:
+                            AddToSource($"var _{declaration.Name}_i_FE8484DAB3 = 0;");
+                            AddToSource($"#pragma warning disable CS0612\n");
+                            AddToSource(
+                                $"{declaration.Name}.Select(p => p.LethargicWrite(plain.{declaration.Name}[_{declaration.Name}_i_FE8484DAB3++])).ToArray();");
+                            AddToSource($"#pragma warning restore CS0612\n");
+                            break;
+                    }
                 }
+
                 break;
             case IReferenceTypeDeclaration referenceTypeDeclaration:
                 break;
             case IEnumTypeDeclaration enumTypeDeclaration:
-                AddToSource($" {declaration.Name}.Cyclic = (short)plain.{declaration.Name};");
+                AddToSource($"#pragma warning disable CS0612\n");
+                AddToSource($" {declaration.Name}.LethargicWrite((short)plain.{declaration.Name});");
+                AddToSource($"#pragma warning restore CS0612\n");
                 break;
             case INamedValueTypeDeclaration namedValueTypeDeclaration:
-                AddToSource($" {declaration.Name}.Cyclic = plain.{declaration.Name};");
+                AddToSource($"#pragma warning disable CS0612\n");
+                AddToSource($" {declaration.Name}.LethargicWrite(plain.{declaration.Name});");
+                AddToSource($"#pragma warning restore CS0612\n");
                 break;
             case IScalarTypeDeclaration scalarTypeDeclaration:
             case IStringTypeDeclaration stringTypeDeclaration:
-                AddToSource($" {declaration.Name}.Cyclic = plain.{declaration.Name};");
+                AddToSource($"#pragma warning disable CS0612\n");
+                AddToSource($" {declaration.Name}.LethargicWrite(plain.{declaration.Name});");
+                AddToSource($"#pragma warning restore CS0612\n");
+                break;
+            default:
+                AddToSource($"#pragma warning disable CS0612\n");
+                AddToSource($" await this.{declaration.Name}.{MethodNameNoac}Async(plain.{declaration.Name});");
+                AddToSource($"#pragma warning restore CS0612\n");
                 break;
         }
     }
@@ -115,21 +139,33 @@ internal class CsOnlinerPlainerPlainToOnlineBuilder : ICombinedThreeVisitor
     }
 
     private static readonly string MethodName = TwinObjectExtensions.PlainToOnlineMethodName;
+    private static readonly string MethodNameNoac = $"_{TwinObjectExtensions.PlainToOnlineMethodName}Noac";
+
 
     public static CsOnlinerPlainerPlainToOnlineBuilder Create(IxNodeVisitor visitor, IStructuredTypeDeclaration semantics,
         ISourceBuilder sourceBuilder)
     {
         var builder = new CsOnlinerPlainerPlainToOnlineBuilder(sourceBuilder);
 
-        builder.AddToSource(CsHelpers.CreateGenericSwapperMethodFromPlainer(MethodName, $"Pocos.{semantics.FullyQualifiedName}", false));
+        builder.AddToSource(CsHelpers.CreateGenericSwapperMethodFromPlainerOnliner(MethodName, $"{semantics.GetFullyQualifiedPocoName()}", false));
 
-        builder.AddToSource($"public async Task<IEnumerable<ITwinPrimitive>> {MethodName}Async(Pocos.{semantics.FullyQualifiedName} plain){{\n");
+        builder.AddToSource($"public async Task<IEnumerable<ITwinPrimitive>> {MethodName}Async({semantics.GetFullyQualifiedPocoName()} plain, eAccessPriority priority = eAccessPriority.Normal){{\n");
 
         semantics.Fields.ToList().ForEach(p => p.Accept(visitor, builder));
 
-        builder.AddToSource("return await this.WriteAsync();");
+        builder.AddToSource("return await this.WriteAsync<IgnoreOnPocoOperation>(priority);");
 
         builder.AddToSource($"}}");
+
+        // Noac method
+        builder.AddToSource($"[Obsolete(\"This method should not be used if you indent to access the controllers data. Use `{MethodName}` instead.\")]");
+        builder.AddToSource("[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]");
+        builder.AddToSource($"public async Task {MethodNameNoac}Async({semantics.GetFullyQualifiedPocoName()} plain){{\n");
+
+        semantics.Fields.ToList().ForEach(p => p.Accept(visitor, builder));
+
+        builder.AddToSource($"}}");
+
         return builder;
     }
 
@@ -138,24 +174,39 @@ internal class CsOnlinerPlainerPlainToOnlineBuilder : ICombinedThreeVisitor
     {
         var builder = new CsOnlinerPlainerPlainToOnlineBuilder(sourceBuilder);
 
-        builder.AddToSource(CsHelpers.CreateGenericSwapperMethodFromPlainer(MethodName, $"Pocos.{semantics.FullyQualifiedName}", isExtended));
+        builder.AddToSource(CsHelpers.CreateGenericSwapperMethodFromPlainerOnliner(MethodName, $"{semantics.GetFullyQualifiedPocoName()}", isExtended));
 
         //var qualifier = isExtended ? "new" : string.Empty;
         var qualifier = string.Empty;
 
-        builder.AddToSource($"public {qualifier} async Task<IEnumerable<ITwinPrimitive>> {MethodName}Async(Pocos.{semantics.FullyQualifiedName} plain){{\n");
+        builder.AddToSource($"public {qualifier} async Task<IEnumerable<ITwinPrimitive>> {MethodName}Async({semantics.GetFullyQualifiedPocoName()} plain, eAccessPriority priority = eAccessPriority.Normal){{\n");
        
 
         if (isExtended)
         {
-            builder.AddToSource($"await base.{MethodName}Async(plain);");
+            builder.AddToSource($"await base.{MethodNameNoac}Async(plain);");
         }
 
         semantics.Fields.ToList().ForEach(p => p.Accept(visitor, builder));
 
-        builder.AddToSource("return await this.WriteAsync();");
+        builder.AddToSource("return await this.WriteAsync<IgnoreOnPocoOperation>(priority);");
 
         builder.AddToSource($"}}");
+
+        // Noac method
+        builder.AddToSource($"[Obsolete(\"This method should not be used if you indent to access the controllers data. Use `{MethodName}` instead.\")]");
+        builder.AddToSource("[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]");
+        builder.AddToSource($"public async Task {MethodNameNoac}Async({semantics.GetFullyQualifiedPocoName()} plain){{\n");
+        
+        if (isExtended)
+        {
+            builder.AddToSource($"await base.{MethodNameNoac}Async(plain);");
+        }
+
+        semantics.Fields.ToList().ForEach(p => p.Accept(visitor, builder));
+
+        builder.AddToSource($"}}");
+
         return builder;
     }
 

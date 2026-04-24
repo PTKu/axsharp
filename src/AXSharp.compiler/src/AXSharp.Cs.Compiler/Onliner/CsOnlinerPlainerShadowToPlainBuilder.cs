@@ -1,9 +1,9 @@
-﻿// AXSharp.Compiler.Cs
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// AXSharp.Compiler.Cs
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using AX.ST.Semantic;
 using AX.ST.Semantic.Model.Declarations;
@@ -35,7 +35,8 @@ namespace AXSharp.Compiler.Cs.Onliner
 
         public void CreateFieldDeclaration(IFieldDeclaration fieldDeclaration, IxNodeVisitor visitor)
         {
-            if (fieldDeclaration.IsMemberEligibleForTranspile(SourceBuilder, "POCO"))
+            var eligibility = fieldDeclaration.IsMemberEligibleForDataExchange(SourceBuilder, "POCO");
+            if (eligibility.isEligible)
             {
                 CreateAssignment(fieldDeclaration.Type, fieldDeclaration);
             }
@@ -48,7 +49,8 @@ namespace AXSharp.Compiler.Cs.Onliner
 
         public void CreateVariableDeclaration(IVariableDeclaration variableDeclaration, IxNodeVisitor visitor)
         {
-            if (variableDeclaration.IsMemberEligibleForTranspile(SourceBuilder, "POCO"))
+            var eligibility = variableDeclaration.IsMemberEligibleForTranspile(SourceBuilder, "POCO");
+            if (eligibility.isEligibe)
             {
                 CreateAssignment(variableDeclaration.Type, variableDeclaration);
             }
@@ -66,18 +68,25 @@ namespace AXSharp.Compiler.Cs.Onliner
                     AddToSource($" plain.{declaration.Name} = await {declaration.Name}.{MethodName}Async();");
                     break;
                 case IArrayTypeDeclaration arrayTypeDeclaration:
-                    switch (arrayTypeDeclaration.ElementTypeAccess.Type)
+                    var arrayEligibility = arrayTypeDeclaration.IsMemberEligibleForConstructor(SourceBuilder);
+                    if (arrayEligibility.isEligibe)
                     {
-                        case IClassDeclaration classDeclaration:
-                        case IStructuredTypeDeclaration structuredTypeDeclaration:
-                            AddToSource($"plain.{declaration.Name} = {declaration.Name}.Select(async p => await p.{MethodName}Async()).Select(p => p.Result).ToArray();");
-                            break;
-                        case IScalarTypeDeclaration scalarTypeDeclaration:
-                        case IStringTypeDeclaration stringTypeDeclaration:
+                        switch (arrayTypeDeclaration.ElementTypeAccess.Type)
+                        {
+                            case IClassDeclaration classDeclaration:
+                            case IStructuredTypeDeclaration structuredTypeDeclaration:
+                                AddToSource(
+                                    $"plain.{declaration.Name} = {declaration.Name}.Select(async p => await p.{MethodName}Async()).Select(p => p.Result).ToArray();");
+                                break;
+                            case IScalarTypeDeclaration scalarTypeDeclaration:
+                            case IStringTypeDeclaration stringTypeDeclaration:
 
-                            AddToSource($"plain.{declaration.Name} = {declaration.Name}.Select(p => p.Shadow).ToArray();");
-                            break;
+                                AddToSource(
+                                    $"plain.{declaration.Name} = {declaration.Name}.Select(p => p.Shadow).ToArray();");
+                                break;
+                        }
                     }
+
                     break;
                 case IReferenceTypeDeclaration referenceTypeDeclaration:
                     break;
@@ -90,6 +99,9 @@ namespace AXSharp.Compiler.Cs.Onliner
                 case IScalarTypeDeclaration scalarTypeDeclaration:
                 case IStringTypeDeclaration stringTypeDeclaration:
                     AddToSource($" plain.{declaration.Name} = {declaration.Name}.Shadow;");
+                    break;
+                default:
+                    AddToSource($" plain.{declaration.Name} = await {declaration.Name}.{MethodName}Async();");
                     break;
             }
         }
@@ -117,10 +129,10 @@ namespace AXSharp.Compiler.Cs.Onliner
         {
             var builder = new CsOnlinerPlainerShadowToPlainBuilder(sourceBuilder);
 
-            builder.AddToSource(CsHelpers.CreateGenericSwapperMethodToPlainer(MethodName, $"Pocos.{semantics.FullyQualifiedName}", false));
+            builder.AddToSource(CsHelpers.CreateGenericSwapperMethodToPlainerShadows(MethodName, $"{semantics.GetFullyQualifiedPocoName()}", false));
 
-            builder.AddToSource($"public async Task<Pocos.{semantics.FullyQualifiedName}> {MethodName}Async(){{\n");
-            builder.AddToSource($"Pocos.{semantics.FullyQualifiedName} plain = new Pocos.{semantics.FullyQualifiedName}();");
+            builder.AddToSource($"public async Task<{semantics.GetFullyQualifiedPocoName()}> {MethodName}Async(){{\n");
+            builder.AddToSource($"{semantics.GetFullyQualifiedPocoName()} plain = new {semantics.GetFullyQualifiedPocoName()}();");
 
             semantics.Fields.ToList().ForEach(p => p.Accept(visitor, builder));
 
@@ -134,12 +146,12 @@ namespace AXSharp.Compiler.Cs.Onliner
         {
             var builder = new CsOnlinerPlainerShadowToPlainBuilder(sourceBuilder);
 
-            builder.AddToSource(CsHelpers.CreateGenericSwapperMethodToPlainer(MethodName, $"Pocos.{semantics.FullyQualifiedName}", isExtended));
+            builder.AddToSource(CsHelpers.CreateGenericSwapperMethodToPlainerShadows(MethodName, $"{semantics.GetFullyQualifiedPocoName()}", isExtended));
 
             var qualifier = isExtended ? "new" : string.Empty;
 
-            builder.AddToSource($"public {qualifier} async Task<Pocos.{semantics.FullyQualifiedName}> {MethodName}Async(){{\n");
-            builder.AddToSource($"Pocos.{semantics.FullyQualifiedName} plain = new Pocos.{semantics.FullyQualifiedName}();");
+            builder.AddToSource($"public {qualifier} async Task<{semantics.GetFullyQualifiedPocoName()}> {MethodName}Async(){{\n");
+            builder.AddToSource($"{semantics.GetFullyQualifiedPocoName()} plain = new {semantics.GetFullyQualifiedPocoName()}();");
 
             if (isExtended)
             {

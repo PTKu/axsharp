@@ -6,6 +6,10 @@
     },
     "Profile 1": {
       "commandName": "Project"
+    },
+    "app-withref": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\W\\Develop\\gh\\inxton\\simatic-ax\\axopen.templates\\axopen\\src\\inspectors\\ctrl"
     }
   }
 }

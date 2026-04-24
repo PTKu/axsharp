@@ -1,11 +1,10 @@
 {
   "sitemap": {
-    "baseUrl": "https://ix-ax.github.io/axsharp/",
+    "baseUrl": "https://inxton.github.io/axsharp/",
     "changefreq": "weekly",
     "priority": 0.1
   },
-  "homepages": [],
-  "source_base_path": "C:/W/Develop/gh/ix-ax/axsharp/docfx",
+  "source_base_path": "C:/W/Develop/gh/inxton/ax/axsharp/docfx",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -18,11 +17,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.ContainerAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.ContainerAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AXSharp.Abstractions.Presentation.EmptyGroupProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Abstractions.Presentation.EmptyGroupProvider.html",
-          "hash": "9PfxcuJ9OO0npjUNtXmg9MU02tezsI/Irdqv4jMG8Ac="
+          "relative_path": "api/AXSharp.Abstractions.Presentation.EmptyGroupProvider.html"
         }
       },
       "version": ""
@@ -32,8 +40,27 @@
       "source_relative_path": "api/AXSharp.Abstractions.Presentation.EmptyPresentationProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Abstractions.Presentation.EmptyPresentationProvider.html",
-          "hash": "PrDyU9vXLjv6DIQ7bw6p2LQ+KcSka1o4HqFk6572w7Y="
+          "relative_path": "api/AXSharp.Abstractions.Presentation.EmptyPresentationProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.GroupAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.GroupAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.GroupLayout.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.GroupLayout.html"
         }
       },
       "version": ""
@@ -43,8 +70,7 @@
       "source_relative_path": "api/AXSharp.Abstractions.Presentation.IGroupLayoutProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Abstractions.Presentation.IGroupLayoutProvider.html",
-          "hash": "tvmJ+huXY0xcw5JVW+03f4V5Siblf4XQriTMf9tQZUM="
+          "relative_path": "api/AXSharp.Abstractions.Presentation.IGroupLayoutProvider.html"
         }
       },
       "version": ""
@@ -54,8 +80,17 @@
       "source_relative_path": "api/AXSharp.Abstractions.Presentation.ILayoutProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Abstractions.Presentation.ILayoutProvider.html",
-          "hash": "ZgiLui4pQAQNDJaSzSwiXQ8aJiihVncbNh5Tl7faY4Y="
+          "relative_path": "api/AXSharp.Abstractions.Presentation.ILayoutProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.Layout.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.Layout.html"
         }
       },
       "version": ""
@@ -65,8 +100,7 @@
       "source_relative_path": "api/AXSharp.Abstractions.Presentation.PresentationProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Abstractions.Presentation.PresentationProvider.html",
-          "hash": "zIeI9NXpKvhXy+sIGjmn0rjKT0g6RwSMfNmY+EslXzs="
+          "relative_path": "api/AXSharp.Abstractions.Presentation.PresentationProvider.html"
         }
       },
       "version": ""
@@ -76,8 +110,47 @@
       "source_relative_path": "api/AXSharp.Abstractions.Presentation.PresentationProviderNotAssignedException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Abstractions.Presentation.PresentationProviderNotAssignedException.html",
-          "hash": "zvvVUIPLkr2wOGOAA8WBoGcp6Nz4PVHZMh1bp1TXBQ4="
+          "relative_path": "api/AXSharp.Abstractions.Presentation.PresentationProviderNotAssignedException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.RenderAuthorizedAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.RenderAuthorizedAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.RenderIgnoreAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.RenderIgnoreAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.RenderTemplateOverrideAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.RenderTemplateOverrideAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Abstractions.Presentation.TimeFormatAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Abstractions.Presentation.TimeFormatAttribute.html"
         }
       },
       "version": ""
@@ -87,8 +160,7 @@
       "source_relative_path": "api/AXSharp.Abstractions.Presentation.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Abstractions.Presentation.html",
-          "hash": "rHO0e2Lbob4wZe7LcwTdL4ACNMpdieA7w+oBkX4oles="
+          "relative_path": "api/AXSharp.Abstractions.Presentation.html"
         }
       },
       "version": ""
@@ -98,8 +170,7 @@
       "source_relative_path": "api/AXSharp.Compiler.AXSharpConfig.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.AXSharpConfig.html",
-          "hash": "mYjx6WJyf5rcorl54/WaprZaSrFU3vujjgl5l5558oQ="
+          "relative_path": "api/AXSharp.Compiler.AXSharpConfig.html"
         }
       },
       "version": ""
@@ -109,8 +180,7 @@
       "source_relative_path": "api/AXSharp.Compiler.AXSharpProject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.AXSharpProject.html",
-          "hash": "f8MCyo7p/pe9wkaD+n2v6ArXCyqwmbctANlhSIW45QM="
+          "relative_path": "api/AXSharp.Compiler.AXSharpProject.html"
         }
       },
       "version": ""
@@ -120,8 +190,17 @@
       "source_relative_path": "api/AXSharp.Compiler.Apax.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Apax.html",
-          "hash": "EfPRgwciQDb7sfa4AGLorBW2MQuhBe14AqbLDa3+HO8="
+          "relative_path": "api/AXSharp.Compiler.Apax.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Compiler.AxProject.SemVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Compiler.AxProject.SemVersion.html"
         }
       },
       "version": ""
@@ -131,8 +210,17 @@
       "source_relative_path": "api/AXSharp.Compiler.AxProject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.AxProject.html",
-          "hash": "H/XOwQlspLgylJsAjWUPax9ZSmrySK6V/juGcNHyTmI="
+          "relative_path": "api/AXSharp.Compiler.AxProject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Compiler.CompanionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Compiler.CompanionInfo.html"
         }
       },
       "version": ""
@@ -142,8 +230,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Core.ICombinedThreeVisitor.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Core.ICombinedThreeVisitor.html",
-          "hash": "JnhAe/NbWUn+kJ8oTOqKhxA2swjJqhYLQHqxsw8e5+I="
+          "relative_path": "api/AXSharp.Compiler.Core.ICombinedThreeVisitor.html"
         }
       },
       "version": ""
@@ -153,8 +240,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Core.ISourceBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Core.ISourceBuilder.html",
-          "hash": "LWFXp3FAuopZVF996K4gPoNOfMIGEAEyamTeueLA8KI="
+          "relative_path": "api/AXSharp.Compiler.Core.ISourceBuilder.html"
         }
       },
       "version": ""
@@ -164,8 +250,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Core.IxNodeVisitor.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Core.IxNodeVisitor.html",
-          "hash": "JAr8M8MufRyDarRKamWqj+GhaZtWwNnRer1l7Lkp2t8="
+          "relative_path": "api/AXSharp.Compiler.Core.IxNodeVisitor.html"
         }
       },
       "version": ""
@@ -175,8 +260,17 @@
       "source_relative_path": "api/AXSharp.Compiler.Core.TypeNotFoundInSemanticTreeException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Core.TypeNotFoundInSemanticTreeException.html",
-          "hash": "wdkgJi9PVW1CLS+d3ACryXHOpwNghgmTnnprrq0v+sY="
+          "relative_path": "api/AXSharp.Compiler.Core.TypeNotFoundInSemanticTreeException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Compiler.Core.eCommAccessibility.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Compiler.Core.eCommAccessibility.html"
         }
       },
       "version": ""
@@ -186,8 +280,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Core.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Core.html",
-          "hash": "gxymS8BqZFccDkdAyt+K8Ew1Hwh/YQJDMc39DO9Z5ag="
+          "relative_path": "api/AXSharp.Compiler.Core.html"
         }
       },
       "version": ""
@@ -197,8 +290,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Exceptions.FailedGettingPackageReferenceException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.FailedGettingPackageReferenceException.html",
-          "hash": "s0AKUPtisTBHWh0mY8DUGc7/VW8MuFpKzKpp9d80KAM="
+          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.FailedGettingPackageReferenceException.html"
         }
       },
       "version": ""
@@ -208,8 +300,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Exceptions.FailedToRetrievePackageReferenceException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.FailedToRetrievePackageReferenceException.html",
-          "hash": "6dZUA7MRBt2csnaq8FyZdc6f2XFJ1kaNDFV+6EXa8AA="
+          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.FailedToRetrievePackageReferenceException.html"
         }
       },
       "version": ""
@@ -219,8 +310,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Exceptions.PrimitiveTypeNotRecognizedException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.PrimitiveTypeNotRecognizedException.html",
-          "hash": "LohDDMvpZhslLc55W0j+DFloBAMI/64df0XQBIzRX18="
+          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.PrimitiveTypeNotRecognizedException.html"
         }
       },
       "version": ""
@@ -230,8 +320,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Exceptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.html",
-          "hash": "70ilRvvkiAFzrgyfWzsx638eGw4SQ62Jf7dHy1zpWBc="
+          "relative_path": "api/AXSharp.Compiler.Cs.Exceptions.html"
         }
       },
       "version": ""
@@ -241,8 +330,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Onliner.CsOnlinerSourceBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Onliner.CsOnlinerSourceBuilder.html",
-          "hash": "MDfts5whPGmyMKAw2o5SgH242IwuJ3Ndp3q7OLMsIGM="
+          "relative_path": "api/AXSharp.Compiler.Cs.Onliner.CsOnlinerSourceBuilder.html"
         }
       },
       "version": ""
@@ -252,8 +340,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Onliner.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Onliner.html",
-          "hash": "8MLYRBCdEi9SELNQj/ixBgLdyK141FMw43QMhCcfMMg="
+          "relative_path": "api/AXSharp.Compiler.Cs.Onliner.html"
         }
       },
       "version": ""
@@ -263,8 +350,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Plain.CsPlainSourceBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Plain.CsPlainSourceBuilder.html",
-          "hash": "7RX8cV7r97MdTACa/MmMMs28VYYCngFNHU2A1R5jHTM="
+          "relative_path": "api/AXSharp.Compiler.Cs.Plain.CsPlainSourceBuilder.html"
         }
       },
       "version": ""
@@ -274,8 +360,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.Plain.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.Plain.html",
-          "hash": "4BjcUzcS+ELMBAbdVaLUxaBIjzdrGFxAInIJORhh5sU="
+          "relative_path": "api/AXSharp.Compiler.Cs.Plain.html"
         }
       },
       "version": ""
@@ -285,8 +370,37 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.PragmaExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.PragmaExtensions.html",
-          "hash": "hoXWwbZw6+ZgRC92z7avNZ6HQ4xyXxVHyDQ4Ed1YIwY="
+          "relative_path": "api/AXSharp.Compiler.Cs.PragmaExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Compiler.Cs.Pragmas.PragmaParser.GenericAttributeAstNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Compiler.Cs.Pragmas.PragmaParser.GenericAttributeAstNode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Compiler.Cs.Pragmas.PragmaParser.VisitorProduct.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Compiler.Cs.Pragmas.PragmaParser.VisitorProduct.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Compiler.Cs.Pragmas.PragmaParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Compiler.Cs.Pragmas.PragmaParser.html"
         }
       },
       "version": ""
@@ -296,8 +410,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.SemanticsHelpers.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.SemanticsHelpers.html",
-          "hash": "NlEKGu4SWNKFOjtjdPF/YUomEatX52kdxQH1KPc8rTI="
+          "relative_path": "api/AXSharp.Compiler.Cs.SemanticsHelpers.html"
         }
       },
       "version": ""
@@ -307,8 +420,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Cs.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Cs.html",
-          "hash": "TmKFO3tL7CvrKlObevJVkPvPrzUxGx5nH5N5loD+PVw="
+          "relative_path": "api/AXSharp.Compiler.Cs.html"
         }
       },
       "version": ""
@@ -318,8 +430,7 @@
       "source_relative_path": "api/AXSharp.Compiler.CsProject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.CsProject.html",
-          "hash": "dor9gx3m6w8vjIn2EV4UKK3AY2f7Gfr3qp9BcsaVvT8="
+          "relative_path": "api/AXSharp.Compiler.CsProject.html"
         }
       },
       "version": ""
@@ -329,8 +440,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Exceptions.FailedToCreateCombineThreeVisitorException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Exceptions.FailedToCreateCombineThreeVisitorException.html",
-          "hash": "nb3xa1i5WgCT9H3lKWf/aRhivnkydvECXOUMllnF8b0="
+          "relative_path": "api/AXSharp.Compiler.Exceptions.FailedToCreateCombineThreeVisitorException.html"
         }
       },
       "version": ""
@@ -340,8 +450,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Exceptions.FailedToCreateTargetProjectException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Exceptions.FailedToCreateTargetProjectException.html",
-          "hash": "elRg9TOxq986TTd8v7kxS542dO83SXAraugAJfdodJU="
+          "relative_path": "api/AXSharp.Compiler.Exceptions.FailedToCreateTargetProjectException.html"
         }
       },
       "version": ""
@@ -351,8 +460,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Exceptions.FailedToReadIxConfigurationFileException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Exceptions.FailedToReadIxConfigurationFileException.html",
-          "hash": "wYElldAvpg4WZy61wAwv4EClmLnL0ppS6gRG74Ad46k="
+          "relative_path": "api/AXSharp.Compiler.Exceptions.FailedToReadIxConfigurationFileException.html"
         }
       },
       "version": ""
@@ -362,8 +470,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Exceptions.SourceProjectInfoRetrievalException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Exceptions.SourceProjectInfoRetrievalException.html",
-          "hash": "1A8KaHClQmWatY5gs6LbBMFF1IPR6baUhi0Q6dCOk6U="
+          "relative_path": "api/AXSharp.Compiler.Exceptions.SourceProjectInfoRetrievalException.html"
         }
       },
       "version": ""
@@ -373,8 +480,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Exceptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Exceptions.html",
-          "hash": "5CpURKb6rRtX7/PRJGZd3EOdTGz372kLKQiUCNVrw2E="
+          "relative_path": "api/AXSharp.Compiler.Exceptions.html"
         }
       },
       "version": ""
@@ -384,8 +490,7 @@
       "source_relative_path": "api/AXSharp.Compiler.FailedToCreateSourceBuilderException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.FailedToCreateSourceBuilderException.html",
-          "hash": "PZP40m1Q4X8tiwKT+fllmZBgwrIAH+lXK/4m6wcZtlo="
+          "relative_path": "api/AXSharp.Compiler.FailedToCreateSourceBuilderException.html"
         }
       },
       "version": ""
@@ -395,8 +500,7 @@
       "source_relative_path": "api/AXSharp.Compiler.FailedToDeterminePackageVersion.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.FailedToDeterminePackageVersion.html",
-          "hash": "cwXpowZaz5KI6JeppaLLfRph9VL/hO0Z7ZzH0ql82fE="
+          "relative_path": "api/AXSharp.Compiler.FailedToDeterminePackageVersion.html"
         }
       },
       "version": ""
@@ -406,8 +510,7 @@
       "source_relative_path": "api/AXSharp.Compiler.IAXSharpProject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.IAXSharpProject.html",
-          "hash": "Syi0mIaVOaRMZYdQ+9i1jEI10cAx93prmlpiJvOOTg0="
+          "relative_path": "api/AXSharp.Compiler.IAXSharpProject.html"
         }
       },
       "version": ""
@@ -417,8 +520,7 @@
       "source_relative_path": "api/AXSharp.Compiler.ICompilerOptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.ICompilerOptions.html",
-          "hash": "TmUr4BzRVSUcHja/CZBCdBkMc+Tc0W+0MXUrH54ORHw="
+          "relative_path": "api/AXSharp.Compiler.ICompilerOptions.html"
         }
       },
       "version": ""
@@ -428,8 +530,7 @@
       "source_relative_path": "api/AXSharp.Compiler.IPackageReference.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.IPackageReference.html",
-          "hash": "Dadgm0WMZVKAgrbUsfLLmHDRHz5Z3yX9DTYbNvZFFlQ="
+          "relative_path": "api/AXSharp.Compiler.IPackageReference.html"
         }
       },
       "version": ""
@@ -439,8 +540,7 @@
       "source_relative_path": "api/AXSharp.Compiler.IProjectReference.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.IProjectReference.html",
-          "hash": "9aN+YC8P7QeRt97P1zM1CXxDq525Z6taO73TpL/k5kc="
+          "relative_path": "api/AXSharp.Compiler.IProjectReference.html"
         }
       },
       "version": ""
@@ -450,8 +550,7 @@
       "source_relative_path": "api/AXSharp.Compiler.IReference.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.IReference.html",
-          "hash": "Rxio/r21EwMDNM+B7jXrRZnhnyPvsW1L3yNqTmpnH9M="
+          "relative_path": "api/AXSharp.Compiler.IReference.html"
         }
       },
       "version": ""
@@ -461,8 +560,7 @@
       "source_relative_path": "api/AXSharp.Compiler.ITargetProject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.ITargetProject.html",
-          "hash": "xcfx0w6zJkg7pqgRYhr92Pitxnq2J65eCBN/66qsh+c="
+          "relative_path": "api/AXSharp.Compiler.ITargetProject.html"
         }
       },
       "version": ""
@@ -472,8 +570,7 @@
       "source_relative_path": "api/AXSharp.Compiler.LegalAcrobatics.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.LegalAcrobatics.html",
-          "hash": "yhH+S720UsgJU+7pQd427uY4PKbricA7XJxtBfbRaLE="
+          "relative_path": "api/AXSharp.Compiler.LegalAcrobatics.html"
         }
       },
       "version": ""
@@ -483,8 +580,7 @@
       "source_relative_path": "api/AXSharp.Compiler.Log.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.Log.html",
-          "hash": "iQc6alla0dmNL2RqhehgkJoKOs7xbqEoQdmmvZElHRI="
+          "relative_path": "api/AXSharp.Compiler.Log.html"
         }
       },
       "version": ""
@@ -494,8 +590,7 @@
       "source_relative_path": "api/AXSharp.Compiler.PackageReference.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.PackageReference.html",
-          "hash": "FyaLJFtERomAhwzH1SaHzjci/dBt8et/XX+GKbD3+Ko="
+          "relative_path": "api/AXSharp.Compiler.PackageReference.html"
         }
       },
       "version": ""
@@ -505,8 +600,7 @@
       "source_relative_path": "api/AXSharp.Compiler.ProjectReference.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.ProjectReference.html",
-          "hash": "pmQKy52A/tmTIuB51fbMixOgrBWs6yxHpNv22S2OZUU="
+          "relative_path": "api/AXSharp.Compiler.ProjectReference.html"
         }
       },
       "version": ""
@@ -516,8 +610,17 @@
       "source_relative_path": "api/AXSharp.Compiler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Compiler.html",
-          "hash": "FDfK8aSB7Q1ykHgMSWNev4qDD8N6uItODdhGnSjq8WQ="
+          "relative_path": "api/AXSharp.Compiler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Connector.AddedPropertiesAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Connector.AddedPropertiesAttribute.html"
         }
       },
       "version": ""
@@ -527,8 +630,7 @@
       "source_relative_path": "api/AXSharp.Connector.BuilderHelpers.Arrays.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.BuilderHelpers.Arrays.html",
-          "hash": "b0mASfR1ITuBhMa402PUjgGJGsMbdinT993To8edWLs="
+          "relative_path": "api/AXSharp.Connector.BuilderHelpers.Arrays.html"
         }
       },
       "version": ""
@@ -538,8 +640,7 @@
       "source_relative_path": "api/AXSharp.Connector.BuilderHelpers.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.BuilderHelpers.html",
-          "hash": "evpq+n+MamEgA1ABNVkuEWmhhMmw7vm30ZEqW4Ti2dY="
+          "relative_path": "api/AXSharp.Connector.BuilderHelpers.html"
         }
       },
       "version": ""
@@ -549,8 +650,7 @@
       "source_relative_path": "api/AXSharp.Connector.CommExceptionBehaviour.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.CommExceptionBehaviour.html",
-          "hash": "OjhwCrlOcDgiDv5HJTmnWrjCkLWb7bp6uKlyksLNDUU="
+          "relative_path": "api/AXSharp.Connector.CommExceptionBehaviour.html"
         }
       },
       "version": ""
@@ -560,8 +660,7 @@
       "source_relative_path": "api/AXSharp.Connector.CompilerOmissionGroups.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.CompilerOmissionGroups.html",
-          "hash": "SUlkeviJ7NGNqGVGFOmF1mOvTu7MGP63AqlYXgW2puw="
+          "relative_path": "api/AXSharp.Connector.CompilerOmissionGroups.html"
         }
       },
       "version": ""
@@ -571,8 +670,17 @@
       "source_relative_path": "api/AXSharp.Connector.CompilerOmitsAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.CompilerOmitsAttribute.html",
-          "hash": "sGWnrgdGu8OveyvloZXJfQOSb6tAATf3B/9lzQV3AnQ="
+          "relative_path": "api/AXSharp.Connector.CompilerOmitsAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Connector.ConcurrentSet-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Connector.ConcurrentSet-1.html"
         }
       },
       "version": ""
@@ -582,8 +690,7 @@
       "source_relative_path": "api/AXSharp.Connector.Connector.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Connector.html",
-          "hash": "qqYp1G+8dtjNRtTQvryUZ4QcztXFKZ3/RTm/ED1pzsg="
+          "relative_path": "api/AXSharp.Connector.Connector.html"
         }
       },
       "version": ""
@@ -593,8 +700,7 @@
       "source_relative_path": "api/AXSharp.Connector.ConnectorAdapter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ConnectorAdapter.html",
-          "hash": "e042Cdz5I8sjPsnJJ/ixdNqNL5OBaklUjuo2jO44HdM="
+          "relative_path": "api/AXSharp.Connector.ConnectorAdapter.html"
         }
       },
       "version": ""
@@ -604,8 +710,7 @@
       "source_relative_path": "api/AXSharp.Connector.ConnectorAdapterBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ConnectorAdapterBuilder.html",
-          "hash": "M9bruXO3uzekw01y96pFwE/KRKMFfPKdKtGYYCIy7BU="
+          "relative_path": "api/AXSharp.Connector.ConnectorAdapterBuilder.html"
         }
       },
       "version": ""
@@ -615,8 +720,7 @@
       "source_relative_path": "api/AXSharp.Connector.ConnectorFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ConnectorFactory.html",
-          "hash": "7DCzZA3cFNdbLranMki2deQ5BFP7BGeej6Ufxq7hqTc="
+          "relative_path": "api/AXSharp.Connector.ConnectorFactory.html"
         }
       },
       "version": ""
@@ -626,8 +730,7 @@
       "source_relative_path": "api/AXSharp.Connector.DummyConnector.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.DummyConnector.html",
-          "hash": "lm/1fJ+f5ho1gARU+BGJEL7s/Pax6ZMniVauZ4DlIFc="
+          "relative_path": "api/AXSharp.Connector.DummyConnector.html"
         }
       },
       "version": ""
@@ -637,8 +740,7 @@
       "source_relative_path": "api/AXSharp.Connector.DummyConnectorExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.DummyConnectorExtensions.html",
-          "hash": "O1wd5Crmv1yYGbF8k0YPwq+QED1NovRooTyS94cdidE="
+          "relative_path": "api/AXSharp.Connector.DummyConnectorExtensions.html"
         }
       },
       "version": ""
@@ -648,8 +750,7 @@
       "source_relative_path": "api/AXSharp.Connector.DummyConnectorFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.DummyConnectorFactory.html",
-          "hash": "PxXjIeLfl+RwaCP4hYMQbcayAkIMmlvObMTqZT4GsJQ="
+          "relative_path": "api/AXSharp.Connector.DummyConnectorFactory.html"
         }
       },
       "version": ""
@@ -659,8 +760,7 @@
       "source_relative_path": "api/AXSharp.Connector.EnumeratorDiscriminatorAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.EnumeratorDiscriminatorAttribute.html",
-          "hash": "gtBDX8yDLBBopu5dxbup3YaK4pRmATXwv9K38TC/weQ="
+          "relative_path": "api/AXSharp.Connector.EnumeratorDiscriminatorAttribute.html"
         }
       },
       "version": ""
@@ -670,8 +770,17 @@
       "source_relative_path": "api/AXSharp.Connector.IPlain.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.IPlain.html",
-          "hash": "vdMYy5wfrQ9vunJ0n30NFcu//Rgdhg9uFG5Ah8hHdmA="
+          "relative_path": "api/AXSharp.Connector.IPlain.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Connector.IPlainExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Connector.IPlainExtensions.html"
         }
       },
       "version": ""
@@ -681,8 +790,7 @@
       "source_relative_path": "api/AXSharp.Connector.ITwinController.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ITwinController.html",
-          "hash": "KHbqbI7Rkntss6zHJZFrJBNNpphKPlJfBzi0ucn2bxw="
+          "relative_path": "api/AXSharp.Connector.ITwinController.html"
         }
       },
       "version": ""
@@ -692,8 +800,7 @@
       "source_relative_path": "api/AXSharp.Connector.ITwinElement.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ITwinElement.html",
-          "hash": "OEuKPNbAqo0tRbz4JeOkgDMbooiOPSu7mEyv1Kau4k4="
+          "relative_path": "api/AXSharp.Connector.ITwinElement.html"
         }
       },
       "version": ""
@@ -703,8 +810,7 @@
       "source_relative_path": "api/AXSharp.Connector.ITwinObject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ITwinObject.html",
-          "hash": "I9tqfzaWWog7vPvCMgSTcaGkm3PreVFV/R7jNUeMeo0="
+          "relative_path": "api/AXSharp.Connector.ITwinObject.html"
         }
       },
       "version": ""
@@ -714,8 +820,7 @@
       "source_relative_path": "api/AXSharp.Connector.ITwinOnlineObject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ITwinOnlineObject.html",
-          "hash": "Ds/GepzJooWzmCDCBM4VXTAeR1+/RpxrdTP9ODa/OLw="
+          "relative_path": "api/AXSharp.Connector.ITwinOnlineObject.html"
         }
       },
       "version": ""
@@ -725,8 +830,7 @@
       "source_relative_path": "api/AXSharp.Connector.ITwinPrimitive.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ITwinPrimitive.html",
-          "hash": "Lvf7ccyy5uRhI/CQGHnUblS3ck0P8KFyNMKVujmeLB4="
+          "relative_path": "api/AXSharp.Connector.ITwinPrimitive.html"
         }
       },
       "version": ""
@@ -736,8 +840,7 @@
       "source_relative_path": "api/AXSharp.Connector.ITwinPrimitiveInfo.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ITwinPrimitiveInfo.html",
-          "hash": "HFZVjzEgQjjNn+ga2VMCplRjLkIRi+Zz0HrUTVqwNfQ="
+          "relative_path": "api/AXSharp.Connector.ITwinPrimitiveInfo.html"
         }
       },
       "version": ""
@@ -747,8 +850,7 @@
       "source_relative_path": "api/AXSharp.Connector.ITwinShadowObject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ITwinShadowObject.html",
-          "hash": "7zeFvwoXjTaIsyfJ1SLNA8SX2R43sjWArA7HOJICrYg="
+          "relative_path": "api/AXSharp.Connector.ITwinShadowObject.html"
         }
       },
       "version": ""
@@ -758,8 +860,7 @@
       "source_relative_path": "api/AXSharp.Connector.Identity.ITwinIdentity.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Identity.ITwinIdentity.html",
-          "hash": "1YF3/LPvfu3xKobWXdYwZem+uGcwmh+eZHYkz3IScTE="
+          "relative_path": "api/AXSharp.Connector.Identity.ITwinIdentity.html"
         }
       },
       "version": ""
@@ -769,8 +870,7 @@
       "source_relative_path": "api/AXSharp.Connector.Identity.MemberByIdentityAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Identity.MemberByIdentityAttribute.html",
-          "hash": "jbr7//l51/6+9A/6iD8w+sFLWCMgJjtCGX3hORzzstM="
+          "relative_path": "api/AXSharp.Connector.Identity.MemberByIdentityAttribute.html"
         }
       },
       "version": ""
@@ -780,8 +880,7 @@
       "source_relative_path": "api/AXSharp.Connector.Identity.NullTwinIdentity.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Identity.NullTwinIdentity.html",
-          "hash": "yU1PZiU9xSRMY4X8VAbdMbjgi78AcDMm+XoTJtMJBnw="
+          "relative_path": "api/AXSharp.Connector.Identity.NullTwinIdentity.html"
         }
       },
       "version": ""
@@ -791,8 +890,7 @@
       "source_relative_path": "api/AXSharp.Connector.Identity.TwinIdentityProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Identity.TwinIdentityProvider.html",
-          "hash": "uc2UXa4bUu7RTvzM55k0xroURbfHuT/2pTYNKrOH5Z0="
+          "relative_path": "api/AXSharp.Connector.Identity.TwinIdentityProvider.html"
         }
       },
       "version": ""
@@ -802,8 +900,17 @@
       "source_relative_path": "api/AXSharp.Connector.Identity.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Identity.html",
-          "hash": "JCpSinvEII9skP5PIGkY1DsmuVjgNLIocbduWDlOFlI="
+          "relative_path": "api/AXSharp.Connector.Identity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Connector.IgnoreOnPocoOperation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Connector.IgnoreOnPocoOperation.html"
         }
       },
       "version": ""
@@ -813,8 +920,7 @@
       "source_relative_path": "api/AXSharp.Connector.IgnoreReflectionAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.IgnoreReflectionAttribute.html",
-          "hash": "RcyWKyneKGoEDkT5s/qFkQ4bLvUA6kRRZg6moprherE="
+          "relative_path": "api/AXSharp.Connector.IgnoreReflectionAttribute.html"
         }
       },
       "version": ""
@@ -824,8 +930,7 @@
       "source_relative_path": "api/AXSharp.Connector.Localizations.LocalizationHelper.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Localizations.LocalizationHelper.html",
-          "hash": "V2uLTcgArD5EuIDv6/6v4n49CGFFzMNNppFTQXzSSA0="
+          "relative_path": "api/AXSharp.Connector.Localizations.LocalizationHelper.html"
         }
       },
       "version": ""
@@ -835,8 +940,7 @@
       "source_relative_path": "api/AXSharp.Connector.Localizations.Translator.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Localizations.Translator.html",
-          "hash": "immOLF9MQu2VJvczVJ+U6I8NBrI8dmmTqipUsDQlq7s="
+          "relative_path": "api/AXSharp.Connector.Localizations.Translator.html"
         }
       },
       "version": ""
@@ -846,8 +950,7 @@
       "source_relative_path": "api/AXSharp.Connector.Localizations.TranslatorExtension.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Localizations.TranslatorExtension.html",
-          "hash": "lAGVoA0E3nwdGjb74tOa6TYZpNfqkU+7Z4qlUWvKg1s="
+          "relative_path": "api/AXSharp.Connector.Localizations.TranslatorExtension.html"
         }
       },
       "version": ""
@@ -857,8 +960,7 @@
       "source_relative_path": "api/AXSharp.Connector.Localizations.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.Localizations.html",
-          "hash": "37Sfwimsz+0f9ZKcahGNV+WKGSfiyGm4tagF1w+EWJA="
+          "relative_path": "api/AXSharp.Connector.Localizations.html"
         }
       },
       "version": ""
@@ -868,8 +970,7 @@
       "source_relative_path": "api/AXSharp.Connector.PrimitiveAccessStatus.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.PrimitiveAccessStatus.html",
-          "hash": "VLBh1tUVLiwP98Kdx0N+Jv7eIfzNgYa3HLCpfFxuEj8="
+          "relative_path": "api/AXSharp.Connector.PrimitiveAccessStatus.html"
         }
       },
       "version": ""
@@ -879,8 +980,7 @@
       "source_relative_path": "api/AXSharp.Connector.ReadOnceAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ReadOnceAttribute.html",
-          "hash": "bqxDctkBFbCK144vtYkB+9YQF6spMa1cu9CcaNx1d7M="
+          "relative_path": "api/AXSharp.Connector.ReadOnceAttribute.html"
         }
       },
       "version": ""
@@ -890,8 +990,7 @@
       "source_relative_path": "api/AXSharp.Connector.ReadOnlyAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ReadOnlyAttribute.html",
-          "hash": "x/86Gd34IJxxCwE+RxHC7KDyCGZJRQ9atr6kAKBLG9k="
+          "relative_path": "api/AXSharp.Connector.ReadOnlyAttribute.html"
         }
       },
       "version": ""
@@ -901,8 +1000,7 @@
       "source_relative_path": "api/AXSharp.Connector.ReadSubscriptionMode.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ReadSubscriptionMode.html",
-          "hash": "jtoEnCGwFbuZLV3bkCfObtyJVzGv1NBOClYbKl8rMnc="
+          "relative_path": "api/AXSharp.Connector.ReadSubscriptionMode.html"
         }
       },
       "version": ""
@@ -912,8 +1010,17 @@
       "source_relative_path": "api/AXSharp.Connector.RootTwinObject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.RootTwinObject.html",
-          "hash": "nnhHOrh5DUt6jKGI2KRgeJE8QOm7CUtdhIOzyWfcJEo="
+          "relative_path": "api/AXSharp.Connector.RootTwinObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.DateTimeTia.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.DateTimeTia.html"
         }
       },
       "version": ""
@@ -923,8 +1030,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiBool.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiBool.html",
-          "hash": "GBY+9/lpqFog+9jdQV33ZHFAIbyFCt9QEzP7yYCWMsU="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiBool.html"
         }
       },
       "version": ""
@@ -934,8 +1040,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiByte.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiByte.html",
-          "hash": "nvf4k9ztrHF9qHklSCKpCM2kMTZb9m4xypPDgZi8je0="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiByte.html"
         }
       },
       "version": ""
@@ -945,8 +1050,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiChar.html",
-          "hash": "QBIeMV5wz5srhDIBKwAflmuwbjncJ06ffszOY3ueo6A="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiChar.html"
         }
       },
       "version": ""
@@ -956,8 +1060,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiConnector.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiConnector.html",
-          "hash": "s1aQOPVYcP1k762h4VAyj+tnsYbKFxqyjvNZuJEEX+Y="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiConnector.html"
         }
       },
       "version": ""
@@ -967,8 +1070,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiConnectorFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiConnectorFactory.html",
-          "hash": "BO/HRqljwOYmCBmgnmw5ZClpqDNdLrlLU4HNrhPUfF4="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiConnectorFactory.html"
         }
       },
       "version": ""
@@ -978,8 +1080,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDInt.html",
-          "hash": "wP8p1x8XIrXOVpF03Q5Uc7JvGZTBQzy6h0f6gR83V/8="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDInt.html"
         }
       },
       "version": ""
@@ -989,8 +1090,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDWord.html",
-          "hash": "3dI0sFeXfmgOwd1upgMCgwd7J9vjDmsKISuRXndx3+Q="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDWord.html"
         }
       },
       "version": ""
@@ -1000,8 +1100,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDate.html",
-          "hash": "QbmMQHYAWI8uaa8CHQxlOIDpAT+ftx03/L3/FSKZdeI="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDate.html"
         }
       },
       "version": ""
@@ -1011,8 +1110,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDateTime.html",
-          "hash": "xpJeorL9CyQYm2rCL8haVuQJyRvaDmXaWkgGbFfYHxk="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiDateTime.html"
         }
       },
       "version": ""
@@ -1022,8 +1120,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiInt.html",
-          "hash": "HzjHpNsT4Ch4BX6UpeHz3NPFjA48Iy6ToJNNSPK1Nj0="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiInt.html"
         }
       },
       "version": ""
@@ -1033,8 +1130,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLDate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLDate.html",
-          "hash": "6S3j+8TCeHb4Gw5xkd4NVquhgj9nZjf7Vl/8LFjS+VI="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLDate.html"
         }
       },
       "version": ""
@@ -1044,8 +1140,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLDateTime.html",
-          "hash": "vz+hilW7D20mn9HwlIyNeu5Qjk+IvznkcZ3htfQZ6VM="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLDateTime.html"
         }
       },
       "version": ""
@@ -1055,8 +1150,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLInt.html",
-          "hash": "3J4TEoq2CFhhbWElzSnn0lUHDj9pDWkn34zYzZNmv3Q="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLInt.html"
         }
       },
       "version": ""
@@ -1066,8 +1160,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLReal.html",
-          "hash": "Gk0yU9shEnGXEEODlG/dT5kWey26zrC8rG2LxW5bQuI="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLReal.html"
         }
       },
       "version": ""
@@ -1077,8 +1170,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLTime.html",
-          "hash": "oP3MAR7pmbgxdrWVey1Xxl8DDB0Jp7m2jZKj1bDFXmA="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLTime.html"
         }
       },
       "version": ""
@@ -1088,8 +1180,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLTimeOfDay.html",
-          "hash": "OcBENqO0u0gDYGXK1ZsGafVZE7QihcB8ynCX1huk7eQ="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLTimeOfDay.html"
         }
       },
       "version": ""
@@ -1099,8 +1190,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLWord.html",
-          "hash": "ndESNbOOH6tFAaLqQUxAR2Fgrjmq3hLV+Nd8Ewbwm0s="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiLWord.html"
         }
       },
       "version": ""
@@ -1110,8 +1200,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiReal.html",
-          "hash": "WE9fZOtgDnm005oCsm0ou9Tj3XmZhY2ZtxMw2HaQqFI="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiReal.html"
         }
       },
       "version": ""
@@ -1121,8 +1210,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiSInt.html",
-          "hash": "GBh4dGL2MoNVWSr8KQlnqG2raaumzlA0y2necYGXnbA="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiSInt.html"
         }
       },
       "version": ""
@@ -1132,8 +1220,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiString.html",
-          "hash": "/l/IdW+Vz1Ff54Z1D2KgtCVcZs5wJlBI+AnKOGaKr8Q="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiString.html"
         }
       },
       "version": ""
@@ -1143,8 +1230,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiTime.html",
-          "hash": "jLZUHowzLKjI1GWmbWEzsHrxCYgGppguRX9Wb/g6m/s="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiTime.html"
         }
       },
       "version": ""
@@ -1154,8 +1240,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiTimeOfDay.html",
-          "hash": "AJMqSzvcUQ9ULkQU9z/EMB+r40MMQUaAGaHXbjDTFzc="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiTimeOfDay.html"
         }
       },
       "version": ""
@@ -1165,8 +1250,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUInt.html",
-          "hash": "nPi666pv7TEUUZGBx+hxTBLa+ClD9GIahPpFLmzXgNQ="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUInt.html"
         }
       },
       "version": ""
@@ -1176,8 +1260,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiULInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiULInt.html",
-          "hash": "Z6dnXpVILMWVkFxO+WNJOCgIguSVP4kt7tqBXG9mObs="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiULInt.html"
         }
       },
       "version": ""
@@ -1187,8 +1270,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUSInt.html",
-          "hash": "zglKqZTN/SIdndrXhM0i9zo3+zRuqyFmIhoPTbUCzA0="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUSInt.html"
         }
       },
       "version": ""
@@ -1198,8 +1280,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUdInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUdInt.html",
-          "hash": "AxOlX+/HrGwNDKtsYSUFk1fRO967Lb0ZEv7G6/tdjwc="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiUdInt.html"
         }
       },
       "version": ""
@@ -1209,8 +1290,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWChar.html",
-          "hash": "sSG5ZRplNBPDjhAJseWBOv9iuY1LwoEyB9W3Mc0p+IQ="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWChar.html"
         }
       },
       "version": ""
@@ -1220,8 +1300,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWString.html",
-          "hash": "KiFNlihpkOLFH7zyii2bTbM2C1DJwE88bTxNTBstlRo="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWString.html"
         }
       },
       "version": ""
@@ -1231,8 +1310,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWord.html",
-          "hash": "fulPSyC7Si3zqA22N0OFlR83Dfwlhr5uTw/TFXwbD8U="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.WebApiWord.html"
         }
       },
       "version": ""
@@ -1242,8 +1320,7 @@
       "source_relative_path": "api/AXSharp.Connector.S71500.WebApi.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.S71500.WebApi.html",
-          "hash": "KSsyNrbhT7oh6NCm2ahGpkZAns2JtUE3qv8t3h8dBAk="
+          "relative_path": "api/AXSharp.Connector.S71500.WebApi.html"
         }
       },
       "version": ""
@@ -1253,8 +1330,7 @@
       "source_relative_path": "api/AXSharp.Connector.StringInterpolator.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.StringInterpolator.html",
-          "hash": "+pGUtp/BSTMyd3S7F23iVytJVWBHRR79OGbvYTDKaJU="
+          "relative_path": "api/AXSharp.Connector.StringInterpolator.html"
         }
       },
       "version": ""
@@ -1264,8 +1340,7 @@
       "source_relative_path": "api/AXSharp.Connector.TwinObjectExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.TwinObjectExtensions.html",
-          "hash": "XBH0mL0KCig/b46U8JVY6qbSBcQYX+pvv/F6aY630lI="
+          "relative_path": "api/AXSharp.Connector.TwinObjectExtensions.html"
         }
       },
       "version": ""
@@ -1275,8 +1350,7 @@
       "source_relative_path": "api/AXSharp.Connector.TwinPrimitiveExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.TwinPrimitiveExtensions.html",
-          "hash": "IDgJRXWya60DNXhDn5s2KgZMFCUkEc+OkwdpfYpCmjU="
+          "relative_path": "api/AXSharp.Connector.TwinPrimitiveExtensions.html"
         }
       },
       "version": ""
@@ -1286,8 +1360,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnline-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnline-1.html",
-          "hash": "R7WhKbXSWoCc/7vSrPnkvGEaADJL7sKpujmakHtBlaw="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnline-1.html"
         }
       },
       "version": ""
@@ -1297,8 +1370,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineBool.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineBool.html",
-          "hash": "f80/8iKBMgxJOJR8pdLJk7iNnE+PWswyQJDYTKNhlJo="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineBool.html"
         }
       },
       "version": ""
@@ -1308,8 +1380,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineByte.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineByte.html",
-          "hash": "PsuXRbN2pje4M3RDbl2gbRvv5mMRR466Im5N9Fibp18="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineByte.html"
         }
       },
       "version": ""
@@ -1319,8 +1390,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineChar.html",
-          "hash": "xGxBSVWJ3NcNcWmru/O9ZLg+YGiTkkke2YCfJkqofmc="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineChar.html"
         }
       },
       "version": ""
@@ -1330,8 +1400,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDInt.html",
-          "hash": "+7k6WtQoHtM72pxZmmXAi/WXx7JLJ2ucGv2uVrOwHKI="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDInt.html"
         }
       },
       "version": ""
@@ -1341,8 +1410,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDWord.html",
-          "hash": "/oSbRZiJn/L2lyJ8HvAykWpsiAG4ZTPNopn49MKjRu0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDWord.html"
         }
       },
       "version": ""
@@ -1352,8 +1420,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDate.html",
-          "hash": "qd/pkpXI95o+dOICUq6baChtVo4wuXfcIeJVJoQWbmg="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDate.html"
         }
       },
       "version": ""
@@ -1363,8 +1430,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDateTime.html",
-          "hash": "cHy8Z07MBciHfcNnGZ/tlvGJvJr3QQXpDRX2MBtXG4U="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineDateTime.html"
         }
       },
       "version": ""
@@ -1374,8 +1440,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineInt.html",
-          "hash": "GdAe6OFEA4TQABqmDEfogikOyev4gQIdmPMuNCmuYFA="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineInt.html"
         }
       },
       "version": ""
@@ -1385,8 +1450,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLDateTime.html",
-          "hash": "gNz5HUtEeemVHAXCSWhWDsKrKyAROe4ip7dMY2c6RYo="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLDateTime.html"
         }
       },
       "version": ""
@@ -1396,8 +1460,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLInt.html",
-          "hash": "DXs6jfqRl48Lza8ImxkJqxltk1AnsHiOVctYwtslPi0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLInt.html"
         }
       },
       "version": ""
@@ -1407,8 +1470,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLReal.html",
-          "hash": "e4aylAJpFuRRKF4LZFeiuP1WSl76cJgbwNaInKUy2ZU="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLReal.html"
         }
       },
       "version": ""
@@ -1418,8 +1480,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLTime.html",
-          "hash": "DGMF1bwu6jl5sXqp245Cr2AfJSxYGzpSywqt4DLXofo="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLTime.html"
         }
       },
       "version": ""
@@ -1429,8 +1490,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLTimeOfDay.html",
-          "hash": "Pa+CLntPE2Izl9bUkBz36vZwFrNDCXJxA8WrIU44o0U="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLTimeOfDay.html"
         }
       },
       "version": ""
@@ -1440,8 +1500,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLWord.html",
-          "hash": "Fay82R7AM2TKMWtLLoIXvGsKHiZjFy5rQdBNPr5mPYQ="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineLWord.html"
         }
       },
       "version": ""
@@ -1451,8 +1510,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineReal.html",
-          "hash": "n+7eh6m2Kirg+1mjHG/Sj129P9QiXiyMnAC7C/iMNZs="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineReal.html"
         }
       },
       "version": ""
@@ -1462,8 +1520,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineSInt.html",
-          "hash": "8mYxstFKryUO6H1wy7orSG2Va16q/YZh24YAL8cX5DQ="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineSInt.html"
         }
       },
       "version": ""
@@ -1473,8 +1530,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineString.html",
-          "hash": "6aszEL597IuYD+xEAdk/6UgAP+rKBcyxmWW+e9dsKmQ="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineString.html"
         }
       },
       "version": ""
@@ -1484,8 +1540,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineTime.html",
-          "hash": "9ndYex7+WRjVcSpdF79TPHn2vLmdR3F9aDsUM4Lr56Q="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineTime.html"
         }
       },
       "version": ""
@@ -1495,8 +1550,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineTimeOfDay.html",
-          "hash": "hm3VQQr+DnT0JQCghcpn1YJtdDCyzVLrAdhX5/K7uI0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineTimeOfDay.html"
         }
       },
       "version": ""
@@ -1506,8 +1560,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUDInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUDInt.html",
-          "hash": "vLQzCDn2cboFgMcqyXHkN0yhDIuwW13VS9ZUKT+bgrE="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUDInt.html"
         }
       },
       "version": ""
@@ -1517,8 +1570,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUInt.html",
-          "hash": "pLjY8lxZroFxoNNkU8m4RQmXVCzQt6IOAg49hqyzBG0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUInt.html"
         }
       },
       "version": ""
@@ -1528,8 +1580,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineULInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineULInt.html",
-          "hash": "Z+AnXyi2WW/1yzdUD3KeguXorzF7z8ZGuKQMHXTSCYM="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineULInt.html"
         }
       },
       "version": ""
@@ -1539,8 +1590,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUSInt.html",
-          "hash": "xkkxG3Xd3JhtwpfLXhlumMw+rw6ob+aSZds3m/En/14="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineUSInt.html"
         }
       },
       "version": ""
@@ -1550,8 +1600,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWChar.html",
-          "hash": "wJqh6LThNqf/DgahxrNGNqvFydbmsu4FtX/wgbQj0nk="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWChar.html"
         }
       },
       "version": ""
@@ -1561,8 +1610,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWString.html",
-          "hash": "sdK11WFzOCA1tL8Hd0rNVIzM7dlpgxhysmFtVuDah2I="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWString.html"
         }
       },
       "version": ""
@@ -1572,8 +1620,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWord.html",
-          "hash": "9/UegczulwoSbvyclnYpUPZ0ceO7s3fZ4lTvGEU+rdk="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.IOnlineWord.html"
         }
       },
       "version": ""
@@ -1583,8 +1630,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Online.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.html",
-          "hash": "kTt2fv7eKjyWZX9zv3gFu7vcuQFcLTQ2t30X8G1BEWs="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Online.html"
         }
       },
       "version": ""
@@ -1594,8 +1640,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase-1.html",
-          "hash": "TIjbhDONm/SoclVKB2Y54coFscnvsAggeeiEh5o/G5o="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase-1.html"
         }
       },
       "version": ""
@@ -1605,8 +1650,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase.ValueChangeDelegate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase.ValueChangeDelegate.html",
-          "hash": "SCrfaSsWpxlt56iGQl63cMLfmVA+o0DYD1hTglt4xcI="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase.ValueChangeDelegate.html"
         }
       },
       "version": ""
@@ -1616,8 +1660,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase.html",
-          "hash": "XE1fRMGUTv+4rrxwqkKS42xBso88TaNk7C2O4lpdAdI="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBase.html"
         }
       },
       "version": ""
@@ -1627,8 +1670,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBool.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBool.html",
-          "hash": "7eN5JC8JMW8BV7lK6mf7f+Z+io6LpThMnh9XLe3uRDA="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerBool.html"
         }
       },
       "version": ""
@@ -1638,8 +1680,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerByte.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerByte.html",
-          "hash": "FPVXOOezUGOZXh/idimMUufdQOtdednMfbzM6LpAFS4="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerByte.html"
         }
       },
       "version": ""
@@ -1649,8 +1690,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerChar.html",
-          "hash": "OIGBPndEsAcPND8VAOT5Ucq04PalR67zQkUA6nIHwfU="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerChar.html"
         }
       },
       "version": ""
@@ -1660,8 +1700,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDInt.html",
-          "hash": "FEmq+DfsYpTKWzPvl8pTdLOcayVHPcj+wF/GHGfemEc="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDInt.html"
         }
       },
       "version": ""
@@ -1671,8 +1710,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDWord.html",
-          "hash": "THYrtJaqU/wHWH/Nhv4hpTgf580SZH24AzalbS08IYI="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDWord.html"
         }
       },
       "version": ""
@@ -1682,8 +1720,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDate.html",
-          "hash": "dSIVUS8j+89TBmtLLUKrPLYWNXCwlCb5yTIvOkqaFAw="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDate.html"
         }
       },
       "version": ""
@@ -1693,8 +1730,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDateTime.html",
-          "hash": "S5oWaWWay3F78TDcLX7vLSek8wON95YgQZu4v2IuXuc="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerDateTime.html"
         }
       },
       "version": ""
@@ -1704,8 +1740,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerInt.html",
-          "hash": "pk19lN+rinWVBLplBpuK9XwSmUPhb2ewXeYXAWH7YwM="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerInt.html"
         }
       },
       "version": ""
@@ -1715,8 +1750,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLDateTime.html",
-          "hash": "FyeXvLkBB9SVbyzI/7vgDYGEVWMYVlJu4XIfM5cpfoE="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLDateTime.html"
         }
       },
       "version": ""
@@ -1726,8 +1760,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLInt.html",
-          "hash": "0/hK1asvZptRwAJdAfQJovtcZ2WG0cHuyPRXha5TVeo="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLInt.html"
         }
       },
       "version": ""
@@ -1737,8 +1770,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLReal.html",
-          "hash": "XIGg0R4/gCh3ptRHgVRrQqPwnE3oXEnI5zyuXs2Eyuo="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLReal.html"
         }
       },
       "version": ""
@@ -1748,8 +1780,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLTime.html",
-          "hash": "2vcdeRe/8Soz92YKIrluWrROpEe8AJGCzWEVDR7ug9k="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLTime.html"
         }
       },
       "version": ""
@@ -1759,8 +1790,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLTimeOfDay.html",
-          "hash": "P+pXXzl7STxwUlAtAiVJ98kzFjSnZlR0nhvbp1n1ZJ0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLTimeOfDay.html"
         }
       },
       "version": ""
@@ -1770,8 +1800,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLWord.html",
-          "hash": "8GnMi67wY59PIafitPatn1qV3h6UV0iMbt9SnFyw0Vc="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerLWord.html"
         }
       },
       "version": ""
@@ -1781,8 +1810,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerReal.html",
-          "hash": "hy1pIwNokpPz/5jR7a2rT6oFhW2JOv6EQnIvpFFGFaU="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerReal.html"
         }
       },
       "version": ""
@@ -1792,8 +1820,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerSInt.html",
-          "hash": "1ys2h4V/CbManU2WlihF2lr+DzZcaj1M1TNsGlMUgGY="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerSInt.html"
         }
       },
       "version": ""
@@ -1803,8 +1830,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerString.html",
-          "hash": "nueQOI1v3pxHEmWy5PKUGx2weVjKZ3LKY0c6cwn/ZW8="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerString.html"
         }
       },
       "version": ""
@@ -1814,8 +1840,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerTime.html",
-          "hash": "r09WWOaiPZ9/DxW6eyPF5U5yMw3YH84T1dxJhrZVR/0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerTime.html"
         }
       },
       "version": ""
@@ -1825,8 +1850,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerTimeOfDay.html",
-          "hash": "JB6snNSHSZhkWHOmti/EG6xXMXyi85ngR6RDughx6lc="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerTimeOfDay.html"
         }
       },
       "version": ""
@@ -1836,8 +1860,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUDInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUDInt.html",
-          "hash": "UnJWhQCqY3deiuQaRtGdCcawqQZZWZ5haHZCef7VkHw="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUDInt.html"
         }
       },
       "version": ""
@@ -1847,8 +1870,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUInt.html",
-          "hash": "Gq/VTftCdLeolXH3PhPKoBUfCP6OkUQKxReCGu2KdDU="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUInt.html"
         }
       },
       "version": ""
@@ -1858,8 +1880,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerULInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerULInt.html",
-          "hash": "yMPRJJ2G6ZRXbwWlk+EAIhgD7QFqoE6itUlX1uu5NSU="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerULInt.html"
         }
       },
       "version": ""
@@ -1869,8 +1890,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUSInt.html",
-          "hash": "mErF0SkHqrEJ1XIHVKkxmw2mVw550q2EcWMzUlRun+c="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerUSInt.html"
         }
       },
       "version": ""
@@ -1880,8 +1900,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWChar.html",
-          "hash": "Kr+yxfECF3WjIbMSNlekH2+kJIPWpDGxuw5x6YIhzss="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWChar.html"
         }
       },
       "version": ""
@@ -1891,8 +1910,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWString.html",
-          "hash": "2KUH4cofj5ODrs18XBi2ECLjiH5SitYAP4JCCQ/wY4c="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWString.html"
         }
       },
       "version": ""
@@ -1902,8 +1920,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWord.html",
-          "hash": "HO4Wkvzex046pBrSZkofCALZSt7xRmSA7S6lvLuah6U="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.OnlinerWord.html"
         }
       },
       "version": ""
@@ -1913,8 +1930,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.ReadWriteAccess.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.ReadWriteAccess.html",
-          "hash": "gEiY3yy3wSYafbd691F0t2hORqkxdEakPeseRwtGF3I="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.ReadWriteAccess.html"
         }
       },
       "version": ""
@@ -1924,8 +1940,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadow-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadow-1.html",
-          "hash": "3Q90+h53i8wy2xnwEVkzxt7seC2Dmwj6apiUa8cYNrs="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadow-1.html"
         }
       },
       "version": ""
@@ -1935,8 +1950,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowBool.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowBool.html",
-          "hash": "yQFpGb066yJMjsrV8DMx78d6z6O+7v4jk8n0i+Yawf4="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowBool.html"
         }
       },
       "version": ""
@@ -1946,8 +1960,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowByte.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowByte.html",
-          "hash": "Ejglaxi5/mb6ySKvR0syxNfc5S+OyVrthAsY77zxc5M="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowByte.html"
         }
       },
       "version": ""
@@ -1957,8 +1970,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowChar.html",
-          "hash": "duvrqoGNTxhwGdmyvwCG3rjod7NngCElsoITnHnDYX4="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowChar.html"
         }
       },
       "version": ""
@@ -1968,8 +1980,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDInt.html",
-          "hash": "eRrUVFIy27ikBal+gUJx7AjoUXqYL2uu3DHZiZic4Rs="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDInt.html"
         }
       },
       "version": ""
@@ -1979,8 +1990,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDWord.html",
-          "hash": "SRa9t/Iy7MaGtkb/JhQ3CIJU/SZvjW49SsY5GwTLyrQ="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDWord.html"
         }
       },
       "version": ""
@@ -1990,8 +2000,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDate.html",
-          "hash": "UPZ9QpAThKd9Poziwsljiywtl9OpXg5EmSw/Y5xn4iM="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDate.html"
         }
       },
       "version": ""
@@ -2001,8 +2010,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDateTime.html",
-          "hash": "UXEXRCg8eESbIHtz+VkP/cIAhDPLS4St2oIRlTjStkY="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowDateTime.html"
         }
       },
       "version": ""
@@ -2012,8 +2020,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowInt.html",
-          "hash": "nBNQmBUKctR0751s445ZA+B/LNULMIpRTooPRelM9CE="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowInt.html"
         }
       },
       "version": ""
@@ -2023,8 +2030,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLDateTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLDateTime.html",
-          "hash": "rimdW2iycJu2GFxuUkdtsAW7RHzs3yZ01ow5fmtkdpw="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLDateTime.html"
         }
       },
       "version": ""
@@ -2034,8 +2040,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLInt.html",
-          "hash": "gdrSRUC91pihjvjW/rHUxTD8co7EN3qyJrbYO1N2/mY="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLInt.html"
         }
       },
       "version": ""
@@ -2045,8 +2050,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLReal.html",
-          "hash": "HotXzA0qJjsWuETkeNCOely8WCMfaAmD+1sjUQxKFD0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLReal.html"
         }
       },
       "version": ""
@@ -2056,8 +2060,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLTime.html",
-          "hash": "1oz9o2eSzQfbxCsgok2HibxhAhfJ8Fs/bwZHFYlJ1RM="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLTime.html"
         }
       },
       "version": ""
@@ -2067,8 +2070,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLTimeOfDay.html",
-          "hash": "oKImpWT38//aajGFVsh1vU9gl+ZilkCkAXphYs0HXiY="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLTimeOfDay.html"
         }
       },
       "version": ""
@@ -2078,8 +2080,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLWord.html",
-          "hash": "dsE4QtkmScJlD6Vt1IZolo/wz4CsKwdVxHInBFme5Gg="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowLWord.html"
         }
       },
       "version": ""
@@ -2089,8 +2090,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowReal.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowReal.html",
-          "hash": "Mk/FFziVSP+cts9AtHSa69i88WCXBt28VtL5Rg5f6xk="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowReal.html"
         }
       },
       "version": ""
@@ -2100,8 +2100,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowSInt.html",
-          "hash": "7IwYS0Z30v49hnLrQ1scya1OZFEotgnJU5JtecdaaXU="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowSInt.html"
         }
       },
       "version": ""
@@ -2111,8 +2110,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowString.html",
-          "hash": "gJ3B8gVdB2aaDDwak6nofTOtzndThNcaGuMyqpI/KJY="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowString.html"
         }
       },
       "version": ""
@@ -2122,8 +2120,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowTime.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowTime.html",
-          "hash": "BjtkSNA1t9n3R/LewmZS/VUWbnGeizXbSS5E3nVCO60="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowTime.html"
         }
       },
       "version": ""
@@ -2133,8 +2130,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowTimeOfDay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowTimeOfDay.html",
-          "hash": "NWZ/OoixenbFsEzFUxyA9WUodoHL4u2RzUaaKcoHXq0="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowTimeOfDay.html"
         }
       },
       "version": ""
@@ -2144,8 +2140,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUDInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUDInt.html",
-          "hash": "d0ASkJIapWmQPwCG3DNR/inqB8YeGVIec+9f+/wwEUI="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUDInt.html"
         }
       },
       "version": ""
@@ -2155,8 +2150,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUInt.html",
-          "hash": "ggt7EPS25eNnCfhMXBYAAUn6gsCi0qEQAUdYtEdQ/9c="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUInt.html"
         }
       },
       "version": ""
@@ -2166,8 +2160,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowULInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowULInt.html",
-          "hash": "eM3gYfL2pYA3iGOKil/6EUp7ur7nBS1nRuxJRFw+V+A="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowULInt.html"
         }
       },
       "version": ""
@@ -2177,8 +2170,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUSInt.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUSInt.html",
-          "hash": "C26Mu1ujgh6ZN0bGLhIBaiHQq1eyt+xLypYZyDGBB0g="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowUSInt.html"
         }
       },
       "version": ""
@@ -2188,8 +2180,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWChar.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWChar.html",
-          "hash": "/RQ+qFPxtLz7H6ftuXF+OqBDZ4CCiBUp73mr2FAHeTw="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWChar.html"
         }
       },
       "version": ""
@@ -2199,8 +2190,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWString.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWString.html",
-          "hash": "0jAyNkWcm3IUqade7zbOZ/c57LZ760j/i5PCe5btn8E="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWString.html"
         }
       },
       "version": ""
@@ -2210,8 +2200,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWord.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWord.html",
-          "hash": "fc+U0ucDosNQVpMog13V6rDbZ8Da0AYrx6VI3fpYRm4="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.IShadowWord.html"
         }
       },
       "version": ""
@@ -2221,8 +2210,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.html",
-          "hash": "ysj62RCk2ACuHKKEy3wfzFIkCkllyyP4kvkI5JBRELs="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.Shadows.html"
         }
       },
       "version": ""
@@ -2232,8 +2220,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.ValueChangedEventArgs.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.ValueChangedEventArgs.html",
-          "hash": "w4EvI7lUEoad3zxzXdhFf2szwnFmfEZvPeU4EZ2L4PY="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.ValueChangedEventArgs.html"
         }
       },
       "version": ""
@@ -2243,8 +2230,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.ValueChangedEventHandlerDelegate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.ValueChangedEventHandlerDelegate.html",
-          "hash": "ulIgLh7kxyYcP3px2bs2Y8yqk/q6otN2RLSrvGjDFp8="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.ValueChangedEventHandlerDelegate.html"
         }
       },
       "version": ""
@@ -2254,8 +2240,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueTypes.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueTypes.html",
-          "hash": "CFNBgUADE/t/wjajwYCI92UuoEb6h6+FlUAop2PWhW8="
+          "relative_path": "api/AXSharp.Connector.ValueTypes.html"
         }
       },
       "version": ""
@@ -2265,8 +2250,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.BoolValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.BoolValueValidationRule.html",
-          "hash": "An8F311UuExlBkThZR8lQQqydztsztCNdXiE16YHBcE="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.BoolValueValidationRule.html"
         }
       },
       "version": ""
@@ -2276,8 +2260,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.ByteValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.ByteValueValidationRule.html",
-          "hash": "IbM42xqUGmB0vlA8LvShn4AxSiCAGDAW1P/kjy7XseM="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.ByteValueValidationRule.html"
         }
       },
       "version": ""
@@ -2287,8 +2270,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.CharValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.CharValueValidationRule.html",
-          "hash": "dRC7Mlmap7ooK9MO2qJAW/Ba5INhhvHFHHptHSY5Y70="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.CharValueValidationRule.html"
         }
       },
       "version": ""
@@ -2298,8 +2280,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.DWordValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.DWordValueValidationRule.html",
-          "hash": "uB/y5cPDkwOcFHKCTKWewkG3X2b+bkJ37c2Rgt8T3XI="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.DWordValueValidationRule.html"
         }
       },
       "version": ""
@@ -2309,8 +2290,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.DateTimeValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.DateTimeValueValidationRule.html",
-          "hash": "UvnqWhfVbhNuCjWKQK2ePPf7jj5nNouP9gfhQ9F+nKk="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.DateTimeValueValidationRule.html"
         }
       },
       "version": ""
@@ -2320,8 +2300,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.DateValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.DateValueValidationRule.html",
-          "hash": "uEnnD+PXMEhgFJxuiCmhN3Kn/CwmzzvFyvybAC8yVNA="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.DateValueValidationRule.html"
         }
       },
       "version": ""
@@ -2331,8 +2310,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.DintValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.DintValueValidationRule.html",
-          "hash": "R/vKHR/Aqz5vN+KOxFFhJb1iYSnug5+WUoU1JlNM7iM="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.DintValueValidationRule.html"
         }
       },
       "version": ""
@@ -2342,8 +2320,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.IValueBoundaries-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.IValueBoundaries-1.html",
-          "hash": "Dte0bcx4hPdCgb5BFfj2JPeJ1yx0r6Qu4D69ROB0yEc="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.IValueBoundaries-1.html"
         }
       },
       "version": ""
@@ -2353,8 +2330,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.IntValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.IntValueValidationRule.html",
-          "hash": "pzIr8e7QuoVItBAf1G1Xc8+3XhdPrAA9FwEPvYWv1XQ="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.IntValueValidationRule.html"
         }
       },
       "version": ""
@@ -2364,8 +2340,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.LDateTimeValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.LDateTimeValueValidationRule.html",
-          "hash": "UeJqBoSX8sEbHMM1FmZEtHw/6dAJdrqd2/K70GvH5Hc="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.LDateTimeValueValidationRule.html"
         }
       },
       "version": ""
@@ -2375,8 +2350,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.LIntValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.LIntValueValidationRule.html",
-          "hash": "howNm0rUCn9ZXgP+n2cU7XlX5ycQoo58PejzSUiWXqw="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.LIntValueValidationRule.html"
         }
       },
       "version": ""
@@ -2386,8 +2360,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.LRealValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.LRealValueValidationRule.html",
-          "hash": "aCXVju7aZV3spnYp/xKo+0gdaCxQZaXKAtnn1EdPLNc="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.LRealValueValidationRule.html"
         }
       },
       "version": ""
@@ -2397,8 +2370,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.LTimeOfDayValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.LTimeOfDayValueValidationRule.html",
-          "hash": "BAWXHLMZrDWWKgMecMdw7/muYVqz8jr4s3za0p8DSAg="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.LTimeOfDayValueValidationRule.html"
         }
       },
       "version": ""
@@ -2408,8 +2380,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.LTimeValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.LTimeValueValidationRule.html",
-          "hash": "2KEi9zyUqIzGHrHrEx8Gp+/js5AnA0pDOS9/GVJyqlQ="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.LTimeValueValidationRule.html"
         }
       },
       "version": ""
@@ -2419,8 +2390,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.LWordValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.LWordValueValidationRule.html",
-          "hash": "izSZ8lCrR9H3jSLruQ9yzB+Pmr4OEQgksbbNhl3irsM="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.LWordValueValidationRule.html"
         }
       },
       "version": ""
@@ -2430,8 +2400,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.OnlinerValidationRule-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.OnlinerValidationRule-1.html",
-          "hash": "NTZ1OFdjjd73WqVuS8EB8bqxWNozXBbR9bswki7/cOg="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.OnlinerValidationRule-1.html"
         }
       },
       "version": ""
@@ -2441,8 +2410,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.RealValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.RealValueValidationRule.html",
-          "hash": "cIOKkZgLhH/i2SJx1/6knyOljLI98aoa4KwPgcjtbDo="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.RealValueValidationRule.html"
         }
       },
       "version": ""
@@ -2452,8 +2420,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.SIntValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.SIntValueValidationRule.html",
-          "hash": "rukuVYhkDVAkSc5mZWdqBZ6k5hWYHIsL4OtkFtHKcrU="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.SIntValueValidationRule.html"
         }
       },
       "version": ""
@@ -2463,8 +2430,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.StringValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.StringValueValidationRule.html",
-          "hash": "XlIdLasritybWsIEw2+uZFuEA8cwdWmZMCRvnjA8cgc="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.StringValueValidationRule.html"
         }
       },
       "version": ""
@@ -2474,8 +2440,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.TimeOfDayValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.TimeOfDayValueValidationRule.html",
-          "hash": "+Ks5tq9SSrK1AziDy2bcGAOb/p/MErHOOWA4c7/e/3Q="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.TimeOfDayValueValidationRule.html"
         }
       },
       "version": ""
@@ -2485,8 +2450,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.TimeValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.TimeValueValidationRule.html",
-          "hash": "lOWZwOElYxmuxTDVGRj8yVHKVzvz4p6+FHDQ37LzUyI="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.TimeValueValidationRule.html"
         }
       },
       "version": ""
@@ -2496,8 +2460,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.UDIntValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.UDIntValueValidationRule.html",
-          "hash": "/CcOSEBd3dfiSqTNo+BqDj7DStM2MR9N8K1QCk36p6s="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.UDIntValueValidationRule.html"
         }
       },
       "version": ""
@@ -2507,8 +2470,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.UIntValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.UIntValueValidationRule.html",
-          "hash": "Yb6VOmGYG3KMsX39MxmgKNGxoPF8mk5cbPZYIRGeco4="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.UIntValueValidationRule.html"
         }
       },
       "version": ""
@@ -2518,8 +2480,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.ULIntValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.ULIntValueValidationRule.html",
-          "hash": "w48vqkqb6r/7/LS7NxifjzBuZkJyNM5mlIU4qSdm4QQ="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.ULIntValueValidationRule.html"
         }
       },
       "version": ""
@@ -2529,8 +2490,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.USintValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.USintValueValidationRule.html",
-          "hash": "ZRkFZWBeW7BEmnB1KkDEb3E3d3TD7YoO65PMBwYEA5I="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.USintValueValidationRule.html"
         }
       },
       "version": ""
@@ -2540,8 +2500,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.ValidationResult.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.ValidationResult.html",
-          "hash": "slW6TZzE4U13CKqt579SNQdxV2zbsk9piou02QxwfOw="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.ValidationResult.html"
         }
       },
       "version": ""
@@ -2551,8 +2510,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.WCharValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.WCharValueValidationRule.html",
-          "hash": "TLJvYi4J4zN8PJfsDOQ3Luoi1LaP2AMp05PgCCRg1zQ="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.WCharValueValidationRule.html"
         }
       },
       "version": ""
@@ -2562,8 +2520,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.WStringValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.WStringValueValidationRule.html",
-          "hash": "qsYOVNDjbuoSXL0wkDU+ziJYFPJUr6TKtKOUNeleXHc="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.WStringValueValidationRule.html"
         }
       },
       "version": ""
@@ -2573,8 +2530,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.WordValueValidationRule.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.WordValueValidationRule.html",
-          "hash": "2BBciJm6AkbmFUVVG55EweVtYELlq8ZQU5ojUe2wd0o="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.WordValueValidationRule.html"
         }
       },
       "version": ""
@@ -2584,8 +2540,7 @@
       "source_relative_path": "api/AXSharp.Connector.ValueValidation.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.ValueValidation.html",
-          "hash": "IvyZe3gh23O2xB5qAqUG4IdjIKtXdVCHjW1Ct0Jbp14="
+          "relative_path": "api/AXSharp.Connector.ValueValidation.html"
         }
       },
       "version": ""
@@ -2595,8 +2550,7 @@
       "source_relative_path": "api/AXSharp.Connector.WebApiConnectorExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.WebApiConnectorExtensions.html",
-          "hash": "h54vGpwc/SD3QGh3vwKKygZvMo66YllNjL+jQ8zZy3k="
+          "relative_path": "api/AXSharp.Connector.WebApiConnectorExtensions.html"
         }
       },
       "version": ""
@@ -2606,8 +2560,7 @@
       "source_relative_path": "api/AXSharp.Connector.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Connector.html",
-          "hash": "r+22x+dufOvRhVSvsMhoFkIFDKctavXwoDoxZiIRJpU="
+          "relative_path": "api/AXSharp.Connector.html"
         }
       },
       "version": ""
@@ -2617,8 +2570,7 @@
       "source_relative_path": "api/AXSharp.Framework.Abstractions.DateTimeProviderBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Framework.Abstractions.DateTimeProviderBase.html",
-          "hash": "fPZHm5pO+2YcfdOPgIqzjX5CeYatwH5+aThbdVaEdxA="
+          "relative_path": "api/AXSharp.Framework.Abstractions.DateTimeProviderBase.html"
         }
       },
       "version": ""
@@ -2628,8 +2580,7 @@
       "source_relative_path": "api/AXSharp.Framework.Abstractions.DateTimeProviders.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Framework.Abstractions.DateTimeProviders.html",
-          "hash": "50CdAiMPgygJS1qqSOQ3PTNPMm6ZexDz9xIJrkPgszA="
+          "relative_path": "api/AXSharp.Framework.Abstractions.DateTimeProviders.html"
         }
       },
       "version": ""
@@ -2639,8 +2590,7 @@
       "source_relative_path": "api/AXSharp.Framework.Abstractions.StandardDateTimeProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Framework.Abstractions.StandardDateTimeProvider.html",
-          "hash": "hspIK1Tp0G2eOMsZcYpMMgva+vOADRA4hzonvQAMZe0="
+          "relative_path": "api/AXSharp.Framework.Abstractions.StandardDateTimeProvider.html"
         }
       },
       "version": ""
@@ -2650,8 +2600,7 @@
       "source_relative_path": "api/AXSharp.Framework.Abstractions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Framework.Abstractions.html",
-          "hash": "w7dQgri3wlF7Cyjen5+hZnnbHKSobL6Tml6rnQtkdng="
+          "relative_path": "api/AXSharp.Framework.Abstractions.html"
         }
       },
       "version": ""
@@ -2661,8 +2610,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Attributes.PresentationContainerAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Attributes.PresentationContainerAttribute.html",
-          "hash": "Vf0lFlawHcnz5j/FUItEqF9SaD+Y5DaUC1xtQ7hsjRM="
+          "relative_path": "api/AXSharp.Presentation.Attributes.PresentationContainerAttribute.html"
         }
       },
       "version": ""
@@ -2672,8 +2620,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Attributes.PresentationGroupAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Attributes.PresentationGroupAttribute.html",
-          "hash": "kcxZQPfR0PYaB/OIZFisjhMWxjsVomeuB06yaYTAk50="
+          "relative_path": "api/AXSharp.Presentation.Attributes.PresentationGroupAttribute.html"
         }
       },
       "version": ""
@@ -2683,8 +2630,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Attributes.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Attributes.html",
-          "hash": "/s45h0nuIYxbG2aXLNbOyM7MXXKvowVDOigIbQNrJxE="
+          "relative_path": "api/AXSharp.Presentation.Attributes.html"
         }
       },
       "version": ""
@@ -2694,8 +2640,7 @@
       "source_relative_path": "api/AXSharp.Presentation.BindableBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.BindableBase.html",
-          "hash": "7kUFPX3TmsJeYEy8A7jx25NfWUzXkhCPGcWbdke6els="
+          "relative_path": "api/AXSharp.Presentation.BindableBase.html"
         }
       },
       "version": ""
@@ -2705,8 +2650,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Attributes.RenderableBlazorAssemblyAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Attributes.RenderableBlazorAssemblyAttribute.html",
-          "hash": "QcfXbSv/eKpYwh3SBvaO4Iq9qDQdZ4V55x+jcyXrqX8="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Attributes.RenderableBlazorAssemblyAttribute.html"
         }
       },
       "version": ""
@@ -2716,8 +2660,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Attributes.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Attributes.html",
-          "hash": "oW442m0iTEJSH3cpV2XWvvm7SaBZRMJbggvEerrM4gk="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Attributes.html"
         }
       },
       "version": ""
@@ -2727,8 +2670,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.BlazorGroupLayoutProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.BlazorGroupLayoutProvider.html",
-          "hash": "Pr20xnfw9LvecroDFWsDjl5ulQf0qSF0OoagFCLkaBY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.BlazorGroupLayoutProvider.html"
         }
       },
       "version": ""
@@ -2738,8 +2680,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.BlazorLayoutProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.BlazorLayoutProvider.html",
-          "hash": "dloctsgPEVKRDM8Q5aZbnvYLcA398Xh3+UQjmAQi5r4="
+          "relative_path": "api/AXSharp.Presentation.Blazor.BlazorLayoutProvider.html"
         }
       },
       "version": ""
@@ -2749,8 +2690,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.BorderLayout.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.BorderLayout.html",
-          "hash": "rZElSi2M8xbvow/cLUyUrL77lnKuGDKfhkwbWeFxbp0="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.BorderLayout.html"
         }
       },
       "version": ""
@@ -2760,8 +2700,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.GroupBoxLayout.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.GroupBoxLayout.html",
-          "hash": "E2Acu5c7LQLKAcIKSIc8Cg5MFmj/0VyZJiKZ1rXlEiI="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.GroupBoxLayout.html"
         }
       },
       "version": ""
@@ -2771,8 +2710,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.ArrayBorderSetter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.ArrayBorderSetter.html",
-          "hash": "0jEQQb8mZuKDV/akM936/3Jqjvdd035dzzSMcjECu30="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.ArrayBorderSetter.html"
         }
       },
       "version": ""
@@ -2782,8 +2720,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.ChildrenLayoutPropSetter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.ChildrenLayoutPropSetter.html",
-          "hash": "o6o0v5IMx5i3ZoHpvy9y092EyMXXYT3QEf/DLJBDMNo="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.ChildrenLayoutPropSetter.html"
         }
       },
       "version": ""
@@ -2793,8 +2730,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.GroupContainerAttributeSetter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.GroupContainerAttributeSetter.html",
-          "hash": "qJg/EuwaLAworHph5ZXrCmBlc4x3W6FjZA7dgsLzxo8="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.GroupContainerAttributeSetter.html"
         }
       },
       "version": ""
@@ -2804,8 +2740,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.GroupLayoutSetter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.GroupLayoutSetter.html",
-          "hash": "BOyBlZ//ib5oAgK7Q9ez1f6Vx2dVlQRC0gwiqqqujiw="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.GroupLayoutSetter.html"
         }
       },
       "version": ""
@@ -2815,8 +2750,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.MainLayoutSetter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.MainLayoutSetter.html",
-          "hash": "e1cWIWnuyuHs6BZbMiliHR/GP1Hcp5tiktTAJNAntrw="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.MainLayoutSetter.html"
         }
       },
       "version": ""
@@ -2826,8 +2760,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.html",
-          "hash": "Ijrxe2Led16E2kXGdWVpwiasOB66ZFwjH/BBAjM/A8o="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.LayoutSetters.html"
         }
       },
       "version": ""
@@ -2837,8 +2770,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.StackPanelLayout.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.StackPanelLayout.html",
-          "hash": "qlK0vxnDmSb07360BP3JLYgksbgUzSMfGRwKQ5Zt2Xg="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.StackPanelLayout.html"
         }
       },
       "version": ""
@@ -2848,8 +2780,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.TabControl.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.TabControl.html",
-          "hash": "VX52K7qX4x8T76pHWuHz+tlxrBdK3eyKqg/iNgecZJ0="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.TabControl.html"
         }
       },
       "version": ""
@@ -2859,8 +2790,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.TabPage.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.TabPage.html",
-          "hash": "EYZ3695Gj2cXktbyPWjEODFTNEz2cEn20q+9JWCnZCI="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.TabPage.html"
         }
       },
       "version": ""
@@ -2870,8 +2800,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.html",
-          "hash": "PG9KvXqCfPNdRh/OktnlEEAkDyjK3hhrD369haY0EEU="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlComponents.html"
         }
       },
       "version": ""
@@ -2881,8 +2810,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlLayout.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlLayout.html",
-          "hash": "ZA+XcHSBgRBiW5hr3sFbCuvgbGnSDWGVI2P8SQnOtCM="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.TabControlLayout.html"
         }
       },
       "version": ""
@@ -2892,8 +2820,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.UniformGridLayout.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.UniformGridLayout.html",
-          "hash": "4ksANVwOyXphO6mncJ8c+b9T0aYZFzqRbdE0OUfJx+8="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.UniformGridLayout.html"
         }
       },
       "version": ""
@@ -2903,8 +2830,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.WrapPanelLayout.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.WrapPanelLayout.html",
-          "hash": "HnMz8/ySSg7IIeQkmX2Ex6YORCCqi1BmPNjTdK8UTrs="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.WrapPanelLayout.html"
         }
       },
       "version": ""
@@ -2914,8 +2840,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.html",
-          "hash": "Vgphha0G2PdjTk5LrXL5mI3ybM21ODhnLdQAd7Edzoo="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Layouts.html"
         }
       },
       "version": ""
@@ -2925,8 +2850,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableComplexComponentBase-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableComplexComponentBase-1.html",
-          "hash": "CX4gZww414qCoXb8ZfsEcq2e6Rqfre3p21flD9TTlo0="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableComplexComponentBase-1.html"
         }
       },
       "version": ""
@@ -2936,8 +2860,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableComponentBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableComponentBase.html",
-          "hash": "kSnituWd6o1e/o33lCPaRUKUVmYvra8xwen7rqUlD90="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableComponentBase.html"
         }
       },
       "version": ""
@@ -2947,8 +2870,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableContentControl.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableContentControl.html",
-          "hash": "7U/rfQNNNrDJfOdTw319VtFaNIm5y2XxmArm+cY/CWY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableContentControl.html"
         }
       },
       "version": ""
@@ -2958,8 +2880,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableViewModelComponentBase-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableViewModelComponentBase-1.html",
-          "hash": "D01VHFxmlhvYKOsd2g5rNuT4cf19BrywEnD/GsV9JRs="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.RenderableViewModelComponentBase-1.html"
         }
       },
       "version": ""
@@ -2969,8 +2890,27 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.html",
-          "hash": "b9mhdJOZyPj9ZMS4FGr6gqgUqTlCeg9aBdqvHdAKvnc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.RenderableContent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.Base.Online.TemplateBaseOnline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.Base.Online.TemplateBaseOnline.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.Base.Online.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.Base.Online.html"
         }
       },
       "version": ""
@@ -2980,8 +2920,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerControlView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerControlView-1.html",
-          "hash": "clnkjSRCYx7h3+FyBkmc+IlFY+9AbNNsYApDJKqf02A="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerControlView-1.html"
         }
       },
       "version": ""
@@ -2991,8 +2930,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerDisplayView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerDisplayView-1.html",
-          "hash": "GhyXXQ+e7duYqCejsYi2L+QzCq65GRl78MCvV+klBMg="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerDisplayView-1.html"
         }
       },
       "version": ""
@@ -3002,8 +2940,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerShadowControlView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerShadowControlView-1.html",
-          "hash": "Iyhahie6DDV7WqRgKLA5ofXOaEgnNcNe6ZCbwPTATXo="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerShadowControlView-1.html"
         }
       },
       "version": ""
@@ -3013,8 +2950,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerShadowDisplayView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerShadowDisplayView-1.html",
-          "hash": "ij9T0hcks36yZLKob7Ruy0l6ttXuOpNGiJXorEmshT0="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorContainerShadowDisplayView-1.html"
         }
       },
       "version": ""
@@ -3024,8 +2960,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorsBaseOnline-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorsBaseOnline-1.html",
-          "hash": "FjAveh/LUKro+RlMHs6rtMwPfJ+V6RwXqTgre5ASPAY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorsBaseOnline-1.html"
         }
       },
       "version": ""
@@ -3035,8 +2970,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorsBaseShadow-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorsBaseShadow-1.html",
-          "hash": "u68zxiPU+PaBXlK5CnjgfOHx2O3qvvkwMkZ4y4Kszh4="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.EnumeratorsBaseShadow-1.html"
         }
       },
       "version": ""
@@ -3046,8 +2980,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseControlView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseControlView-1.html",
-          "hash": "9s1+BH4ZYN2M9XwK7f1raDzI8PLAthp6hyXiaR9uoWI="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseControlView-1.html"
         }
       },
       "version": ""
@@ -3057,8 +2990,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseDisplayView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseDisplayView-1.html",
-          "hash": "/FCP280NsaPngPLVGswPD6Kxp3CjqTHOT/X/8Xctxtc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseDisplayView-1.html"
         }
       },
       "version": ""
@@ -3068,8 +3000,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseShadowControlView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseShadowControlView-1.html",
-          "hash": "KYzmzcMF5osplpRdG64yLLdxJxUfck8X6x0xaKes0Iw="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseShadowControlView-1.html"
         }
       },
       "version": ""
@@ -3079,8 +3010,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseShadowDisplayView-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseShadowDisplayView-1.html",
-          "hash": "8g5zRjrrOIwI2PAJN7hxYk7XbVGJ24QTV0NpJE2rQJ0="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBaseShadowDisplayView-1.html"
         }
       },
       "version": ""
@@ -3090,8 +3020,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolControlView.html",
-          "hash": "meRVz9hr//tTJ7Cmgj/l1dJh918p4CVVPqZpNsdjdbc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolControlView.html"
         }
       },
       "version": ""
@@ -3101,8 +3030,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolDisplayView.html",
-          "hash": "iEmakGOFwDl+6W1nrSakVD4WpEZZp8j9YaSiQDs6q5g="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolDisplayView.html"
         }
       },
       "version": ""
@@ -3112,8 +3040,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolShadowControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolShadowControlView.html",
-          "hash": "ut+dABFpMGBe8l16c8T/YGuHdPITe0fvipupBNeiNFc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolShadowControlView.html"
         }
       },
       "version": ""
@@ -3123,8 +3050,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolShadowDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolShadowDisplayView.html",
-          "hash": "Zl7UJyL6uPhfcjadgk5J6ps2rxiSNpqCVKwl243t5Jc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerBoolShadowDisplayView.html"
         }
       },
       "version": ""
@@ -3134,8 +3060,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateControlView.html",
-          "hash": "258le0IGSmQAr6NlPrYP4fZ2/bKcddzC+woMISTSeIM="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateControlView.html"
         }
       },
       "version": ""
@@ -3145,8 +3070,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateDisplayView.html",
-          "hash": "GzHm8Pko1HrfIpBCxRpFsBknhNzASueR0hfZEphkjkc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateDisplayView.html"
         }
       },
       "version": ""
@@ -3156,8 +3080,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateShadowControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateShadowControlView.html",
-          "hash": "svrvfBj95+6+9wa4pXkHLf7B3ytgWZaTHfxtRnimXZ8="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateShadowControlView.html"
         }
       },
       "version": ""
@@ -3167,8 +3090,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateShadowDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateShadowDisplayView.html",
-          "hash": "dtYHDOL2fiCe0aTsrC5ItjNfxCDvg08PXZt6jpWEVJc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateShadowDisplayView.html"
         }
       },
       "version": ""
@@ -3178,8 +3100,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeControlView.html",
-          "hash": "z9qugRaVoeoSto5/tSFtVwfBGa7hFidWFIYh/tXmMpY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeControlView.html"
         }
       },
       "version": ""
@@ -3189,8 +3110,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeDisplayView.html",
-          "hash": "bgkn/7IZ7LHTUCMSodB+WRadtLilx1AnckT0pTMoCeE="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeDisplayView.html"
         }
       },
       "version": ""
@@ -3200,8 +3120,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeShadowControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeShadowControlView.html",
-          "hash": "C1vY2SqjxVhLunDqopwxs9CfSmqYTJUQvNHfNDo1TVw="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeShadowControlView.html"
         }
       },
       "version": ""
@@ -3211,8 +3130,227 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeShadowDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeShadowDisplayView.html",
-          "hash": "lcLNpkyaDQMW4Ef62mYezs21GgWRUBydf4inyj2ZxaU="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerDateTimeShadowDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeShadowControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeShadowControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeShadowDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLDateTimeShadowDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealShadowControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealShadowControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealShadowDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLRealShadowDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayShadowControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayShadowControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayShadowDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeOfDayShadowDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeShadowControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeShadowControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeShadowDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerLTimeShadowDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealShadowControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealShadowControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealShadowDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerRealShadowDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeDisplayView.html"
         }
       },
       "version": ""
@@ -3222,8 +3360,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayControlView.html",
-          "hash": "zH6vsFan4AAPlF+0lhhx9KgJJh8z0xPYbint6H69mAE="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayControlView.html"
         }
       },
       "version": ""
@@ -3233,8 +3370,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayDisplayView.html",
-          "hash": "moCBQDo7uY2BjFQZ7Q9lmNftf8PzR9r/s8nc2NVWGRE="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayDisplayView.html"
         }
       },
       "version": ""
@@ -3244,8 +3380,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayShadowControlView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayShadowControlView.html",
-          "hash": "kvVKoT8AXtHbxb/0Q1JbwxOfS+bOxbi1gh3PDt52+qE="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayShadowControlView.html"
         }
       },
       "version": ""
@@ -3255,8 +3390,27 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayShadowDisplayView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayShadowDisplayView.html",
-          "hash": "86VxTD828NlEcwB19AEt4TneWrZ1su57N8WUVJbDxjM="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeOfDayShadowDisplayView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeShadowControlView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeShadowControlView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeShadowDisplayView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.OnlinerTimeShadowDisplayView.html"
         }
       },
       "version": ""
@@ -3266,8 +3420,17 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBase-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBase-1.html",
-          "hash": "YoArfXfnyZzUdPnHUh4YDvwMqJgpxygsWSpAkPjHxQ8="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBase-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBase.html"
         }
       },
       "version": ""
@@ -3277,8 +3440,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBaseOnline-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBaseOnline-1.html",
-          "hash": "Z3rGziH9SmVJ7JdiV5BSQWh/pvtXexWgUCR3CNZQST4="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBaseOnline-1.html"
         }
       },
       "version": ""
@@ -3288,8 +3450,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBaseShadow-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBaseShadow-1.html",
-          "hash": "+vkuhUTKxiZo14RKwYQkO5ZKCRnPrAfXI+rzcFMg8F4="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateBaseShadow-1.html"
         }
       },
       "version": ""
@@ -3299,8 +3460,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateView.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateView.html",
-          "hash": "WPz5gQ+RBW3CKZGvAxzcfRmxXpt56lQS8M83buToJOY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.TemplateView.html"
         }
       },
       "version": ""
@@ -3310,8 +3470,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.html",
-          "hash": "/0TX9Ojqel3ji6MG3zvjfXlsrVQaE5b365egs38xlkc="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.Templates.html"
         }
       },
       "version": ""
@@ -3321,8 +3480,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls._Imports.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls._Imports.html",
-          "hash": "rHyuiEznbO2cgcSm3/twR3Lq6DYA+qINwvPLhvsFnWw="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls._Imports.html"
         }
       },
       "version": ""
@@ -3332,8 +3490,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Controls.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.html",
-          "hash": "xI4/xLOSBPN3Se0wTgCnwqg9JOLYhn/AkOT2gF+nmbk="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Controls.html"
         }
       },
       "version": ""
@@ -3343,8 +3500,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.EnumToIntConverter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.EnumToIntConverter.html",
-          "hash": "0rPUQTdu7qb76Kg4FftjuWKXNAfV72As9DKhRNOdn7w="
+          "relative_path": "api/AXSharp.Presentation.Blazor.EnumToIntConverter.html"
         }
       },
       "version": ""
@@ -3354,8 +3510,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Exceptions.ParameterWrongTypeRendererException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Exceptions.ParameterWrongTypeRendererException.html",
-          "hash": "MnyAG1UjrombroAoyNiqlufTrJ4HpBTi2YPvKzHASqY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Exceptions.ParameterWrongTypeRendererException.html"
         }
       },
       "version": ""
@@ -3365,8 +3520,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Exceptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Exceptions.html",
-          "hash": "FzuRYBtaBZZz/flYBXUgVcy2xQQxp4WrDXvJ/G+gDYA="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Exceptions.html"
         }
       },
       "version": ""
@@ -3376,8 +3530,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Group.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Group.html",
-          "hash": "SrR8CvY8MWvJin9ie8F3ioIGToX9fRGyCSYEtcybwco="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Group.html"
         }
       },
       "version": ""
@@ -3387,8 +3540,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IComponentService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IComponentService.html",
-          "hash": "c1a8H2yt8dHxW34Ln+lrU/ANocnYJuOq0DC9RxIOCbY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IComponentService.html"
         }
       },
       "version": ""
@@ -3398,8 +3550,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableComplexComponentBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableComplexComponentBase.html",
-          "hash": "BxG/yHje2m+Ufg8YblBggQ4YIw2NkXY7S6XBkHVnLDY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableComplexComponentBase.html"
         }
       },
       "version": ""
@@ -3409,8 +3560,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableComponent.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableComponent.html",
-          "hash": "u63SRrgOYlX4SI2LUXEN71sJZkRb3hj4i/uwUbrJRTA="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableComponent.html"
         }
       },
       "version": ""
@@ -3420,8 +3570,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableViewModelBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableViewModelBase.html",
-          "hash": "RoM/WfCeTt93v+QIFb4SHGRT+nC5kWcrvid6fZBCx+Y="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.IRenderableViewModelBase.html"
         }
       },
       "version": ""
@@ -3431,8 +3580,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.html",
-          "hash": "gOF9CQg9vhlO8X/fePIVXP8OzR4FCWuVcF8KnSgWivo="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Interfaces.html"
         }
       },
       "version": ""
@@ -3442,8 +3590,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Services.AttributesHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Services.AttributesHandler.html",
-          "hash": "fWwgMmBkL4RtuK5wI5698CfGoTnnVURG+mAGBFqPKw4="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Services.AttributesHandler.html"
         }
       },
       "version": ""
@@ -3453,8 +3600,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Services.ComponentService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Services.ComponentService.html",
-          "hash": "8H+TtTD48Ae+MLhwXtwyktWnMx2BvgY7xlvCNRVraCg="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Services.ComponentService.html"
         }
       },
       "version": ""
@@ -3464,8 +3610,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Services.ServicesConfiguration.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Services.ServicesConfiguration.html",
-          "hash": "xax72ao+yl3rtwlhm0CD/tnyGrJXXCte+3gxwxMHKzY="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Services.ServicesConfiguration.html"
         }
       },
       "version": ""
@@ -3475,8 +3620,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Services.ViewModelCacheService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Services.ViewModelCacheService.html",
-          "hash": "FHHLkf7IHiYPHQztzVU0tHDQG6V71HTzU4bxR6SWglw="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Services.ViewModelCacheService.html"
         }
       },
       "version": ""
@@ -3486,8 +3630,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.Services.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.Services.html",
-          "hash": "e6injle7HQV0Guxj+CESu4n+n3dU03Rt1PAT0YblxyM="
+          "relative_path": "api/AXSharp.Presentation.Blazor.Services.html"
         }
       },
       "version": ""
@@ -3497,8 +3640,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.TwinContainerObject.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.TwinContainerObject.html",
-          "hash": "hh6bY6tPzc3cXrdZNNeCsguBXo9QHF4+9vzrGhA2Se4="
+          "relative_path": "api/AXSharp.Presentation.Blazor.TwinContainerObject.html"
         }
       },
       "version": ""
@@ -3508,8 +3650,7 @@
       "source_relative_path": "api/AXSharp.Presentation.Blazor.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.Blazor.html",
-          "hash": "obmK/4izFmBVX9wPjBckfjo22GxY+rkEaIOikJBbg5A="
+          "relative_path": "api/AXSharp.Presentation.Blazor.html"
         }
       },
       "version": ""
@@ -3519,8 +3660,7 @@
       "source_relative_path": "api/AXSharp.Presentation.RenderableAssemblyBaseAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.RenderableAssemblyBaseAttribute.html",
-          "hash": "CZK6efNtmtAEUVvZeZlYfoh5BwFLIsvhHM2oe2FuKiQ="
+          "relative_path": "api/AXSharp.Presentation.RenderableAssemblyBaseAttribute.html"
         }
       },
       "version": ""
@@ -3530,8 +3670,7 @@
       "source_relative_path": "api/AXSharp.Presentation.RenderableViewModelBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.RenderableViewModelBase.html",
-          "hash": "bG6FZRfHAxhpAasdPNbrCFg2sh4npHsNWYqIVgQMc58="
+          "relative_path": "api/AXSharp.Presentation.RenderableViewModelBase.html"
         }
       },
       "version": ""
@@ -3541,8 +3680,7 @@
       "source_relative_path": "api/AXSharp.Presentation.UIExceptions.UIExceptionHandling.AppUiExceptionHandlerDelegate.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.UIExceptions.UIExceptionHandling.AppUiExceptionHandlerDelegate.html",
-          "hash": "8Qis9fnciK0It/Tus1mOKx/40miyEOTNK7gSEy+lsec="
+          "relative_path": "api/AXSharp.Presentation.UIExceptions.UIExceptionHandling.AppUiExceptionHandlerDelegate.html"
         }
       },
       "version": ""
@@ -3552,8 +3690,7 @@
       "source_relative_path": "api/AXSharp.Presentation.UIExceptions.UIExceptionHandling.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.UIExceptions.UIExceptionHandling.html",
-          "hash": "VMqaFK03FXRmzQ/tBqD7x7sh/Re9bROY5Zg4uqcqX0M="
+          "relative_path": "api/AXSharp.Presentation.UIExceptions.UIExceptionHandling.html"
         }
       },
       "version": ""
@@ -3563,8 +3700,7 @@
       "source_relative_path": "api/AXSharp.Presentation.UIExceptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.UIExceptions.html",
-          "hash": "q5vKuSRTuXqxQ1UR7ffRkQfIizbu4FlYBPdKOSk6aeo="
+          "relative_path": "api/AXSharp.Presentation.UIExceptions.html"
         }
       },
       "version": ""
@@ -3574,8 +3710,67 @@
       "source_relative_path": "api/AXSharp.Presentation.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.Presentation.html",
-          "hash": "BNEuJhOGKBQjKTeT+B9TcjgYIOhRY30r81fr1cn0GIc="
+          "relative_path": "api/AXSharp.Presentation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.TIA2AXSharp.TIA2AXSharpAdapter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.TIA2AXSharp.TIA2AXSharpAdapter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.TIA2AXSharp.TIA2AXSharpSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.TIA2AXSharp.TIA2AXSharpSerializer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.TIA2AXSharp.TIABrowseElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.TIA2AXSharp.TIABrowseElement.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.TIA2AXSharp.TIARootObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.TIA2AXSharp.TIARootObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.TIA2AXSharp.TIATwinObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.TIA2AXSharp.TIATwinObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AXSharp.TIA2AXSharp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AXSharp.TIA2AXSharp.html"
         }
       },
       "version": ""
@@ -3585,8 +3780,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Helpers.YamlHelpers.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Helpers.YamlHelpers.html",
-          "hash": "C//6Wk7zE3BSN2ivrzRdDkoILok0kxVsH5mgJxQo9Xs="
+          "relative_path": "api/AXSharp.ixc_doc.Helpers.YamlHelpers.html"
         }
       },
       "version": ""
@@ -3596,8 +3790,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Helpers.YamlSerializerHelper.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Helpers.YamlSerializerHelper.html",
-          "hash": "f9xu+QlUORgEjulWTRn7tGeE8iEaIfHph2R5IcBIYQA="
+          "relative_path": "api/AXSharp.ixc_doc.Helpers.YamlSerializerHelper.html"
         }
       },
       "version": ""
@@ -3607,8 +3800,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Helpers.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Helpers.html",
-          "hash": "THVgxaUbm7kp+yuBXFLOgMeIpi54xmgT9W3DEufCDGc="
+          "relative_path": "api/AXSharp.ixc_doc.Helpers.html"
         }
       },
       "version": ""
@@ -3618,8 +3810,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Interfaces.IYamlBuiderVisitor.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Interfaces.IYamlBuiderVisitor.html",
-          "hash": "F5tf29QzoUls/Fp5q6FiQJJ7P1XOGxjb2WH0ND65Mis="
+          "relative_path": "api/AXSharp.ixc_doc.Interfaces.IYamlBuiderVisitor.html"
         }
       },
       "version": ""
@@ -3629,8 +3820,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Interfaces.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Interfaces.html",
-          "hash": "PK907M4r81DoQ9/04JyqRgGBYwns38+0YlzL+IGWKyo="
+          "relative_path": "api/AXSharp.ixc_doc.Interfaces.html"
         }
       },
       "version": ""
@@ -3640,8 +3830,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Models.Comments.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Models.Comments.html",
-          "hash": "FuoCb4ysH3h9EHCYAldJmQULM7blOVtRQ9K+jMzdKzQ="
+          "relative_path": "api/AXSharp.ixc_doc.Models.Comments.html"
         }
       },
       "version": ""
@@ -3651,8 +3840,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Models.MethodParametersModel.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Models.MethodParametersModel.html",
-          "hash": "QN16JPNyXezc4/p4+Spj/0irmLqpJUUrreIDvxewXYU="
+          "relative_path": "api/AXSharp.ixc_doc.Models.MethodParametersModel.html"
         }
       },
       "version": ""
@@ -3662,8 +3850,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Models.NamespaceWrapper.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Models.NamespaceWrapper.html",
-          "hash": "0h14AjgpiBOX3QpC9ApcgxQHROMrWIff+IQHskKhOOI="
+          "relative_path": "api/AXSharp.ixc_doc.Models.NamespaceWrapper.html"
         }
       },
       "version": ""
@@ -3673,8 +3860,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Models.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Models.html",
-          "hash": "HufeMKGoS0as58K8C1H9lJXwAqlNpAIc6vNDCtLHM6g="
+          "relative_path": "api/AXSharp.ixc_doc.Models.html"
         }
       },
       "version": ""
@@ -3684,8 +3870,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Item.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Item.html",
-          "hash": "bfikHYAY9uTo25M5JnbcMHLj3H57v6ciTN7MOhY6FkQ="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Item.html"
         }
       },
       "version": ""
@@ -3695,8 +3880,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Parameter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Parameter.html",
-          "hash": "TOcfSbT/VREKhmOFR+qR9sCimMDVkPr6nzIbn90K5wA="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Parameter.html"
         }
       },
       "version": ""
@@ -3706,8 +3890,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Reference.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Reference.html",
-          "hash": "OvKLMj4TZu9unjnBQ0nUysRk86aES8FHAYE2uuVqcEo="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Reference.html"
         }
       },
       "version": ""
@@ -3717,8 +3900,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Remote.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Remote.html",
-          "hash": "cmZ2zMOmhJcWlWsdFPi6nqPUnUhl6/XPTqJ2WJTDDaw="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Remote.html"
         }
       },
       "version": ""
@@ -3728,8 +3910,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Return.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Return.html",
-          "hash": "r2+fbsiYjnyU0CsVEBPHojsqwXcZDiLUccD1r6ZZQ3w="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Return.html"
         }
       },
       "version": ""
@@ -3739,8 +3920,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Source.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Source.html",
-          "hash": "M8FKC0jV87DZn0DshJJTwgEJvsPgSD6ZCiuSE7ZATPs="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Source.html"
         }
       },
       "version": ""
@@ -3750,8 +3930,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Spec.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Spec.html",
-          "hash": "TsXe8EHqUYOjnVqpG/7p3F6emAXugBTVqpl3BvkpP1g="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Spec.html"
         }
       },
       "version": ""
@@ -3761,8 +3940,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.Syntax.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.Syntax.html",
-          "hash": "OKZx6bfibnM/PmJVB0ziLPdrqyvvU/8gUjMf1rllItc="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.Syntax.html"
         }
       },
       "version": ""
@@ -3772,8 +3950,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.TocSchema.Item.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.TocSchema.Item.html",
-          "hash": "GYgYHkzYxtaHWq4PI6juibefysiXiVvYD9qEltBZSqY="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.TocSchema.Item.html"
         }
       },
       "version": ""
@@ -3783,8 +3960,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.TocSchema.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.TocSchema.html",
-          "hash": "Pvy6mh2C/DUFpNB4IO6bspyndQzpa5Zwna2mjiP4lps="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.TocSchema.html"
         }
       },
       "version": ""
@@ -3794,8 +3970,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.YamlSchema.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.YamlSchema.html",
-          "hash": "bR+0MhxBFuEjdFQVrCksNZG40VOcRDL1rLA1n51qW6g="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.YamlSchema.html"
         }
       },
       "version": ""
@@ -3805,8 +3980,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Schemas.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Schemas.html",
-          "hash": "Mj0YXx6wdJlQWLk1QJ7uMoIrIoOMe8pDRhDDUBE54po="
+          "relative_path": "api/AXSharp.ixc_doc.Schemas.html"
         }
       },
       "version": ""
@@ -3816,8 +3990,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Visitors.MyNodeVisitor.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Visitors.MyNodeVisitor.html",
-          "hash": "+V5oNDdrGcg16doQe6eeP/qCBadCPDmDH6oa1C8NeXQ="
+          "relative_path": "api/AXSharp.ixc_doc.Visitors.MyNodeVisitor.html"
         }
       },
       "version": ""
@@ -3827,8 +4000,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Visitors.YamlBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Visitors.YamlBuilder.html",
-          "hash": "pvVu3XNvW08c0P/8wL/bEPY8L0QaBxIufFIohbyX9Gs="
+          "relative_path": "api/AXSharp.ixc_doc.Visitors.YamlBuilder.html"
         }
       },
       "version": ""
@@ -3838,8 +4010,7 @@
       "source_relative_path": "api/AXSharp.ixc_doc.Visitors.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixc_doc.Visitors.html",
-          "hash": "88JObFhepPskTT/7/r7fwoybl5I70HAuTPsF/W28fqI="
+          "relative_path": "api/AXSharp.ixc_doc.Visitors.html"
         }
       },
       "version": ""
@@ -3849,8 +4020,7 @@
       "source_relative_path": "api/AXSharp.ixr_doc.LocalizedStringWrapper.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixr_doc.LocalizedStringWrapper.html",
-          "hash": "xDz/FGqm92TK7pmtoNef/4V+Wz6gPTq4dUP7SOInPww="
+          "relative_path": "api/AXSharp.ixr_doc.LocalizedStringWrapper.html"
         }
       },
       "version": ""
@@ -3860,8 +4030,7 @@
       "source_relative_path": "api/AXSharp.ixr_doc.ResxManager.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixr_doc.ResxManager.html",
-          "hash": "9pLHSMuTOjzo57Fqqfzcf1cWijjtLkR+qxbgc2oVLvg="
+          "relative_path": "api/AXSharp.ixr_doc.ResxManager.html"
         }
       },
       "version": ""
@@ -3871,8 +4040,7 @@
       "source_relative_path": "api/AXSharp.ixr_doc.StringValueWrapper.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixr_doc.StringValueWrapper.html",
-          "hash": "pN3aGueYESU671ba1Vd2X6h+VUZT5siknE51SIrdLXg="
+          "relative_path": "api/AXSharp.ixr_doc.StringValueWrapper.html"
         }
       },
       "version": ""
@@ -3882,8 +4050,7 @@
       "source_relative_path": "api/AXSharp.ixr_doc.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AXSharp.ixr_doc.html",
-          "hash": "/aaPjzn1kPHGAYsd0fMqq4/tnFQJqt2mdHW3r3A+qyk="
+          "relative_path": "api/AXSharp.ixr_doc.html"
         }
       },
       "version": ""
@@ -3893,8 +4060,7 @@
       "source_relative_path": "api/index.md",
       "output": {
         ".html": {
-          "relative_path": "api/index.html",
-          "hash": "D0pVsEErdJE3fQapm7bUayL35pdZUXm/iyOYVmtK6ZM="
+          "relative_path": "api/index.html"
         }
       },
       "version": ""
@@ -3904,8 +4070,7 @@
       "source_relative_path": "api/ixc.Program.yml",
       "output": {
         ".html": {
-          "relative_path": "api/ixc.Program.html",
-          "hash": "H2oQHcz1smDFR2fqmqWlvGfITHN0UydiBz36T+anKOo="
+          "relative_path": "api/ixc.Program.html"
         }
       },
       "version": ""
@@ -3915,8 +4080,7 @@
       "source_relative_path": "api/ixc.yml",
       "output": {
         ".html": {
-          "relative_path": "api/ixc.html",
-          "hash": "cl4CRR0uylnta8WbqdpwbIzhSoXOhk0IFNnEAa1Lolk="
+          "relative_path": "api/ixc.html"
         }
       },
       "version": ""
@@ -3926,8 +4090,10 @@
       "source_relative_path": "api/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "api/toc.html",
-          "hash": "qcjAev6e9mwUJdqaxlEWDLpZM0Ws21qbW7AN6xMlu6w="
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
         }
       },
       "version": ""
@@ -3937,8 +4103,7 @@
       "source_relative_path": "articles/blazor/LAYOUTS.md",
       "output": {
         ".html": {
-          "relative_path": "articles/blazor/LAYOUTS.html",
-          "hash": "Asadz+cij1qXbLxPUz1QpFHP4KNbv8Gy8kacSHCkXiA="
+          "relative_path": "articles/blazor/LAYOUTS.html"
         }
       },
       "version": ""
@@ -3948,8 +4113,7 @@
       "source_relative_path": "articles/blazor/LIBRARIES.md",
       "output": {
         ".html": {
-          "relative_path": "articles/blazor/LIBRARIES.html",
-          "hash": "gZMT71vViyTL+hu/gW17XuDQbkIL3+GYXTkqIm8xxsA="
+          "relative_path": "articles/blazor/LIBRARIES.html"
         }
       },
       "version": ""
@@ -3959,8 +4123,7 @@
       "source_relative_path": "articles/blazor/README.md",
       "output": {
         ".html": {
-          "relative_path": "articles/blazor/README.html",
-          "hash": "6EVUltFU7IrN+gULzYnxzVYrZd6UvdVSUILMehvvLQk="
+          "relative_path": "articles/blazor/README.html"
         }
       },
       "version": ""
@@ -3970,8 +4133,7 @@
       "source_relative_path": "articles/blazor/RENDERABLECONTENT.md",
       "output": {
         ".html": {
-          "relative_path": "articles/blazor/RENDERABLECONTENT.html",
-          "hash": "tstUMW66/gCvAEipK16+nStG21UZv789Os2AqljT/Nk="
+          "relative_path": "articles/blazor/RENDERABLECONTENT.html"
         }
       },
       "version": ""
@@ -3981,8 +4143,7 @@
       "source_relative_path": "articles/compiler/ADDED_MEMBERS.md",
       "output": {
         ".html": {
-          "relative_path": "articles/compiler/ADDED_MEMBERS.html",
-          "hash": "SIpEiiNwpKKCtdDJ0C5ZC1vhAY3B0kuCs3k0OaO2Z4w="
+          "relative_path": "articles/compiler/ADDED_MEMBERS.html"
         }
       },
       "version": ""
@@ -3992,8 +4153,7 @@
       "source_relative_path": "articles/compiler/ATTRIBUTES.md",
       "output": {
         ".html": {
-          "relative_path": "articles/compiler/ATTRIBUTES.html",
-          "hash": "1mB9CAMNL69IsGkiUqmYnYwQznVbCJiVYQB8OIbT2YM="
+          "relative_path": "articles/compiler/ATTRIBUTES.html"
         }
       },
       "version": ""
@@ -4003,8 +4163,7 @@
       "source_relative_path": "articles/compiler/CONFIG_FILE.MD",
       "output": {
         ".html": {
-          "relative_path": "articles/compiler/CONFIG_FILE.html",
-          "hash": "6LNx57GaMZXdvh2XsOgUbrvcKpuRKtG02CpNpnOKctM="
+          "relative_path": "articles/compiler/CONFIG_FILE.html"
         }
       },
       "version": ""
@@ -4014,8 +4173,7 @@
       "source_relative_path": "articles/compiler/CONSTRUCTOR_EXTENSIONS.md",
       "output": {
         ".html": {
-          "relative_path": "articles/compiler/CONSTRUCTOR_EXTENSIONS.html",
-          "hash": "67W/gpvRUmW33FU75VPv84j/p23nszzz1bvaPPdKOZw="
+          "relative_path": "articles/compiler/CONSTRUCTOR_EXTENSIONS.html"
         }
       },
       "version": ""
@@ -4025,8 +4183,7 @@
       "source_relative_path": "articles/compiler/PACKAGING.md",
       "output": {
         ".html": {
-          "relative_path": "articles/compiler/PACKAGING.html",
-          "hash": "G69El425twqn2aMH4J5KlTfkPxlTSfaR/Y7JzWyk3kY="
+          "relative_path": "articles/compiler/PACKAGING.html"
         }
       },
       "version": ""
@@ -4036,8 +4193,7 @@
       "source_relative_path": "articles/compiler/README.md",
       "output": {
         ".html": {
-          "relative_path": "articles/compiler/README.html",
-          "hash": "S8cN8zsk1JEdmnWHuKF+3VoFhxC2ElGO14Rp9LpUGqk="
+          "relative_path": "articles/compiler/README.html"
         }
       },
       "version": ""
@@ -4047,8 +4203,7 @@
       "source_relative_path": "articles/conceptual/Conceptual.md",
       "output": {
         ".html": {
-          "relative_path": "articles/conceptual/Conceptual.html",
-          "hash": "QdrYOL03xktcPFeTRxX2dQ0XpKb9guWnQ3AZYsxRPR8="
+          "relative_path": "articles/conceptual/Conceptual.html"
         }
       },
       "version": ""
@@ -4058,8 +4213,7 @@
       "source_relative_path": "articles/connectors/Dummy.md",
       "output": {
         ".html": {
-          "relative_path": "articles/connectors/Dummy.html",
-          "hash": "lhGwI+NCbLIrrDtRHdjXdUjwk3g7tz3K6U/VT9R7wuA="
+          "relative_path": "articles/connectors/Dummy.html"
         }
       },
       "version": ""
@@ -4069,8 +4223,7 @@
       "source_relative_path": "articles/connectors/README.md",
       "output": {
         ".html": {
-          "relative_path": "articles/connectors/README.html",
-          "hash": "K7o0VDxgAjVZMX7nITFitQyj6LcSC9sHTsBNQkK6P1c="
+          "relative_path": "articles/connectors/README.html"
         }
       },
       "version": ""
@@ -4080,8 +4233,7 @@
       "source_relative_path": "articles/connectors/WebAPI.md",
       "output": {
         ".html": {
-          "relative_path": "articles/connectors/WebAPI.html",
-          "hash": "J++UYiuaDtLHjUBX0hE118beNFfVQTQh3i5Qc0SAmNY="
+          "relative_path": "articles/connectors/WebAPI.html"
         }
       },
       "version": ""
@@ -4091,8 +4243,7 @@
       "source_relative_path": "articles/general/CODING_STYLE.md",
       "output": {
         ".html": {
-          "relative_path": "articles/general/CODING_STYLE.html",
-          "hash": "jr1s5mAYtXginRUzWzx6bUEkPhQKfUHBrbBIUVuFHIg="
+          "relative_path": "articles/general/CODING_STYLE.html"
         }
       },
       "version": ""
@@ -4102,8 +4253,7 @@
       "source_relative_path": "articles/intro.md",
       "output": {
         ".html": {
-          "relative_path": "articles/intro.html",
-          "hash": "3MNUPgMN1j3UVpwkR7JRPMpIWBhEuKs3oFdvXHWms48="
+          "relative_path": "articles/intro.html"
         }
       },
       "version": ""
@@ -4113,8 +4263,7 @@
       "source_relative_path": "articles/ixd/IXD.md",
       "output": {
         ".html": {
-          "relative_path": "articles/ixd/IXD.html",
-          "hash": "atbSMi8ZeSTx0JPfAnCrbwCU0vZE1jJn7QQaznmrUfk="
+          "relative_path": "articles/ixd/IXD.html"
         }
       },
       "version": ""
@@ -4124,8 +4273,17 @@
       "source_relative_path": "articles/ixr/IXR.md",
       "output": {
         ".html": {
-          "relative_path": "articles/ixr/IXR.html",
-          "hash": "DVdy/il3KQ4wH0MipzNPwvpQrKO4DO9C2JmE+ZIUzAM="
+          "relative_path": "articles/ixr/IXR.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/ltr/LTR.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/ltr/LTR.html"
         }
       },
       "version": ""
@@ -4135,8 +4293,10 @@
       "source_relative_path": "articles/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "articles/toc.html",
-          "hash": "YtdDVR/uhPJJMsH2mbLnRwlqHONXRdqXZTyyihl15To="
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
         }
       },
       "version": ""
@@ -4373,6 +4533,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/example-resx.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/example-resx.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/favicon.ico",
       "output": {
         "resource": {
@@ -4436,8 +4606,7 @@
       "source_relative_path": "index.md",
       "output": {
         ".html": {
-          "relative_path": "index.html",
-          "hash": "b3JdetmuFgTHZC7NPjXV4hF2SqHiaUVPm0jXNasVE/g="
+          "relative_path": "index.html"
         }
       },
       "version": ""
@@ -4447,14 +4616,15 @@
       "source_relative_path": "toc.yml",
       "output": {
         ".html": {
-          "relative_path": "toc.html",
-          "hash": "0MpIRbdQJKoFSdYQbvF75Dk9ot+RvDQOMoKUNcMWu/E="
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
     }
   ],
-  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"

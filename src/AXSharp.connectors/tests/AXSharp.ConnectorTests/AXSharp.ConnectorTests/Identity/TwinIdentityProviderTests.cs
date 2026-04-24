@@ -1,9 +1,9 @@
 // AXSharp.ConnectorTests
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using AXSharp.Connector.ValueTypes;
 using AXSharp.Connector.ValueTypes.Online;
@@ -184,42 +184,43 @@ namespace AXSharp.ConnectorTests.Identity
         }
 
         [Fact]
-        public void CanCallReadIdentities()
+        public async void CanCallReadIdentities()
         {
             // Arrange
             var connector = Substitute.For<DummyConnector>();
             var testClass = Substitute.For<TwinIdentityProvider>(connector);
 
             // Act
-            var result = testClass.ReadIdentities();
+            var result = await testClass.ReadIdentitiesAsync();
 
             // Assert
             connector.Received().ReadBatchAsync(result).Wait();
         }
 
         [Fact]
-        public void CanCallRefreshIdentities()
+        public async void CanCallRefreshIdentities()
         {
             // Arrange
             var connector = Substitute.For<DummyConnector>();
             var testClass = Substitute.For<TwinIdentityProvider>(_connector);
 
             // Act
-            testClass.RefreshIdentities();
+            await testClass.ConstructIdentitiesAsync();
 
             // Assert
-            testClass.Received().ReadIdentities();
-            testClass.Received().SortIdentities();
+            await testClass.Received().ReadIdentitiesAsync();
+            await testClass.Received().SortIdentitiesAsync();
         }
 
         [Fact]
-        public void CanCallSortIdentities()
+        public async void CanCallSortIdentities()
         {
             // Arrange
             var testClass = Substitute.For<TwinIdentityProvider>();
 
             var identityVar_2 = Substitute.For<OnlinerULInt, IOnline<ulong>>();
             identityVar_2.LastValue.Returns(2ul);
+            identityVar_2.Cyclic.Returns(2ul);
             var obj2 = Substitute.For<ITwinIdentity>();
             obj2.Identity.Returns(identityVar_2);
             
@@ -227,9 +228,11 @@ namespace AXSharp.ConnectorTests.Identity
             var obj1 = Substitute.For<ITwinIdentity>();
             obj1.Identity.Returns(identityVar_1);
             identityVar_1.LastValue.Returns(1ul);
+            identityVar_1.Cyclic.Returns(1ul);
             
             var identityVar_3 = Substitute.For<OnlinerULInt, IOnline<ulong>>();
             identityVar_3.LastValue.Returns(3ul);
+            identityVar_3.Cyclic.Returns(3ul);
             var obj3 = Substitute.For<ITwinIdentity>();
             obj3.Identity.Returns(identityVar_3);
 
@@ -238,7 +241,7 @@ namespace AXSharp.ConnectorTests.Identity
             testClass.AddIdentity(obj1);
 
             // Act
-            testClass.SortIdentities();
+            await testClass.SortIdentitiesAsync();
 
             // Assert
             Assert.Equal(1ul, testClass.Identities.ElementAt(0).Key);

@@ -1,17 +1,16 @@
 ﻿// AXSharp.Connector
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
+using AXSharp.Connector.ValueTypes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using AXSharp.Connector.ValueTypes;
 
 namespace AXSharp.Connector;
 
@@ -30,6 +29,8 @@ public class DummyConnector : Connector
     }
 
     private volatile object _lock = new();
+    /// <inherits/>    
+    public override string TargetPlatformMoniker => "dummy";
 
     private void RwCycle()
     {
@@ -54,7 +55,9 @@ public class DummyConnector : Connector
     ///     Reads batch of value items from the plc.
     /// </summary>
     /// <param name="primitives">Value items to be read.</param>
-    public override async Task ReadBatchAsync(IEnumerable<ITwinPrimitive> primitives)
+    /// <param name="priority"></param>
+    public override async Task ReadBatchAsync(IEnumerable<ITwinPrimitive> primitives,
+        eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250)
     {
         ArgumentNullException.ThrowIfNull(primitives);
 
@@ -73,7 +76,10 @@ public class DummyConnector : Connector
     ///     Writes batch of value items to the plc.
     /// </summary>
     /// <param name="primitives">Value items to be written.</param>
-    public override async Task WriteBatchAsync(IEnumerable<ITwinPrimitive> primitives)
+    /// <param name="priority">Determined this batch priority</param>
+    /// <param name="chunkSize">Size of each chunk for processing primitives. Default is 250 for Low priority.</param>
+    /// <param name="interChunkDelay">Delay between processing chunks in milliseconds. Default is 250 for Low priority.</param>
+    public override async Task WriteBatchAsync(IEnumerable<ITwinPrimitive> primitives, eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250)
     {
         ArgumentNullException.ThrowIfNull(primitives);
 
@@ -95,5 +101,38 @@ public class DummyConnector : Connector
     /// </summary>
     public override void ReloadConnector()
     {
+    }
+
+    internal override async Task ReadBatchAsyncCyclic(IEnumerable<ITwinPrimitive> primitives,
+        eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250)
+    {
+        ArgumentNullException.ThrowIfNull(primitives);
+
+        await Task.Run(() =>
+        {
+            lock (_lock)
+            {
+                foreach (var item in primitives)
+                    item.GetType().GetMethod("UpdateRead", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(item,
+                        new[] { item.GetType().GetProperty("Cyclic").GetValue(item) });
+            }
+        });
+    }
+
+    internal override async Task WriteBatchAsyncCyclic(IEnumerable<ITwinPrimitive> primitives, eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250)
+    {
+        ArgumentNullException.ThrowIfNull(primitives);
+
+        await Task.Run(() =>
+        {
+            lock (_lock)
+            {
+                foreach (var twinPrimitive in primitives)
+                {
+                    var item = (OnlinerBase)twinPrimitive;
+                    item.SetCyclicValue(item.GetCyclicValue<object>());
+                }
+            }
+        });
     }
 }

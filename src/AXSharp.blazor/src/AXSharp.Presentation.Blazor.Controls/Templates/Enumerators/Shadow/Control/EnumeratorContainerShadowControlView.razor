@@ -2,15 +2,24 @@
 @typeparam T
 @inherits EnumeratorsBaseShadow<T>
 
-<TemplateView Symbol="@OnlinerSymbol" FailureReason="@Onliner.AccessStatus.FailureReason">
-        <label for="@ComponentId" >@Onliner.AttributeName</label>
+<TemplateView OnlinerSymbol="@OnlinerSymbol" FailureReason="@Onliner.AccessStatus.FailureReason" ToolTipOrHumanReadable="@ToolTipOrHumanReadable" Symbol="@Symbol">
+    <div class="select-group">
+        @if (!string.IsNullOrEmpty(Onliner.AttributeName) && !HideLabel)
+        {
+            <label for="@ComponentId">@Onliner.AttributeName</label>
+        }
+
         <select id="@ComponentId"
-                class="w-100 form-select @AccessStatus"
+                class="min-w-6 @AccessStatus"
                 @bind="@Onliner.Shadow"
-                disabled="@IsReadOnly">
+                readonly="@IsReadOnly">
+
             @foreach (var name in Names)
             {
-                <option class="form-control" value=@EnumToIntConverter.ConvertBack(name,null,null,null)>@name</option>
+                <option value=@EnumToIntConverter.ConvertBack(name, null, null, null)>
+                    @name
+                </option>
             }
         </select>
+    </div>
 </TemplateView>

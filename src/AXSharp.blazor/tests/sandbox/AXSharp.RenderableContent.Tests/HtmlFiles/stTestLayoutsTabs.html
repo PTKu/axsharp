@@ -1,23 +1,5 @@
-﻿<div name="testingProgram-testLayouts-test_tabs">
-    <div name="TabControl" class="w-100 ">
-        <ul class="nav nav-tabs mb-3">
-            <li class="nav-item">
-                <button type="button" class="nav-link active">
-                    <b>Test Integer</b>
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link">
-                    <b>Test String</b>
-                </button>
-            </li>
-        </ul>
-        <div class="content">
-            <div name="testingProgram-testLayouts-test_tabs-testInteger" class="w-100 form-group mb-2">
-                <label for:ignore="testInteger_95ac2b74-8cc7-418e-8d92-bc57d92f2a57">Test Integer</label>
-                <input id:ignore="testInteger_95ac2b74-8cc7-418e-8d92-bc57d92f2a57" readonly="readonly" class="w-100 form-control " style="background-color:transparent" type="text" step="any" value="0">
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="flex flex-wrap my-6 "><nav class="tab" blazor:elementReference=""><button class="tab-btn active" blazor:onclick="1" blazor:elementReference="cb80acd4-1106-4f40-84ec-8ddfd80a289f">Test Integer</button><button class="tab-btn " blazor:onclick="2" blazor:elementReference="bf94d88d-333e-4388-9236-cbeb93f51c36">Test String</button></nav></div>
+
+    <div name="testingProgram-testLayouts-test_tabs-testInteger"><div class="input-group "><div class="flex flex-wrap flex-row items-center gap-2"><label for:ignore="18c2882c-91cf-402c-aac9-dfd12a015a5c">Test Integer</label></div><div class="relative w-full"><input type="number" id:ignore="18c2882c-91cf-402c-aac9-dfd12a015a5c" class=" w-full min-w-20" style="" blazor:onfocusin="3" blazor:onfocusout="4" step="any" readonly="readonly" value="0" blazor:onchange="5" /></div></div>
+    <div class="invalid-feedback hidden"></div>
+    <div class="invalid-feedback"></div></div>

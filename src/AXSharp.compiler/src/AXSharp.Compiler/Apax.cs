@@ -1,9 +1,9 @@
 ﻿// AXSharp.Compiler
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using NuGet.Versioning;
 using YamlDotNet.Serialization.NamingConventions;
@@ -62,12 +62,18 @@ public class Apax
     public IDictionary<string, string>? Dependencies { get; set; }
 
     /// <summary>
+    ///  Gets or sets variables section.
+    ///  This maps to the `variables` node in apax.yml.
+    /// </summary>
+    public ApaxVariables? Variables { get; set; }
+
+    /// <summary>
     /// Creates new instance of <see cref="Apax"/>.
     /// </summary>
     /// <param name="projectFile">Project file from which the ApaxFile object will be created.</param>
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
-    public static Apax CreateApax(string projectFile)
+    public static Apax CreateApaxDto(string projectFile)
     {
         try
         {
@@ -85,6 +91,31 @@ public class Apax
         }
     }
 
+    public static Apax TryCreateApaxDto(string projectFile)
+    {
+        try
+        {
+            if (!File.Exists(projectFile))
+                return null;
+
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .IgnoreUnmatchedProperties()
+                .Build();
+
+            return deserializer.Deserialize<Apax>(File.ReadAllText(projectFile));
+        }
+        catch (FileNotFoundException)
+        {
+            throw new FileNotFoundException(
+                "'apax.yml' file was not found in the working directory. Make sure your current directory is simatic-ax project directory or provide source directory argument (for details see ixc --help)");
+        }        
+        catch(YamlDotNet.Core.YamlException ex) 
+        {
+            throw new InvalidDataException($"Failed to process apax file: '{projectFile}' {ex.ToString()}");            
+        }
+    }
+
     /// <summary>
     /// Update version in an apax.yml file
     /// </summary>
@@ -95,7 +126,7 @@ public class Apax
     {
         try
         {
-            var apax = CreateApax(apaxFile);
+            var apax = CreateApaxDto(apaxFile);
             apax.Version = version;
 
 
@@ -114,4 +145,22 @@ public class Apax
                 "'apax.yml' file was not found in the working directory. Make sure your current directory is simatic-ax project directory or provide source directory argument (for details see ixc --help)");
         }
     }
+}
+
+/// <summary>
+/// Represents the `variables` section of apax.yml.
+/// </summary>
+public class ApaxVariables
+{
+    /// <summary>
+    /// Values for APAX build arguments. Maps to the YAML key `APAX_BUILD_ARGS`.
+    /// </summary>
+    [YamlMember(Alias = "APAX_BUILD_ARGS", ApplyNamingConventions = false)]
+    public IEnumerable<string>? ApaxBuildArgs { get; set; }
+
+    /// <summary>
+    /// Values for defined preprocessor symbols. Maps to the YAML key `DEFINED_PREPROCESSOR_SYMBOLS`.
+    /// </summary>
+    [YamlMember(Alias = "DEFINED_PREPROCESSOR_SYMBOLS", ApplyNamingConventions = false)]
+    public IEnumerable<string>? DefinedPreprocessorSymbols { get; set; }
 }

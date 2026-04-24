@@ -1,12 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
+@inject IJSRuntime JSRuntime
+
+<div class="bg-background-light">
     <NavMenu />
 </div>
-<div class="main">
+<div class="bg-background">
 
     <div class="content px-4">
         @Body
     </div>
 </div>
 
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

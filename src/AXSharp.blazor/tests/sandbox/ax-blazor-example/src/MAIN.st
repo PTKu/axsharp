@@ -1,4 +1,5 @@
-CLASS MAIN
+{S7.extern=ReadWrite}
+CLASS PUBLIC MAIN
     VAR PUBLIC
         {#ix-set:AttributeName = "<#Hello#> <#World#>"}
         Hello_World : STRING := 'Hello world!';
@@ -19,6 +20,8 @@ CLASS MAIN
         arr1 : ARRAY [0..2] OF stTest := [(p1 := 6, p2 := 3),(p1 := 9, p2 := 10),(p1 := 12,p2 := 33)];	
         arr2 :ARRAY [0..5] OF INT;
         dateVar : DATE;
+
+        unitFormatExample : stUnitFormatExample;
         
         {#ix-set:AttributeName = "instanceOfComplex"}
         instanceOfstComplex: stComplex ;
@@ -35,6 +38,15 @@ CLASS MAIN
         groupBox_test: GroupBox_other;
         cu00: CU00x;
         cuBase: CUBase;
+
+        {#ix-attr:[RenderTemplateOverride("ixBlazor.App.Custom.MySimplePrimitiveStruct")]}
+        OverridedSimpleStruct : stSimplePrimitive;
+
+        InnerOverridedStruct : stRenderTemplateOverride;
+
+        {#ix-attr:[RenderTemplateOverride("ixBlazor.App.Custom.MySimplePrimitiveTag")]}
+        OverridedTag : WORD;
+
     END_VAR
     
 END_CLASS

@@ -28,14 +28,14 @@ namespace AXSharp.ixc_doc.Visitors
         private YamlHelpers _yh { get; set; }
         private CodeToYamlMapper _mp { get; set; }
         private List<NamespaceWrapper> NamespaceWrappers {get; set; } = new List<NamespaceWrapper>();
-        internal YamlBuilder(YamlSerializer serializer, string projectPath)
+        internal YamlBuilder(YamlSerializer serializer)
         {
-            _yh = new YamlHelpers(projectPath);
+            _yh = new YamlHelpers();
             _mp = new CodeToYamlMapper(_yh);
             _s = serializer;
         }
 
-        public virtual void CreateNamespaceYaml(INamespaceDeclaration namespaceDeclaration, MyNodeVisitor v)
+        public virtual void CreateNamespaceYaml(INamespaceDeclaration namespaceDeclaration, DocNodeVisitor v)
         {
             // create toc item
             var tocSchemaItem = new TocSchema.Item(namespaceDeclaration, namespaceDeclaration.Name);
@@ -84,7 +84,7 @@ namespace AXSharp.ixc_doc.Visitors
         }
 
         //operation on semantic tree
-        public virtual void CreateClassYaml(IClassDeclaration classDeclaration, MyNodeVisitor v)
+        public virtual void CreateClassYaml(IClassDeclaration classDeclaration, DocNodeVisitor v)
         {
             var item = _mp.PopulateItem(classDeclaration);
             
@@ -120,14 +120,14 @@ namespace AXSharp.ixc_doc.Visitors
         }
 
         //operation on semantic tree
-        public virtual void CreateFieldYaml(IFieldDeclaration fieldDeclaration, MyNodeVisitor visitor)
+        public virtual void CreateFieldYaml(IFieldDeclaration fieldDeclaration, DocNodeVisitor visitor)
         {
             var item = _mp.PopulateItem(fieldDeclaration);
             visitor.YamlHelper.Items.Add(item);
             _yh.AddReference(fieldDeclaration.Type, visitor);
         }
 
-        public virtual void CreateMethodYaml(IMethodDeclaration methodDeclaration, MyNodeVisitor visitor)
+        public virtual void CreateMethodYaml(IMethodDeclaration methodDeclaration, DocNodeVisitor visitor)
         {
             var item = _mp.PopulateItem(methodDeclaration);
             visitor.YamlHelper.Items.Add(item);
@@ -144,7 +144,7 @@ namespace AXSharp.ixc_doc.Visitors
             }
         }
 
-        public virtual void CreateNamedValueTypeYaml(INamedValueTypeDeclaration namedValueTypeDeclaration, MyNodeVisitor visitor)
+        public virtual void CreateNamedValueTypeYaml(INamedValueTypeDeclaration namedValueTypeDeclaration, DocNodeVisitor visitor)
         {
             var item = _mp.PopulateItem(namedValueTypeDeclaration);
             visitor.YamlHelper.Items.Add(item);
@@ -152,6 +152,8 @@ namespace AXSharp.ixc_doc.Visitors
             var tocSchemaItem = new TocSchema.Item(item.Uid, item.FullName);
 
             _yh.AddToTocSchema(visitor, tocSchemaItem, item.Namespace);
+
+            namedValueTypeDeclaration.ChildNodes.ToList().ForEach(p => p.Accept(visitor, this));
 
             //map helpers list to schema lists
             visitor.MapYamlHelperToSchema();
@@ -164,7 +166,43 @@ namespace AXSharp.ixc_doc.Visitors
             visitor.YamlHelper.References.Clear();
         }
 
-        public virtual void CreateInterfaceYaml(IInterfaceDeclaration interfaceDeclaration, MyNodeVisitor v)
+        public virtual void CreateEnumTypeYaml(IEnumTypeDeclaration enumTypeDeclaration, DocNodeVisitor visitor)
+        {
+            var item = _mp.PopulateItem(enumTypeDeclaration);
+            visitor.YamlHelper.Items.Add(item);
+
+            var tocSchemaItem = new TocSchema.Item(item.Uid, item.FullName);
+
+            _yh.AddToTocSchema(visitor, tocSchemaItem, item.Namespace);
+
+            enumTypeDeclaration.ChildNodes.ToList().ForEach(p => p.Accept(visitor, this));
+
+            //map helpers list to schema lists
+            visitor.MapYamlHelperToSchema();
+
+            //serialize schema to yaml
+            _s.SchemaToYaml(visitor.YamlHelper.Schema, Helpers.Helpers.GetBaseUid(enumTypeDeclaration));
+            //clear schema for next use
+            visitor.YamlHelper.Schema = new YamlSchema();
+            visitor.YamlHelper.Items.Clear();
+            visitor.YamlHelper.References.Clear();
+        }
+
+        public virtual void CreateNamedValueYaml(INamedValueDeclaration namedValueDeclaration, DocNodeVisitor visitor)
+        {
+            var item = _mp.PopulateItem(namedValueDeclaration);
+            visitor.YamlHelper.Items.Add(item);
+            _yh.AddReference(namedValueDeclaration.Type, visitor);
+        }
+
+        public virtual void CreateEnumValueYaml(IEnumValueDeclaration enumValueDeclaration, DocNodeVisitor visitor)
+        {
+            var item = _mp.PopulateItem(enumValueDeclaration);
+            visitor.YamlHelper.Items.Add(item);
+            _yh.AddReference(enumValueDeclaration.Type, visitor);
+        }
+
+        public virtual void CreateInterfaceYaml(IInterfaceDeclaration interfaceDeclaration, DocNodeVisitor v)
         {
             var item = _mp.PopulateItem(interfaceDeclaration);
             v.YamlHelper.Items.Add(item);
@@ -195,7 +233,7 @@ namespace AXSharp.ixc_doc.Visitors
             v.YamlHelper.References.Clear();
         }
 
-        public virtual void CreateMethodPrototypeYaml(IMethodPrototypeDeclaration methodPrototypeDeclaration, MyNodeVisitor visitor)
+        public virtual void CreateMethodPrototypeYaml(IMethodPrototypeDeclaration methodPrototypeDeclaration, DocNodeVisitor visitor)
         {
             var item = _mp.PopulateItem(methodPrototypeDeclaration);
             visitor.YamlHelper.Items.Add(item);
@@ -213,7 +251,7 @@ namespace AXSharp.ixc_doc.Visitors
             }
         }
 
-        public virtual void CreateFunctionYaml(IFunctionDeclaration functionDeclaration, MyNodeVisitor v)
+        public virtual void CreateFunctionYaml(IFunctionDeclaration functionDeclaration, DocNodeVisitor v)
         {
             var item = _mp.PopulateItem(functionDeclaration);
             v.YamlHelper.Items.Add(item);
@@ -275,6 +313,39 @@ namespace AXSharp.ixc_doc.Visitors
             wrapper.NamespaceItem.Children.AddRange(wrapper.NamespaceTemporaryChildren);
         }
 
-        
+        public virtual void CreateStructuredTypeYaml(IStructuredTypeDeclaration structuredTypeDeclaration, DocNodeVisitor v)
+        {
+            var item = _mp.PopulateItem(structuredTypeDeclaration);
+
+            //add to items
+            v.YamlHelper.Items.Add(item);
+
+            var tocSchemaItem = new TocSchema.Item(item.Uid, item.FullName);
+
+            if (item.Namespace != "$GLOBAL")
+            {
+                //class is grouped in namespace
+                _yh.AddToTocSchema(v, tocSchemaItem, item.Namespace);
+            }
+            else
+            {
+                // if global, class is not grouped
+                _yh.AddToTocSchema(v, tocSchemaItem, null);
+            }
+
+            structuredTypeDeclaration.ChildNodes.ToList().ForEach(p => p.Accept(v, this));
+
+            //map helpers list to schema lists
+            v.MapYamlHelperToSchema();
+
+            //serialize schema to yaml
+            _s.SchemaToYaml(v.YamlHelper.Schema, Helpers.Helpers.GetBaseUid(structuredTypeDeclaration));
+            //clear schema for next use
+            v.YamlHelper.Schema = new YamlSchema();
+            v.YamlHelper.Items.Clear();
+            v.YamlHelper.References.Clear();
+        }
+
+
     }
 }

@@ -3,11 +3,11 @@ version: 0.0.0
 type: app
 targets:
   - "1500"
-  - axunit-llvm
+  - llvm
 devDependencies:
-  "@ax/sdk": 3.0.2
-  "@ax/sld": ^0.14.2
+  "@ax/sdk": 2504.0.0-rc.2
 scripts:
-  ixc: 
-  - dotnet run --project ..\\..\\..\\..\\AXSharp.compiler\\src\\ixc\\AXSharp.ixc.csproj --framework net7.0
-  
+  ixc:
+    - dotnet run --project
+      ..\\..\\..\\..\\AXSharp.compiler\\src\\ixc\\AXSharp.ixc.csproj --framework
+      net10.0

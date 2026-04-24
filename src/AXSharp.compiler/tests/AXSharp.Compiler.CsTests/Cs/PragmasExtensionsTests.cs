@@ -1,9 +1,9 @@
 ﻿// AXSharp.Compiler.CsTests
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using System.Collections.ObjectModel;
 using AX.ST.Semantic;
@@ -49,7 +49,7 @@ public class PragmasExtensionsTests
     [Fact]
     public void should_declare_property()
     {
-        var expected = "private string _SomeField;\npublic string SomeField { get => string.IsNullOrEmpty(_SomeField) ? SymbolTail : this.Translate(_SomeField).Interpolate(this); set => _SomeField = value; }";
+        var expected = "private string _SomeField;\npublic string SomeField { get => string.IsNullOrEmpty(_SomeField) ? SymbolTail : _SomeField.Interpolate(this).CleanUpLocalizationTokens(); set => _SomeField = value; }public string GetSomeField(System.Globalization.CultureInfo culture){return this.Translate(_SomeField, culture).Interpolate(this);}\npublic string SomeField_raw { get { return _SomeField; } }";
         var field = NSubstitute.Substitute.For<ITypeDeclaration>();
         field.Name.Returns("someField");
         field.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
@@ -72,7 +72,7 @@ public class PragmasExtensionsTests
     [Fact]
     public void should_set_property_string()
     {
-        var expected = "someField.AttributeName = \"This is name\";";
+        var expected = "someField.AttributeName = @\"This is name\";";
         var field = NSubstitute.Substitute.For<IFieldDeclaration>();
         field.Name.Returns("someField");
         field.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
@@ -112,6 +112,132 @@ public class PragmasExtensionsTests
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void should_set_property_multiline_string()
+    {
+        var expected = "someField.MultilineSet = @\"Line 1 \n Line 2\";";
+        var field = NSubstitute.Substitute.For<IFieldDeclaration>();
+        field.Name.Returns("someField");
+        field.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
+        {
+            new PragmaMock("#ix-set:MultilineSet =  \"Line 1 \n Line 2\"")
+        }));
+
+        //var field = new FieldMock("someField",
+        //    new ReadOnlyCollection<IPragma>(new IPragma[]
+        //    {
+        //        new PragmaMock("#ix-set:AttributeMinimum = 10.5f")
+        //    }));
+        
+        var actual = field.SetProperties();
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void should_set_generic_multiple_attributes_no_constraints()
+    {
+        var expected = "<T,P>";
+        var type = NSubstitute.Substitute.For<ITypeDeclaration>();
+        type.Name.Returns("someField");
+        type.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
+        {
+            new PragmaMock("#ix-generic:<T,P>")
+        }));
+
+        var actual = type.GetGenericAttributes();
+
+        Assert.Equal(expected, actual.Product);
+    }
+    [Fact]
+    public void should_set_generic_single_attributes_no_constraints()
+    {
+        var expected = "<T>";
+        var type = NSubstitute.Substitute.For<ITypeDeclaration>();
+        type.Name.Returns("someField");
+        type.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
+        {
+            new PragmaMock("#ix-generic:<T>")
+        }));
+
+        var actual = type.GetGenericAttributes();
+
+        Assert.Equal(expected, actual.Product);
+    }
+
+
+    [Fact]
+    public void should_set_generic_single_attributes_with_constraints()
+    {
+        var expectedGenericDeclaration = "<T>";
+        var expectedGenericConstraints = "where T : class";
+        var type = NSubstitute.Substitute.For<ITypeDeclaration>();
+        type.Name.Returns("someField");
+        type.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
+        {
+            new PragmaMock("#ix-generic:<T> where T : class")
+        }));
+
+        var actual = type.GetGenericAttributes();
+
+        Assert.Equal(expectedGenericDeclaration, actual.Product);
+        Assert.Equal(expectedGenericConstraints, actual.GenericConstrains?.Trim());
+        Assert.Equal("T", actual.GenericTypes.ToArray()[0]);
+    }
+
+    [Fact]
+    public void should_set_generic_multiple_attributes_with_constraints()
+    {
+        var expectedGenericDeclaration = "<T,P>";
+        var expectedGenericConstraints = "where T : class where P : struct";
+        var type = NSubstitute.Substitute.For<ITypeDeclaration>();
+        type.Name.Returns("someField");
+        type.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
+        {
+            new PragmaMock("#ix-generic:<T,P> where T : class where P : struct")
+        }));
+
+        var actual = type.GetGenericAttributes();
+
+        Assert.Equal(expectedGenericDeclaration, actual.Product);
+        Assert.Equal(expectedGenericConstraints, actual.GenericConstrains?.Trim());
+        Assert.Equal("T", actual.GenericTypes.ToArray()[0]);
+        Assert.Equal("P", actual.GenericTypes.ToArray()[1]);
+    }
+
+    [Fact]
+    public void should_assign_generic_type_to_extender()
+    {
+        var expected = "T";
+        var type = NSubstitute.Substitute.For<ITypeDeclaration>();
+        type.Name.Returns("someField");
+        type.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
+        {
+            new PragmaMock("#ix-generic:T")
+        }));
+
+        var actual = type.GetGenericAttributes();
+
+        Assert.Equal(expected, actual.GenericTypeAssignment.type);
+    }
+
+    [Fact]
+    public void should_assign_generic_type_to_extender_as_plain()
+    {
+        var expected = "T";
+        var type = NSubstitute.Substitute.For<ITypeDeclaration>();
+        type.Name.Returns("someField");
+        type.Pragmas.Returns(new ReadOnlyCollection<IPragma>(new IPragma[]
+        {
+            new PragmaMock("#ix-generic:T as POCO")
+        }));
+
+        var actual = type.GetGenericAttributes();
+
+       Assert.Equal(expected, actual.GenericTypeAssignment.type);
+       Assert.Equal(true, actual.GenericTypeAssignment.isPoco);
+    }
 }
 
 public class PragmaMock : IPragma
@@ -123,11 +249,11 @@ public class PragmaMock : IPragma
 
     public string Content { get; }
 
-    public Location Location => throw new NotImplementedException();
+    public Location Location => null;
 
     public IEnumerable<ISemanticNode> ChildNodes => throw new NotImplementedException();
 
-    public void Accept<T>(ISemanticNodeVisitor<T> visitor, T data)
+    public TResult Accept<TResult, TContext>(ISemanticNodeVisitor<TResult, TContext> visitor, TContext data)
     {
         throw new NotImplementedException();
     }

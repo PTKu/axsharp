@@ -133,7 +133,6 @@ Primitive types are generated in **Control** presentation type whereas IxCompone
 
 ### **RenderIgnore and custom labels**
 
-
 Thanks to the support of custom attributes in the PLC code you can specify, which elements you want to exclude from rendering. You can also set custom names for each element. See the example below.
 
 Let's have the following PLC code with attributes:
@@ -171,6 +170,17 @@ It is possible to ignore properties only in specific presentation types:
 testIxComponent: IxComponent;
 ```
 <div id='id-editprop'/>
+
+### **RenderTemplateOverride**
+
+You can use the RenderTemplateOverride attribute to override the generated template. This attribute replaces the generated template with the template you specified.
+
+When you specifying a template name, it is necessary to include the full name with a namespace.
+
+```
+{#ix-attr:[RenderTemplateOverride("ixBlazor.App.Custom.MySimplePrimitiveStruct")]}
+testRenderTemplateOverrideStruct : stSimplePrimitive;
+```
 
 ### **Edit Property**
 
@@ -228,18 +238,39 @@ Result:
 
 ### **Styling**
 
-AXSharp.Presentation.Blazor contains in-built styles. Styling is provided by [Bootstrap library](https://getbootstrap.com/). In-built styles can be customized with Sass technology, which will produce SCSS files. SCSS files can be compiled into one CSS file which can be used as application-wide style.
+AXSharp.Presentation.Blazor contains in-built styles. The styling is provided by `momentum.css`, a custom CSS file built with [Tailwind CSS](https://tailwindcss.com/). This approach consolidates all styling into a single dependency for better maintainability.
 
-Currently, the framework contains a default style that can be added as a reference in the Blazor application file *_Host.cshtml* in the following way:
+To add the styles to your Blazor application, reference the CSS file in your *_Host.cshtml* (or *App.razor* for .NET 8+ Blazor applications):
+
+```html
+<link rel="stylesheet" href="/_content/AXSharp.Presentation.Blazor.Controls/css/momentum.css">
+```
+
+If you are also using the Operon library, include its stylesheet as well:
+
+```html
+<link rel="stylesheet" href="/_content/Inxton.Operon/css/momentum.css">
+```
+
+#### Building Custom Styles
+
+If you need to customize the styles, you can modify the Tailwind CSS source file and rebuild the `momentum.css`. The source file is located at:
 
 ```
- <link rel="stylesheet" href="/_content/AXSharp.Presentation.Blazor.Controls/css/ix-bootstrap.min.css">
+src/AXSharp.blazor/src/AXSharp.Presentation.Blazor.Controls/wwwroot/css/tailwind.css
 ```
-It is possible to add built-in javascript libraries as well:
-```
-    <script src="/_content/AXSharp.Presentation.Blazor.Controls/js/ix-bootstrap.bundle.min.js"></script>
-    <script src="/_content/AXSharp.Presentation.Blazor.Controls/js/jquery-3.6.0.min.js"></script>
-```
+
+To rebuild the styles:
+
+1. Ensure Node.js is installed on your system
+2. Navigate to the `AXSharp.Presentation.Blazor.Controls` directory
+3. Run `npm install` to install dependencies (if not already done)
+4. Run the Tailwind CLI to build the CSS:
+   ```
+   npx @tailwindcss/cli -i ./wwwroot/css/tailwind.css -o ./wwwroot/css/momentum.css --minify
+   ```
+
+> **Note:** The build process automatically handles the Tailwind CSS compilation when you run the project build script.
 ### **Custom components libraries**
 
 AXSharp.Presentation.Controls framework provides possibility to create a custom library of components with corresponding views. 

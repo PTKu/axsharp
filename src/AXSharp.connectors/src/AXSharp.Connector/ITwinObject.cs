@@ -1,9 +1,9 @@
 ﻿// AXSharp.Connector
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using System;
 using System.Collections.Generic;
@@ -76,14 +76,14 @@ public interface ITwinObject : ITwinElement
     /// Reads online data and retrieved POCO object populated with actual online data.
     /// </summary>
     /// <returns>POCO with online data of this object</returns>
-    Task<T> OnlineToPlain<T>();
+    Task<T> OnlineToPlain<T>(eAccessPriority priority = eAccessPriority.Normal);
 
 
     /// <summary>
     /// Writes data from POCO object to online data (PLC)
     /// </summary>
     /// <param name="plain">POCO object to be written to the controller.</param>
-    Task PlainToOnline<T>(T plain);
+    Task PlainToOnline<T>(T plain, eAccessPriority priority = eAccessPriority.Normal);
 
 
     /// <summary>
@@ -98,4 +98,11 @@ public interface ITwinObject : ITwinElement
     /// </summary>
     /// <param name="plain">POCO object to be written to the shadows of this object.</param>
     Task PlainToShadow<T>(T plain);
+
+
+    ///<summary>
+    ///Compares if the current plain object has changed from the previous object.This method is used by the framework to determine if the object has changed and needs to be updated.
+    ///[!NOTE] Any member in the hierarchy that is ignored by the compilers (e.g. when CompilerOmitAttribute is used) will not be compared, and therefore will not be detected as changed.
+    ///</summary>
+    Task<bool> AnyChangeAsync<T>(T plain);
 }

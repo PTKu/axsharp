@@ -2,11 +2,21 @@
 @typeparam T
 @inherits EnumeratorsBaseShadow<T>
 
-<TemplateView Symbol="@OnlinerSymbol" FailureReason="@Onliner.AccessStatus.FailureReason">
-    <label for="@ComponentId" >@Onliner.AttributeName</label>
-    <input id="@ComponentId"
-            class="w-100 form-control @AccessStatus"
-            readonly="readonly"
-            style=@(IsReadOnly? "" : "background-color:transparent")
-            value="@EnumToIntConverter.Convert(@Onliner.Shadow,null,null,null)  " />
+<TemplateView OnlinerSymbol="@OnlinerSymbol" FailureReason="@Onliner.AccessStatus.FailureReason" ToolTipOrHumanReadable="@ToolTipOrHumanReadable" Symbol="@Symbol">
+    <div class="select-group">
+        @if (!string.IsNullOrEmpty(Onliner.AttributeName) && !HideLabel)
+        {
+            <label for="@ComponentId">@Onliner.AttributeName</label>
+        }
+
+        <select id="@ComponentId"
+                class="min-w-6 @AccessStatus"
+                readonly="readonly"
+                disabled="disabled">
+
+            <option selected>
+                @EnumToIntConverter.Convert(Onliner.Shadow, null, null, null)
+            </option>
+        </select>
+    </div>
 </TemplateView>

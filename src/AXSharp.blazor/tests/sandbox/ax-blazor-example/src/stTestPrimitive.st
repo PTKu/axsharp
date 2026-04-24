@@ -1,3 +1,4 @@
+{S7.extern=ReadWrite}
 CLASS stTestPrimitive
     VAR PUBLIC
         {#ix-set:AttributeName = "<#Integer From PLC#>"}	
@@ -22,6 +23,8 @@ CLASS stTestPrimitive
         TestDateTime : DATE_AND_TIME;	
         {#ix-set:AttributeName = "<#TIME_OF_DAY From PLC#>"}	
         TestTimeOfDay : TIME_OF_DAY;	
+        {#ix-set:AttributeName = "<#TIME From PLC#>"}	
+        TestTime : TIME;
     END_VAR
     
 END_CLASS

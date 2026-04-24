@@ -1,9 +1,9 @@
 ﻿// AXSharp.ConnectorLegacyTests
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using NUnit.Framework;
 using AXSharp.Connector.Identity;
@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AXSharp.Connector.Localizations;
 using AXSharp.Connector.ValueTypes;
+using System.Globalization;
 
 namespace AXSharp.Connector.Identity.Tests
 {
@@ -22,7 +23,7 @@ namespace AXSharp.Connector.Identity.Tests
     public class TwinIdentityProviderTests
     {
         [Test()]
-        public void AddIdentityTest()
+        public async Task AddIdentityTest()
         {
             //-- Arrange
             var identityProvider = new TwinIdentityProvider(new DummyConnector());
@@ -33,17 +34,17 @@ namespace AXSharp.Connector.Identity.Tests
             identityProvider.AddIdentity(new IdentityTestObject() { Identity = new OnlinerULInt() { Cyclic = 1000, SetLastValue = 1000 }, AttributeName = "n1000", Symbol = "s1000" });
             identityProvider.AddIdentity(new IdentityTestObject() { Identity = new OnlinerULInt() { Cyclic = 2000, SetLastValue = 2000 }, AttributeName = "n2000", Symbol = "s2000" });
 #pragma warning restore CS0618 // Type or member is obsolete
-            identityProvider.SortIdentities();
+            await identityProvider.SortIdentitiesAsync();
 
             //-- Assert
             var actual = identityProvider.GetTwinByIdentity(1000);
-            Assert.AreEqual("s1000", actual.Symbol);
-            Assert.AreEqual("n1000", actual.AttributeName);
+            Assert.That(actual.Symbol, Is.EqualTo("s1000"));
+            Assert.That(actual.AttributeName, Is.EqualTo("n1000"));
 
         }
 
         [Test()]
-        public void GetTwinByIdentityTest()
+        public async Task GetTwinByIdentityTest()
         {
             //-- Arrange
             var identityProvider = new TwinIdentityProvider(new DummyConnector());
@@ -53,20 +54,20 @@ namespace AXSharp.Connector.Identity.Tests
             identityProvider.AddIdentity(new IdentityTestObject() { Identity = new OnlinerULInt() { Cyclic = 1000, SetLastValue = 1000 }, AttributeName = "n1000", Symbol = "s1000" });
             identityProvider.AddIdentity(new IdentityTestObject() { Identity = new OnlinerULInt() { Cyclic = 2000, SetLastValue = 2000 }, AttributeName = "n2000", Symbol = "s2000" });
 #pragma warning restore CS0618 // Type or member is obsolete
-            identityProvider.SortIdentities();
+            await identityProvider.SortIdentitiesAsync();
 
             //-- Assert
             var actual = identityProvider.GetTwinByIdentity(1000);
-            Assert.AreEqual("s1000", actual.Symbol);
-            Assert.AreEqual("n1000", actual.AttributeName);
+            Assert.That(actual.Symbol, Is.EqualTo("s1000"));
+            Assert.That(actual.AttributeName, Is.EqualTo("n1000"));
 
             actual = identityProvider.GetTwinByIdentity(2000);
-            Assert.AreEqual("s2000", actual.Symbol);
-            Assert.AreEqual("n2000", actual.AttributeName);
+            Assert.That(actual.Symbol, Is.EqualTo("s2000"));
+            Assert.That(actual.AttributeName, Is.EqualTo("n2000"));
         }
 
         [Test()]
-        public void AddIdentityExistingTest()
+        public async Task AddIdentityExistingTest()
         {
             //-- Arrange
             var identityProvider = new TwinIdentityProvider(new DummyConnector());
@@ -80,20 +81,20 @@ namespace AXSharp.Connector.Identity.Tests
             identityProvider.AddIdentity(ident.MemberByIdentityObjectNoAttribute);
             identityProvider.AddIdentity(ident.MemberByIdentityObjectNoAttributeDiffIdentity);
             
-            identityProvider.SortIdentities();
+            await identityProvider.SortIdentitiesAsync();
 
             //-- Assert
-            Assert.AreEqual(2, identityProvider.IdentitiesCount);
+            Assert.That(identityProvider.IdentitiesCount, Is.EqualTo(2));
 
             var actual = identityProvider.GetTwinByIdentity(1000);            
-            Assert.AreEqual("s1000", actual.Symbol);
-            Assert.AreEqual("n1000", actual.AttributeName);
+            Assert.That(actual.Symbol, Is.EqualTo("s1000"));
+            Assert.That(actual.AttributeName, Is.EqualTo("n1000"));
 
 
             actual = identityProvider.GetTwinByIdentity(255854);
-            Assert.AreEqual(2, identityProvider.IdentitiesCount);
-            Assert.AreEqual("x1000", actual.Symbol);
-            Assert.AreEqual("x1000", actual.AttributeName);      
+            Assert.That(identityProvider.IdentitiesCount, Is.EqualTo(2));
+            Assert.That(actual.Symbol, Is.EqualTo("x1000"));
+            Assert.That(actual.AttributeName, Is.EqualTo("x1000"));      
         }
     }
 
@@ -192,17 +193,27 @@ namespace AXSharp.Connector.Identity.Tests
             throw new NotImplementedException();
         }
 
+        public string GetAttributeName(CultureInfo culture)
+        {
+            return this.Translate(this.AttributeName, culture);
+        }
+
+        public string GetHumanReadable(CultureInfo culture)
+        {
+            return this.Translate(this.HumanReadable, culture);
+        }
+
         public Connector GetConnector()
         {
             throw new NotImplementedException();
         }
 
-        public Task<T> OnlineToPlain<T>()
+        public Task<T> OnlineToPlain<T>(eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }
 
-        public Task PlainToOnline<T>(T plain)
+        public Task PlainToOnline<T>(T plain, eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }
@@ -217,12 +228,17 @@ namespace AXSharp.Connector.Identity.Tests
             throw new NotImplementedException();
         }
 
-        public object OnlineToPlain()
+        public Task<bool> AnyChangeAsync<T>(T plain)
         {
             throw new NotImplementedException();
         }
 
-        public void PlainToOnline(object plain)
+        public object OnlineToPlain(eAccessPriority priority = eAccessPriority.Normal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PlainToOnline(object plain, eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }
@@ -294,6 +310,16 @@ namespace AXSharp.Connector.Identity.Tests
 
         public string HumanReadable => throw new NotImplementedException();
 
+        public string GetAttributeName(CultureInfo culture)
+        {
+            return this.Translate(this.AttributeName, culture);
+        }
+
+        public string GetHumanReadable(CultureInfo culture)
+        {
+            return this.Translate(this.HumanReadable, culture);
+        }
+
         public IEnumerable<ITwinObject> GetChildren()
         {
             throw new NotImplementedException();
@@ -319,12 +345,12 @@ namespace AXSharp.Connector.Identity.Tests
             throw new NotImplementedException();
         }
 
-        public Task<T> OnlineToPlain<T>()
+        public Task<T> OnlineToPlain<T>(eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }
 
-        public Task PlainToOnline<T>(T plain)
+        public Task PlainToOnline<T>(T plain, eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }
@@ -339,12 +365,17 @@ namespace AXSharp.Connector.Identity.Tests
             throw new NotImplementedException();
         }
 
-        public object OnlineToPlain()
+        public Task<bool> AnyChangeAsync<T>(T plain)
         {
             throw new NotImplementedException();
         }
 
-        public void PlainToOnline(object plain)
+        public object OnlineToPlain(eAccessPriority priority = eAccessPriority.Normal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PlainToOnline(object plain, eAccessPriority priority = eAccessPriority.Normal)
         {
             throw new NotImplementedException();
         }

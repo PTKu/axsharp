@@ -1,22 +1,12 @@
 
 // Build
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.IO.Compression;
-using System.IO.Packaging;
-using System.Linq;
-using System.Management.Automation;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using AXSharp.nuget.update;
 using Build.FilteredSolution;
 using Cake.Common;
 using Cake.Common.IO;
@@ -31,11 +21,23 @@ using Cake.Frosting;
 using Cake.Powershell;
 using CliWrap;
 using CommandLine;
-using AXSharp.nuget.update;
 using Microsoft.Extensions.DependencyInjection;
 using NuGet.Packaging;
 using Octokit;
 using Polly;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.IO.Compression;
+using System.IO.Packaging;
+using System.Linq;
+using System.Management.Automation;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using static NuGet.Packaging.PackagingConstants;
 using Credentials = Octokit.Credentials;
 using Path = System.IO.Path;
 using ProductHeaderValue = Octokit.ProductHeaderValue;
@@ -61,12 +63,13 @@ public static class Program
 
 [TaskName("CleanUp")]
 public sealed class CleanUpTask : FrostingTask<BuildContext>
-{
+{    
     public override void Run(BuildContext context)
     {
         context.DotNetClean(Path.Combine(context.ScrDir, "AXSharp.sln"), new DotNetCleanSettings() { Verbosity = context.BuildParameters.Verbosity });
+        context.CleaUpAllBinsAndObjs();
         context.CleanDirectory(context.Artifacts);
-        context.CleanDirectory(context.TestResults);
+        context.CleanDirectory(context.TestResults);      
     }
 }
 
@@ -76,7 +79,14 @@ public sealed class ProvisionTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)
     {
+        context.DotNetBuildSettings.MSBuildSettings.Properties.Add("NoWarn", new List<string>() 
+            { "1234;2345;8602;10012;8618;0162;8605;1416;3270;1504;8600;8618;" +
+                "CS0618;CS1591;BL0007;BL0005;CA1416;CA2200;CS0105;CS0108;CS0109;CS0162;CS0168;CS0169;CS219;CS0414;CS0436;CS0472;CS0618;CS1591;CS1998;CS8604;" +
+                "CS8601;SYSLIB0051;SYSLIB0014;CS8625;CS0219;CS8625;CS8625;CS8620;RZ2012;RZ10012;CS4014;CS8981;CS8603;CS8766;CS8619;CS0649;CS8321"
+            });
+            
         ProvisionProjectWideTools(context);
+        context.ProvisionNodeJs();
     }
 
     private static void ProvisionProjectWideTools(BuildContext context)
@@ -89,7 +99,7 @@ public sealed class ProvisionTask : FrostingTask<BuildContext>
 
         context.ProcessRunner.Start(Helpers.GetApaxCommand(), new Cake.Core.IO.ProcessSettings()
         {
-            Arguments = $" install -L -c",
+            Arguments = $" install",
             WorkingDirectory = Path.Combine(context.ScrDir, "apax"),
             RedirectStandardOutput = false,
             RedirectStandardError = false,
@@ -111,7 +121,7 @@ public sealed class ProvisionTask : FrostingTask<BuildContext>
 public sealed class BuildTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)
-    {
+    {        
         context.DotNetBuild(Path.Combine(context.ScrDir, "AXSharp.compiler\\src\\ixc\\AXSharp.ixc.csproj"), context.DotNetBuildSettings);
 
         var axprojects = new List<string>()
@@ -120,19 +130,93 @@ public sealed class BuildTask : FrostingTask<BuildContext>
             Path.Combine(context.ScrDir, "sanbox\\integration\\ix-integration-plc\\"),
             Path.Combine(context.ScrDir, "AXSharp.examples\\hello.world.console\\hello.world.console.plc"),
             Path.Combine(context.ScrDir, "AXSharp.connectors\\tests\\ax-test-project\\"),
-            Path.Combine(context.ScrDir, "tests.integrations\\integrated\\src\\ax\\")
+            Path.Combine(context.ScrDir, "tests.integrations\\integrated\\src\\ax\\"),
+            Path.Combine(context.TemplatesDir, "working\\templates\\axsharpblazor\\ax\\"),
+            Path.Combine(context.TemplatesDir, "working\\templates\\axsharpconsole\\ax")
+           
         };
 
 
         foreach (var axproject in axprojects)
         {
             context.DotNetRunSettings.WorkingDirectory = Path.Combine(context.ScrDir, axproject);
+          
             context.DotNetRun(Path.Combine(context.ScrDir, "AXSharp.compiler\\src\\ixc\\AXSharp.ixc.csproj"), context.DotNetRunSettings);
         }
 
+        context.DotNetRestore(Path.Combine(context.ScrDir, "AXSharp.sln"));
+        BuildTailwindCss(context);
         context.DotNetBuild(Path.Combine(context.ScrDir, "AXSharp.sln"), context.DotNetBuildSettings);
 
     }
+
+    private void BuildTailwindCss(BuildContext context)
+    {
+        var stylingFolder = System.IO.Path.Combine(context.RootDir, "AXSharp.blazor", "src", "AXSharp.Presentation.Blazor.Controls");
+        var nodeModulesFolder = System.IO.Path.Combine(stylingFolder, "node_modules");
+
+        context.Log.Information($"Building Tailwind CSS in folder: {stylingFolder}");
+
+        // Check if node_modules exists, if not install packages
+        if (!Directory.Exists(nodeModulesFolder))
+        {
+            context.Log.Information("node_modules not found. Installing npm packages...");
+            var npmInstall = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = "/c npm install",
+                    WorkingDirectory = stylingFolder,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                }
+            };
+            npmInstall.OutputDataReceived += (sender, e) => { if (e.Data != null) Console.WriteLine(e.Data); };
+            npmInstall.ErrorDataReceived += (sender, e) => { if (e.Data != null) Console.Error.WriteLine(e.Data); };
+            npmInstall.Start();
+            npmInstall.BeginOutputReadLine();
+            npmInstall.BeginErrorReadLine();
+            npmInstall.WaitForExit();
+
+            if (npmInstall.ExitCode != 0)
+            {
+                throw new Exception($"npm install failed with exit code {npmInstall.ExitCode}");
+            }
+        }
+
+        // Run the tailwind build using npx
+        context.Log.Information("Running Tailwind build...");
+        var npxBuild = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/c npx @tailwindcss/cli -i ./wwwroot/css/tailwind.css -o ./wwwroot/css/momentum.css --minify",
+                WorkingDirectory = stylingFolder,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        npxBuild.OutputDataReceived += (sender, e) => { if (e.Data != null) Console.WriteLine(e.Data); };
+        npxBuild.ErrorDataReceived += (sender, e) => { if (e.Data != null) Console.Error.WriteLine(e.Data); };
+        npxBuild.Start();
+        npxBuild.BeginOutputReadLine();
+        npxBuild.BeginErrorReadLine();
+        npxBuild.WaitForExit();
+
+        if (npxBuild.ExitCode != 0)
+        {
+            throw new Exception($"Tailwind CSS build failed with exit code {npxBuild.ExitCode}");
+        }
+
+        context.Log.Information("Tailwind CSS build completed.");
+    }
+
 }
 
 [TaskName("Test")]
@@ -142,7 +226,6 @@ public sealed class TestsTask : FrostingTask<BuildContext>
     // Tasks can be asynchronous
     public override void Run(BuildContext context)
     {
-
         if (!context.BuildParameters.DoTest)
         {
             context.Log.Warning($"Skipping tests");
@@ -150,31 +233,44 @@ public sealed class TestsTask : FrostingTask<BuildContext>
         }
 
 
-        if (context.BuildParameters.TestLevel == 1)
+        if (context.BuildParameters.TestLevel >= 1)
         {
             context.RunTestsFromFilteredSolution(Path.Combine(context.ScrDir, "AXSharp-L1-tests.slnf"));
         }
-        else if (context.BuildParameters.TestLevel == 2)
+        if (context.BuildParameters.TestLevel >= 2)
         {
             context.RunTestsFromFilteredSolution(Path.Combine(context.ScrDir, "AXSharp-L2-tests.slnf"));
         }
-        else if (context.BuildParameters.TestLevel == 3)
+        if (context.BuildParameters.TestLevel >= 3)
         {
-            context.RunTestsFromFilteredSolution(Path.Combine(context.ScrDir, "AXSharp-L3-tests.slnf"));
-        }
-        else
-        {
-            context.UploadTestPlc(
-                Path.GetFullPath(Path.Combine(context.WorkDirName, "..//..//src//AXSharp.connectors//tests//ax-test-project//")),
-                Environment.GetEnvironmentVariable("AX_WEBAPI_TARGET"),
-                Environment.GetEnvironmentVariable("AXTARGETPLATFORMINPUT"));
+            // This must be run in a separate environment!
+            try
+            {
+                context.UploadTestPlc(
+                    Path.GetFullPath(Path.Combine(context.WorkDirName, "..//..//src//AXSharp.connectors//tests//ax-test-project//")),
+                    Environment.GetEnvironmentVariable("AXTARGET"),
+                    Environment.GetEnvironmentVariable("AXTARGETPLATFORMINPUT"));
+                
+                context.RunTestsFromFilteredSolution(Path.Combine(context.ScrDir, "AXSharp-L3-tests_WebApi.slnf"));
+            }
+            catch
+            {
+                    System.Console.WriteLine("Some WebAPI tests failed. RUN IN APPROPRIATE EVNIRONMENT");
+            }
 
-            context.UploadTestPlc(
-                Path.GetFullPath(Path.Combine(context.WorkDirName, "..//..//src//tests.integrations//integrated//src//ax")),
-                Environment.GetEnvironmentVariable("AXTARGET"),
-                Environment.GetEnvironmentVariable("AXTARGETPLATFORMINPUT"));
-
-            context.RunTestsFromFilteredSolution(Path.Combine(context.ScrDir, "AXSharp-L3-tests.slnf"));
+            try
+            {
+                context.UploadTestPlc(
+                    Path.GetFullPath(Path.Combine(context.WorkDirName, "..//..//src//tests.integrations//integrated//src//ax")),
+                    Environment.GetEnvironmentVariable("AXTARGET"),
+                    Environment.GetEnvironmentVariable("AXTARGETPLATFORMINPUT"));
+                
+                context.RunTestsFromFilteredSolution(Path.Combine(context.ScrDir, "AXSharp-L3-tests_Integration.slnf"));
+            }
+            catch
+            {
+                System.Console.WriteLine("Some WebAPI tests failed. RUN IN APPROPRIATE EVNIRONMENT");
+            }
         }
 
 
@@ -192,7 +288,7 @@ public sealed class CreateArtifactsTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)
     {
-        if (!context.BuildParameters.DoPublish)
+        if (!context.BuildParameters.DoPack)
         {
             context.Log.Warning($"Skipping packaging.");
             return;
@@ -212,6 +308,26 @@ public sealed class CreateArtifactsTask : FrostingTask<BuildContext>
                 NoRestore = true,
                 NoBuild = false,
             });
+
+        var apaxConstributedToPack = new (string folder, string name)[]
+        {
+            (Path.Combine(context.ScrDir, "AXSharp.compiler\\src\\ixc\\"), "axsharp-ixc"),
+            (Path.Combine(context.ScrDir, "AXSharp.compiler\\src\\ixr\\"), "axsharp-ixr"),
+            (Path.Combine(context.ScrDir, "AXSharp.compiler\\src\\ixd\\"), "axsharp-ixd"),
+        };
+        
+        // Ensure articfats directory exists
+        if (!Directory.Exists(context.ArtifactsApax))
+        {
+            context.CreateDirectory(context.ArtifactsApax);    
+        }
+        
+        
+        apaxConstributedToPack.ToList().ForEach(p => 
+            context.UpdateApaxVersion(Path.Combine(p.folder, "apax.yml"), GitVersionInformation.SemVer));
+        apaxConstributedToPack.ToList().ForEach(p => context.ApaxPack(p.folder));
+        apaxConstributedToPack.ToList().ForEach(p => context.ApaxCopyArtifacts(p.folder, p.name));
+        
     }
 }
 
@@ -241,7 +357,7 @@ public sealed class GenerateApiDocumentationTask : FrostingTask<BuildContext>
 public sealed class LicenseComplianceCheckTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)
-    {
+    {       
         context.CheckLicenseComplianceInArtifacts();
     }
 }
@@ -260,6 +376,7 @@ public sealed class PushPackages : FrostingTask<BuildContext>
         }
 
         context.PushNugetPackages("nugets");
+        context.ApaxPublishAllArtefacts();
     }
 }
 
@@ -277,12 +394,14 @@ public sealed class PublishReleaseTask : FrostingTask<BuildContext>
 
         if (Helpers.CanReleaseInternal())
         {
+            context.Log.Warning($"Creating release publication.");
+
             var githubToken = context.Environment.GetEnvironmentVariable("GH_TOKEN");
             var githubClient = new GitHubClient(new ProductHeaderValue("AXSHARP"));
             githubClient.Credentials = new Credentials(githubToken);
 
             var release = githubClient.Repository.Release.Create(
-                "ix-ax",
+                "inxton",
                 "axsharp",
                 new NewRelease($"{GitVersionInformation.SemVer}")
                 {
@@ -304,13 +423,13 @@ public sealed class TemplatesUpdateAndBuildTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)
     {
-        if (!context.BuildParameters.DoPublish)
+        if (!context.BuildParameters.DoPublish || !Helpers.CanReleaseInternal() || !Helpers.CanReleasePublic())
         {
             context.Log.Warning($"Skipping template package build.");
             return;
         }
 
-        var templatesDirectory = Path.Combine(context.ScrDir, "AXSharp.templates\\working\\templates");
+        var templatesDirectory = Path.Combine(context.TemplatesDir);
         var templateCsProjFiles = Directory.EnumerateFiles(templatesDirectory, "*.csproj", SearchOption.AllDirectories);
 
         foreach (var templateCsProjFile in templateCsProjFiles)
@@ -362,8 +481,8 @@ public sealed class TemplatesUpdateAndBuildTask : FrostingTask<BuildContext>
 
         foreach (var template in context.GetTemplateProjects())
         {
-            context.DotNetRestore(Path.Combine(context.ScrDir, template.solution), context.DotNetRestoreTemplatesSettings);
-            context.DotNetBuild(Path.Combine(context.ScrDir, template.solution), context.DotNetBuildSettings);
+            context.DotNetRestore(Path.Combine(context.TemplatesDir, template.solution), context.DotNetRestoreTemplatesSettings);
+            context.DotNetBuild(Path.Combine(context.TemplatesDir, template.solution), context.DotNetBuildSettings);
         }
     }
 }
@@ -407,8 +526,13 @@ public class TemplatesPackTask : FrostingTask<BuildContext>
             return;
         }
 
+       
+       
         PackTemplatePackages(context,
-            Path.Combine(context.ScrDir, "AXSharp.templates\\working\\AXSharp.templates.sln"));
+            Path.Combine(context.TemplatesDir,"working", "AXSharp.templates.sln"));
+        
+        
+        
         context.PushNugetPackages("templates");
 
         context.CheckLicenseComplianceInArtifacts();

@@ -1,9 +1,9 @@
-﻿// AXSharp.Compiler.Cs
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// AXSharp.Compiler.Cs
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using Irony.Interpreter.Ast;
 using System;
@@ -27,14 +27,14 @@ namespace AXSharp.Compiler.Cs.Pragmas.PragmaParser
         protected PragmaCompiler()
         { }
 
-        public static string? Compile(IPragma pragma, IDeclaration declaration)
+        public static VisitorProduct Compile(IPragma pragma, IDeclaration declaration)
         {
             var parser = new Parser(new PragmaGrammar(declaration));
 
             return Compile(pragma, parser);
         }
 
-        private static string? Compile(IPragma pragma, Parser parser)
+        private static VisitorProduct Compile(IPragma pragma, Parser parser)
         {
             try
             {
@@ -56,14 +56,19 @@ namespace AXSharp.Compiler.Cs.Pragmas.PragmaParser
             }
             catch (MalformedPragmaException malformedPragmaException)
             {
-                var diagMessage =
-                    $"[Error]: {pragma.Location.GetLineSpan().Filename}:{pragma.Location.GetLineSpan().StartLinePosition.Line}, {pragma.Location.GetLineSpan().StartLinePosition.Character} {malformedPragmaException.Message}";
+                string diagMessage = malformedPragmaException.Message;
+                if (pragma.Location != null)
+                {
+                    diagMessage =
+                        $"[Error]: {pragma.Location.GetLineSpan().Filename}:{pragma.Location.GetLineSpan().StartLinePosition.Line + 1}, {pragma.Location.GetLineSpan().StartLinePosition.Character} {malformedPragmaException.Message}";
+                }
+
                 Log.Logger.Error(diagMessage);
                 throw new MalformedPragmaException(diagMessage);
             }
         }
 
-        public static string? Compile(IPragma pragma)
+        public static VisitorProduct Compile(IPragma pragma)
         {
             var parser = new Parser(new PragmaGrammar());
 

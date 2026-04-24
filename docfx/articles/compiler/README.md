@@ -2,12 +2,29 @@
 
 **AXSharp Compiler (`ixc`) translates PLC data structures into C# (PLC .NET Twin), which makes the PLC data available in a structured way for any .NET application.**
 
+### Member visibility and generated code behavior
+
+AXSharp transpilation now supports members declared as `public`, `protected`, and `internal`.
+
+- **Transpilation / twin generation:** `public`, `protected`, and `internal` members can be generated into twin/onliner classes.
+- **Data exchange (Plain/POCO and Shadow mappings):** only `public` members participate in `OnlineToPlain`, `PlainToOnline`, `ShadowToPlain`, `PlainToShadow`, and related `HasChanged` evaluation.
+
+This means non-public members can exist in generated twins but are intentionally excluded from Plain/Shadow data-transfer operations.
+
+### Adding types and members to the communication over WebAPI
+
+Starting from the version v2.0.0+ of `sld`, to make member or type accessible over the communication there is a need to add pragma `{S7.extern=ReadWrite}` or `{S7.extern=ReadOnly}` in the appropriate place in the code.
+
+For details see [here](https://console.simatic-ax.siemens.io/docs/sld/extern-accessibility)
+
+
 ### Write PLC code
 
 ~~~iecst
 {#ix-attr:[Container(Layout.Stack)]}
 {#ix-attr:[Group(Layout.GroupBox)]}
 {#ix-set:AttributeName = "Location"}
+{S7.extern=ReadWrite}
 CLASS  GeoLocation
     VAR PUBLIC
         {#ix-set:AttributeName = "Latitude [°]"}
@@ -72,11 +89,11 @@ Entry.Plc.weather.GeoLocation.Write();
 ~~~
 
 - [Attributes](ATTRIBUTES.md)
-- [Added members](ADDED_MEMBERS.md)
+- [Added members](ADDED_MEMBERS.md) - including typed enum accessor properties
 - [Config file](CONFIG_FILE.md)
 - [Packaging and dependency management](PACKAGING.md)
 
-AXSharp compiles transpiles following project blocks:
+AXSharp compiles transpiles the following project blocks:
 
 - [Configuration's global variables](https://console.simatic-ax.siemens.io/docs/st/language/program-structure/configuration#global-variables)
 - [Elementary data types](https://console.simatic-ax.siemens.io/docs/st/language/types-and-variables#elementary-data-types)
@@ -84,7 +101,7 @@ AXSharp compiles transpiles following project blocks:
 - [User defined data types](https://console.simatic-ax.siemens.io/docs/st/language/types-and-variables#user-defined-data-types)
 - [Strucured types](https://console.simatic-ax.siemens.io/docs/st/language/types-and-variables#structured-type-without-relative-addressing)
 - [Data type with named values as enums](https://console.simatic-ax.siemens.io/docs/st/language/types-and-variables#data-type-with-named-values)
--[Enumerations](https://console.simatic-ax.siemens.io/docs/st/language/types-and-variables#enumeration)
+- [Enumerations](https://console.simatic-ax.siemens.io/docs/st/language/types-and-variables#enumeration)
 
 
 

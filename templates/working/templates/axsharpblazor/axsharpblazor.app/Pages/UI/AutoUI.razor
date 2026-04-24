@@ -1,0 +1,55 @@
+﻿@page "/ui/autoui"
+<h3 class="text-2xl font-bold mb-6">AutoUI</h3>
+
+<div class="container mx-auto px-4">
+    <div class="grid gap-6">
+        <div class="space-y-6">
+            <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                <pre class="mb-4 p-4 bg-gray-50 rounded-md overflow-x-auto">
+                    <code>
+{#ix-attr:[Container(Layout.Wrap)]}    
+wrap : Counter;
+                    </code>
+                </pre>
+
+                <RenderableContentControl Context="@Entry.Plc.counters.wrap" Presentation="Control"></RenderableContentControl>
+            </div>
+
+            <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                <pre class="mb-4 p-4 bg-gray-50 rounded-md overflow-x-auto">
+                    <code>
+{#ix-attr:[Container(Layout.Stack)]}    
+stack : Counter;
+                    </code>
+                </pre>
+
+                <RenderableContentControl Context="@Entry.Plc.counters.stack" Presentation="Control"></RenderableContentControl>
+            </div>
+
+            <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                <pre class="mb-4 p-4 bg-gray-50 rounded-md overflow-x-auto">
+                    <code>
+{#ix-attr:[Container(Layout.UniformGrid)]}   
+grid : Counter;
+                    </code>
+                </pre>
+
+                <RenderableContentControl Context="@Entry.Plc.counters.grid" Presentation="Control"></RenderableContentControl>
+            </div>
+
+            <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                <pre class="mb-4 p-4 bg-gray-50 rounded-md overflow-x-auto">
+                    <code>
+{#ix-attr:[Container(Layout.Tabs)]}   
+tabs : Counter;
+                    </code>
+                </pre>
+
+                <RenderableContentControl Context="@Entry.Plc.counters.tabs" Presentation="Control"></RenderableContentControl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+}

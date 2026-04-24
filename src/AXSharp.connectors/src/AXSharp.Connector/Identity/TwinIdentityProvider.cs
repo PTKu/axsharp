@@ -1,13 +1,14 @@
-﻿// AXSharp.Connector
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// AXSharp.Connector
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AXSharp.Connector.ValueTypes;
 
 namespace AXSharp.Connector.Identity;
@@ -50,7 +51,7 @@ public class TwinIdentityProvider
     {
         get
         {
-            if (_sortedIdentities.Count == 0) SortIdentities();
+            if (_sortedIdentities.Count == 0) SortIdentitiesAsync().Wait();
 
             return _sortedIdentities;
         }
@@ -186,13 +187,12 @@ public class TwinIdentityProvider
     ///     Reads twin objects identities.
     /// </summary>
     /// <returns>Identity onliners.</returns>
-    public IEnumerable<OnlinerULInt> ReadIdentities()
+    internal async Task<IEnumerable<OnlinerULInt>> ReadIdentitiesAsync()
     {
         if (_connector != null)
         {
             _connector.Logger.Information("Reading identities...");
-            _connector.ReadBatchAsync(_identitiesTags).Wait();
-            _connector.Logger.Information("Reading identities done.");
+            await _connector.ReadBatchAsync(_identitiesTags);
             _connector.Logger.Information(
                 $"Number of identities: {_identitiesTags.Count} | Unique :{_identities.Count}");
         }
@@ -200,29 +200,106 @@ public class TwinIdentityProvider
         return _identitiesTags;
     }
 
+
     /// <summary>
-    ///     Refreshes and sorts identities.
+    /// Assigns identities to all elements.
     /// </summary>
-    public void RefreshIdentities()
+    /// <param name="identities">Identities</param>
+    /// <param name="identityProvider">Identity creator.</param>
+    /// <returns>Assigned identities.</returns>
+    public IEnumerable<OnlinerULInt> AssignIdentities(IEnumerable<OnlinerULInt> identities, Func<OnlinerULInt, ulong> identityProvider = null)
     {
-        ReadIdentities();
-        SortIdentities();
+        // If no identity provider is given, use default one based on hash code of the symbol.
+        identityProvider ??= (x) => x.Cyclic = (ulong)x.Symbol.GetHashCode();
+
+        _connector.Logger.Information("Assigning missing identities...");
+        foreach (var it in identities)
+        {
+            it.Cyclic = identityProvider(it);
+        }
+
+        return identities;
     }
 
     /// <summary>
-    ///     Sorts identities.
+    /// Writes identities to the PLC.
     /// </summary>
-    public void SortIdentities()
+    /// <param name="identitiesToWrite">List of identities to be written.</param>
+    /// <returns></returns>
+    public async Task WriteIdentities(IEnumerable<OnlinerULInt> identitiesToWrite)
     {
-        _connector?.Logger.Information("Sorting identities...");
+        if(_connector == null) return;
+        await _connector.WriteBatchAsync(identitiesToWrite);
+        _connector.Logger.Information("Identities have been written.");
+    }
+
+    /// <summary>
+    ///    Constructs identities by assigning them locally, writing to PLC, and sorting by the assigned values.
+    ///    Identity values are always written fresh to the PLC regardless of any previously stored values.
+    ///    This ensures that stale or inconsistent identity values from prior sessions do not cause duplicate identity errors.
+    /// </summary>
+    /// <param name="identityProvider">
+    ///    Function that assigns and returns an identity value for each <see cref="OnlinerULInt"/> tag.
+    ///    When <c>null</c>, a default provider based on <see cref="string.GetHashCode()"/> of the symbol is used.
+    ///    Note: <see cref="string.GetHashCode()"/> is not deterministic across process restarts in .NET Core/.NET 5+,
+    ///    so identity values will differ between sessions. For stable identities, supply a custom provider.
+    /// </param>
+    /// <param name="failOnDuplicate">
+    ///    When <c>true</c>, throws <see cref="DuplicateIdentityException"/> if two symbols resolve to the same identity value.
+    ///    When <c>false</c>, logs a warning and skips the duplicate entry.
+    /// </param>
+    public async Task ConstructIdentitiesAsync(Func<OnlinerULInt, ulong> identityProvider = null, bool failOnDuplicate = true)
+    {
+        await WriteIdentities(AssignIdentities(_identitiesTags, identityProvider));
+        await SortIdentitiesAsync(failOnDuplicate);
+    }
+
+    /// <summary>
+    ///     Sorts identities using the locally assigned Cyclic values, without reading back from PLC.
+    /// </summary>
+    internal async Task SortIdentitiesAsync(bool failOnDuplicate = true)
+    {
+        _connector?.Logger.Information("Sorting identities from assigned values...");
         _sortedIdentities.Clear();
         foreach (var identity in _identities)
         {
-            var key = identity.Key.LastValue == 0 ? identity.Key.GetAsync().Result : identity.Key.LastValue;
-            if (!_sortedIdentities.ContainsKey(key))
+            var key = identity.Key.Cyclic;
+            if (!_sortedIdentities.ContainsKey(key) && key != 0)
+            {
                 _sortedIdentities.Add(key, identity.Value);
+            }
+            else
+            {
+                if (failOnDuplicate)
+                {
+                    throw new DuplicateIdentityException("There is a duplicate identity: " +
+                                                         $"'{identity.Value.Symbol} : {key}.'" +
+                                                         $" and '{_sortedIdentities[key].Symbol} : {key}.'" +
+                                                         $" share the same identity value." +
+                                                         $"The algorithm for assigning identities needs to be adjusted." +
+                                                         $"Use an algorithm that guarantees unique identities and is less prone to collisions.");
+                }
+                else
+                {
+                    _connector?.Logger.Warning($"Duplicate identity detected: '{identity.Value.Symbol} : {key}' and '{_sortedIdentities[key].Symbol} : {key}' share the same identity value. " +
+                                               $"This entry will be ignored."+
+                                               $"The algorithm for assigning identities needs to be adjusted." +
+                                               $"Use an algorithm that guarantees unique identities and is less prone to collisions." +
+                                               $"Ignoring this warning may lead to unexpected behavior in those parts of the system that rely on unique identities.");
+                }
+            }
         }
 
         _connector?.Logger.Information("Sorting identities done.");
+    }
+}
+
+/// <summary>
+/// Exception thrown when a duplicate identity is detected.
+/// </summary>
+public class DuplicateIdentityException : Exception
+{
+    public DuplicateIdentityException(string message) : base(message)
+    {
     }
 }

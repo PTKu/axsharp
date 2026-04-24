@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using AX.ST.Semantic;
+using AX.ST.Semantic.Analyzer;
 using AX.ST.Syntax.Parser;
 using AX.ST.Syntax.Tree;
 using AX.Text;
@@ -7,15 +8,17 @@ using AX.Text.Diagnostics;
 using AXSharp.Compiler;
 using AXSharp.ixc_doc;
 using AXSharp.ixc_doc.Interfaces;
-using AXSharp.ixc_doc.Visitors;
-using System;
-using CommandLine;
 using AXSharp.ixc_doc.Schemas;
-using System.Reflection;
-using System.Text;
+using AXSharp.ixc_doc.Visitors;
 using CliWrap;
-using System.Runtime.InteropServices;
+using CommandLine;
+using NuGet.Packaging;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
 
 const string Logo =
 @"| \ / 
@@ -50,23 +53,39 @@ Parser.Default.ParseArguments<Options>(args)
 
 void GenerateYamls(Options o)
 {
-    
+    //var multipleProjects = new List<AxProject>();
+    //foreach (var sf in Directory.EnumerateDirectories(o.AxSourceProjectFolder, "ctrl", SearchOption.AllDirectories))
+    //{
+    //    multipleProjects.Add(new AxProject(sf));
+    //}
+
     DeleteYamlFilesIfExists(o.OutputProjectFolder);
 
-    var axProject = new AxProject(o.AxSourceProjectFolder);
-    Console.WriteLine($"Compiling project {axProject.ProjectInfo.Name}...");
-    var projectSources = axProject.Sources.Select(p => (parseTree: STParser.ParseTextAsync(p).Result, source: p));
 
-    var toCompile = projectSources.Select(p => p.parseTree);
+    IList<(ISyntaxTree parseTree, SourceFileText source, AxProject project)> projectSources =
+        new List<(ISyntaxTree parseTree, SourceFileText source, AxProject project)>();
 
-    var compilation = Compilation.Create(toCompile, Compilation.Settings.Default).Result;
+    foreach (var source in o.AxSourceProjectFolder)
+    {
+        var axProject = new AxProject(source);
+        Console.WriteLine($"Compiling project {axProject.ProjectInfo.Name}...");
+        projectSources.AddRange(axProject.Sources.Select(p => (parseTree: STParser.ParseTextAsync(p).Result, source: p, axProject)));
+    }
 
-    var semanticTree = compilation.GetSemanticTree();
+    //var axProject = new AxProject(o.AxSourceProjectFolder);
+    //Console.WriteLine($"Compiling project {axProject.ProjectInfo.Name}...");
+    //var projectSources = axProject.Sources.Select(p => (parseTree: STParser.ParseTextAsync(p).Result, source: p));
+
+    var toCompile = projectSources.Select(p => p.parseTree).ToList();
+
+    var compilation = Compilation.Create(toCompile, new List<ISemanticAnalyzer>(), Compilation.Settings.Default).Result;
+
+    var semanticTree = compilation.Compilation.GetSemanticTree();
 
     //visit
-    var myNodeVisitor = new MyNodeVisitor(axProject);
+    var myNodeVisitor = new DocNodeVisitor();
     var yamlSerializer = new YamlSerializer(o);
-    var treeWalker = new YamlBuilder(yamlSerializer, axProject.ProjectFile);
+    var treeWalker = new YamlBuilder(yamlSerializer);
 
     semanticTree.GetRoot().Accept(myNodeVisitor, treeWalker);
 

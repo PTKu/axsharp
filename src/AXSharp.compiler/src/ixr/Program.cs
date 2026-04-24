@@ -1,24 +1,26 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using AX.ST.Semantic;
+using AX.ST.Semantic.Model;
+using AX.ST.Semantic.Model.Declarations;
+using AX.ST.Semantic.Pragmas;
 using AX.ST.Syntax.Parser;
 using AX.ST.Syntax.Tree;
 using AX.Text;
 using AX.Text.Diagnostics;
 using AXSharp.Compiler;
 using AXSharp.ixc_doc;
-using System;
-using CommandLine;
-using System.Reflection;
-using System.Text;
-using CliWrap;
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
-using AX.ST.Semantic.Model;
 using AXSharp.ixr_doc;
+using CliWrap;
+using CommandLine;
 using Microsoft.CodeAnalysis;
 using Serilog.Parsing;
-using static System.Net.Mime.MediaTypeNames;
+using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 
 const string Logo =
@@ -65,7 +67,7 @@ void Generate(Options o)
 
     var axProject = new AxProject(axProjectFolder);
     var axProjectConfig =
-        AXSharpConfig.RetrieveIxConfig(Path.Combine(axProject.ProjectFolder, AXSharpConfig.CONFIG_FILE_NAME));
+        AXSharpConfig.RetrieveAXSharpConfig(Path.Combine(axProject.ProjectFolder, AXSharpConfig.CONFIG_FILE_NAME));
 
     (string folder, string file) output = string.IsNullOrEmpty(axProjectConfig.OutputProjectFolder)
         ? (string.Empty, o.OutputProjectFolder)
@@ -83,7 +85,6 @@ void Generate(Options o)
     foreach (var syntaxTree in syntaxTrees)
     {
         IterateSyntaxTreeForStringLiterals(syntaxTree.GetRoot(),lw, Path.GetRelativePath(axProjectFolder, syntaxTree.Filename));
-
         IterateSyntaxTreeForPragmas(syntaxTree.GetRoot(), lw, Path.GetRelativePath(axProjectFolder, syntaxTree.Filename));
     }
 
@@ -95,31 +96,41 @@ void IterateSyntaxTreeForStringLiterals(ISyntaxNode root, LocalizedStringWrapper
 {
     foreach (var literalSyntax in GetChildNodesRecursive(root).OfType<ILiteralSyntax>())
     {
-        var token = literalSyntax.Tokens.First();
-        //literalSyntax.Location
-        AddToDictionaryIfLocalizedString(token,lw,fileName);
+        AddToDictionaryIfLocalizedStringInLiterals(literalSyntax, lw, fileName);
     }
 }
 
 void IterateSyntaxTreeForPragmas(ISyntaxNode root, LocalizedStringWrapper lw, string fileName)
 {
-    foreach (var pragmaSyntax in GetChildNodesRecursive(root).OfType<IPragmaSyntax>())
+    foreach (var storage in GetChildNodesRecursive(root).OfType<IVariableDeclarationSyntax>())
     {
-        var token = pragmaSyntax.PragmaToken;
-        if(lw.IsAttributeNamePragmaToken(token.Text))
-        { 
-            AddToDictionaryIfLocalizedString(token,lw,fileName);
-        }
+        storage.GetLeadingPragmas().ToList().ForEach(pragmaSyntax =>
+        {
+            var token = pragmaSyntax as PragmaSyntax;
+            if (lw.IsAttributeNamePragmaToken(pragmaSyntax.Content))
+            {
+                AddToDictionaryIfLocalizedStringInPragmas(token, lw, fileName);
+            }
+        });        
+    }
+    foreach (var storage in GetChildNodesRecursive(root).OfType<IDeclarationSyntax>())
+    {
+        storage.GetLeadingPragmas().ToList().ForEach(pragmaSyntax =>
+        {
+            var token = pragmaSyntax;
+            if (lw.IsAttributeNamePragmaToken(pragmaSyntax.Content))
+            {
+                AddToDictionaryIfLocalizedStringInPragmas(token, lw, fileName);
+            }
+        });
     }
 }
 
-void AddToDictionaryIfLocalizedString(ISyntaxToken token, LocalizedStringWrapper lw, string fileName)
+void AddToDictionaryIfLocalizedStringInPragmas(PragmaSyntax token, LocalizedStringWrapper lw, string fileName)
 {
-    // if is valid token
-    if(IsStringToken(token) || IsPragmaToken(token))
-    {
+    
         // try to acquire localized string
-        var localizedStringList = lw.TryToGetLocalizedStrings(token.Text);
+        var localizedStringList = lw.TryToGetLocalizedStrings(token.PragmaContent);
 
         if(localizedStringList == null) 
         {
@@ -137,24 +148,57 @@ void AddToDictionaryIfLocalizedString(ISyntaxToken token, LocalizedStringWrapper
             //check if identifier is valid
             if(lw.IsValidId(id))
             { 
-                var pos = token.Location.GetLineSpan().StartLinePosition;
+                var pos = token.SourceText.GetLineSpan(token.Span).StartLinePosition;
                 var wrapper = new StringValueWrapper(rawText, fileName, pos.Line);
                 // add id and wrapper to dictionary
                 lw.LocalizedStringsDictionary.TryAdd(id, wrapper);
             }
-        }   
-    }
-}
-bool IsPragmaToken(ISyntaxToken token)
-{ 
-    if(token.SyntaxKind == SyntaxKind.PragmaToken) 
-    { 
-        return true;
-    }
-    return false; 
+        }       
 }
 
-bool IsStringToken(ISyntaxToken token)
+void AddToDictionaryIfLocalizedStringInLiterals(ILiteralSyntax literal, LocalizedStringWrapper lw, string fileName)
+{
+    // if is valid token
+    // if (IsStringLiteral(literal) || true)
+    {
+        foreach (var token in literal.Tokens)
+        {
+
+
+            // try to acquire localized string
+            var localizedStringList = lw.TryToGetLocalizedStrings(token.FullText);
+
+            if(localizedStringList == null)
+            {
+                continue; // ✓ Skip to next token
+            }
+
+            foreach (string localizedString in localizedStringList)
+            {
+                //get raw text from localized string
+                var rawText = lw.GetRawTextFromLocalizedString(localizedString);
+
+                //create id
+                var id = AXSharp.Connector.Localizations.LocalizationHelper.CreateId(rawText);
+
+                //check if identifier is valid
+                if (lw.IsValidId(id))
+                {
+                    var pos = token.Location.GetLineSpan().StartLinePosition;
+                    var wrapper = new StringValueWrapper(rawText, fileName, pos.Line);
+                    // add id and wrapper to dictionary
+                    lw.LocalizedStringsDictionary.TryAdd(id, wrapper);
+                }
+            }
+        }
+    }
+}
+bool IsPragmaToken(PragmaSyntax token)
+{    
+    return true; 
+}
+
+bool IsStringToken(PragmaSyntax token)
 { 
     if(token.SyntaxKind == SyntaxKind.TypedStringDToken ||
         token.SyntaxKind == SyntaxKind.TypedStringSToken ||
@@ -164,6 +208,19 @@ bool IsStringToken(ISyntaxToken token)
         return true;
     }
     return false; 
+}
+
+
+bool IsStringLiteral(ILiteralSyntax literal)
+{
+    if (literal.SyntaxKind == SyntaxKind.TypedStringDToken ||
+        literal.SyntaxKind == SyntaxKind.TypedStringSToken ||
+        literal.SyntaxKind == SyntaxKind.UntypedStringDToken ||
+        literal.SyntaxKind == SyntaxKind.UntypedStringSToken)
+    {
+        return true;
+    }
+    return false;
 }
 
 IEnumerable<ISyntaxNode> GetChildNodesRecursive(ISyntaxNode syntaxNode)

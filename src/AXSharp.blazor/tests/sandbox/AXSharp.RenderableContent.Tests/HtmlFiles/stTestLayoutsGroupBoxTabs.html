@@ -1,26 +1,6 @@
-﻿<div name="testingProgram-testLayouts-test_groupbox_tabs">
-    <div name="GroupBox" class="card w-100 p-2">
-        <span style="font-weight: bold; padding-bottom:2px;">test_groupbox_tabs</span>
-        <div name="TabControl" class="w-100 ">
-            <ul class="nav nav-tabs mb-3">
-                <li class="nav-item">
-                    <button type="button" class="nav-link active">
-                        <b>Test Integer</b>
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="nav-link">
-                        <b>Test String</b>
-                    </button>
-                </li>
-            </ul>
-            <div class="content">
-                <div name="testingProgram-testLayouts-test_groupbox_tabs-testInteger" class="w-100 form-group mb-2">
-                    <label for:ignore="testInteger_e4a2b7b6-bfcd-429f-92eb-ec7d3e1f5ccd">Test Integer</label>
-                    <input id:ignore="testInteger_e4a2b7b6-bfcd-429f-92eb-ec7d3e1f5ccd" readonly="readonly" class="w-100 form-control " style="background-color:transparent" type="text" step="any" value="0">
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div data-group-box-layout class="simple-border gap-8 p-4 my-6"><h3>test_groupbox_tabs</h3>
+    <div class="mt-2"><div class="flex flex-wrap my-6 "><nav class="tab" blazor:elementReference=""><button class="tab-btn active" blazor:onclick="1" blazor:elementReference="d46d666a-0ca1-4e3d-8666-493792df4cd7">Test Integer</button><button class="tab-btn " blazor:onclick="2" blazor:elementReference="d013ad45-b0f7-4acc-9c57-1932fab66854">Test String</button></nav></div>
+
+    <div name="testingProgram-testLayouts-test_groupbox_tabs-testInteger"><div class="input-group "><div class="flex flex-wrap flex-row items-center gap-2"><label for:ignore="12ba78d0-9724-4648-b45a-69a0b98364e4">Test Integer</label></div><div class="relative w-full"><input type="number" id:ignore="12ba78d0-9724-4648-b45a-69a0b98364e4" class=" w-full min-w-20" style="" blazor:onfocusin="3" blazor:onfocusout="4" step="any" readonly="readonly" value="0" blazor:onchange="5" /></div></div>
+    <div class="invalid-feedback hidden"></div>
+    <div class="invalid-feedback"></div></div></div></div>

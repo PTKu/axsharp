@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+<AuthorizeView>
+    <Authorized>
+        <a class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" 
+           href="Identity/Account/Manage">
+            Hello, @context.User.Identity?.Name!
+        </a>
+        <a class="px-4 py-2 text-gray-700 hover:text-gray-900" href="Identity/Account/LogOut">Log out</a>
+    </Authorized>
+    <NotAuthorized>
+        <a class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" 
+           href="Identity/Account/Login" role="button">
+            Log in
+        </a>
+    </NotAuthorized>
+</AuthorizeView>

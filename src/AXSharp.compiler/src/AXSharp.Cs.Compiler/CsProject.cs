@@ -1,18 +1,25 @@
 ﻿// AXSharp.Compiler.Cs
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
+using System.Diagnostics;
 using System.Reflection;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using AXSharp.Compiler.Cs.Exceptions;
 using Microsoft.CodeAnalysis.CSharp;
 using NuGet.Configuration;
 using NuGet.Packaging;
 using NuGet.Versioning;
 using Polly;
+using Serilog.Core;
+using System.Text.RegularExpressions;
+using Serilog; // added for IsEnabled and message template logging
+using Serilog.Events; // added for LogEventLevel
 
 namespace AXSharp.Compiler;
 
@@ -28,17 +35,29 @@ public class CsProject : ITargetProject
     public CsProject(AXSharpProject AXSharpProject)
     {
         AxSharpProject = AXSharpProject;
-        ProjectRootNamespace = MakeValidIdentifier(AXSharpProject.AxProject.ProjectInfo.Name);
+        ProjectRootNamespace = GetProjectRootNamespace();        
     }
 
     private AXSharpProject AxSharpProject { get; }
 
-
+    
     /// <summary>
     ///     Gets associated IxProject file.
     /// </summary>
-    public string IxProjectFile => Path.Combine(AxSharpProject.OutputFolder,
-        $"{MakeValidFileName(AxSharpProject.AxProject.ProjectInfo.Name)}.csproj");
+    private string CsProjectFile
+    {
+        get 
+        { 
+            if(AxSharpProject.ProjectFile == null)
+            {
+                return Path.Combine(AxSharpProject.OutputFolder,
+                $"{MakeValidFileName(AxSharpProject.AxProject.ProjectInfo.Name)}.csproj");
+            }
+
+            return Path.Combine(AxSharpProject.OutputFolder, AxSharpProject.ProjectFile);
+        }
+    }
+        
 
 
     /// <summary>
@@ -61,7 +80,7 @@ public class CsProject : ITargetProject
     {
         var fileName = string.Empty;
 
-        if (SyntaxFacts.IsIdentifierPartCharacter(name.FirstOrDefault())) fileName = $"{name.FirstOrDefault()}";
+        if (SyntaxFacts.IsIdentifierPartCharacter(name.FirstOrDefault())) fileName = $"{name.FirstOrDefault()}" ;
 
         for (var i = 1; i < name.Length; i++)
         {
@@ -78,18 +97,77 @@ public class CsProject : ITargetProject
         return assemblyPath!;
     }
 
+    /// <summary>
+    /// Gets the project root namespace from the csproj file if defined, otherwise uses the project name.
+    /// </summary>
+    /// <returns>The root namespace for the project</returns>
+    private string GetProjectRootNamespace()
+    {
+        try
+        {
+            if (File.Exists(CsProjectFile))
+            {
+                var xDocument = XDocument.Load(CsProjectFile);
+                var rootNamespaceElement = xDocument.Descendants("RootNamespace").FirstOrDefault();
+                
+                if (rootNamespaceElement != null && !string.IsNullOrWhiteSpace(rootNamespaceElement.Value))
+                {
+                    return rootNamespaceElement.Value;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log the error but continue with fallback
+            Log.Logger.Warning($"Failed to read RootNamespace from {CsProjectFile}: {ex.Message}");
+        }
+
+        // Fallback to csproj filename (without extension) if RootNamespace is not defined
+        return MakeValidIdentifier(Path.GetFileNameWithoutExtension(CsProjectFile));
+    }
+
+
+    private string EnsureOutputFolder()
+    {
+        if (!Directory.Exists(AxSharpProject.OutputFolder))
+        {
+            Directory.CreateDirectory(AxSharpProject.OutputFolder);
+        }
+
+        return AxSharpProject.OutputFolder;
+    }
 
     private void EnsureCsProjFile()
     {
         if (AxSharpProject.AxProject.ProjectInfo.Name != null)
         {
-            var expectedCsProjFile = Path.Combine(AxSharpProject.OutputFolder,
-                $"{MakeValidFileName(AxSharpProject.AxProject.ProjectInfo.Name)}.csproj");
+            EnsureOutputFolder();
+            string expectedCsProjFileFullPath = string.Empty;
+            string expectedCsProjFile = string.Empty;
+            if (string.IsNullOrEmpty(this.AxSharpProject.CompilerOptions?.ProjectFile))
+            {
+                expectedCsProjFile = $"{MakeValidFileName(AxSharpProject.AxProject.ProjectInfo.Name)}.csproj";
+                expectedCsProjFileFullPath = Path.Combine(AxSharpProject.OutputFolder,
+                    expectedCsProjFile);
+            }
+            else
+            {
+                expectedCsProjFile = this.AxSharpProject.CompilerOptions.ProjectFile;
+                expectedCsProjFileFullPath = Path.Combine(AxSharpProject.OutputFolder,
+                    expectedCsProjFile);
+            }
+
+            var compilerOptions = this.AxSharpProject.CompilerOptions;
+            if (compilerOptions != null)
+            {
+                compilerOptions.ProjectFile = expectedCsProjFile;
+                AXSharpConfig.UpdateAndGetAXSharpConfig(AxSharpProject.AxProject.ProjectFolder, compilerOptions);
+            }
 
             var defaultCsProjectWhenNotProvidedByTemplate =
                 $@"<Project Sdk=""Microsoft.NET.Sdk"">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net10.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
@@ -100,7 +178,12 @@ public class CsProject : ITargetProject
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="".g\**"" />
+    	<Compile Include="".g\**"" />
+  	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="".meta\"" />
+		<Content Include="".meta\**"" />
 	</ItemGroup>
 </Project>";
 
@@ -110,9 +193,9 @@ public class CsProject : ITargetProject
                 .WaitAndRetry(5, a => TimeSpan.FromMilliseconds(500))
                 .Execute(() =>
                 {
-                    if (!File.Exists(expectedCsProjFile))
+                    if (!File.Exists(expectedCsProjFileFullPath))
                     {
-                        using (var swr = new StreamWriter(expectedCsProjFile))
+                        using (var swr = new StreamWriter(expectedCsProjFileFullPath))
                         {
                             swr.Write(defaultCsProjectWhenNotProvidedByTemplate);
                         }
@@ -125,7 +208,7 @@ public class CsProject : ITargetProject
 
     private static readonly string NugetDir =
         SettingsUtility.GetGlobalPackagesFolder(Settings.LoadDefaultSettings(null));
-
+    
 
     /// <inheritdoc />
     public void ProvisionProjectStructure()
@@ -155,9 +238,9 @@ namespace {this.ProjectRootNamespace}
 
         private PlcTranslator() 
         {{
-            var defaultResourceType = Assembly.GetAssembly(typeof({this.ProjectRootNamespace}.PlcTranslator))
-                .GetType(""{this.ProjectRootNamespace}.Resources.PlcStringResources"");
-            this.SetLocalizationResource(defaultResourceType);
+            var assembly = Assembly.GetAssembly(typeof({this.ProjectRootNamespace}.PlcTranslator));
+            var resource = assembly.GetType(""{this.ProjectRootNamespace}.Resources.PlcStringResources"");
+            this.SetLocalizationResource(resource, assembly);
         }}
     }}
 }}";
@@ -170,20 +253,212 @@ namespace {this.ProjectRootNamespace}
     /// <inheritdoc />
     public string GetMetaDataFolder => Path.Combine(AxSharpProject.OutputFolder, ".meta");
 
+    public static string GetRelativePath(string fromPath, string toPath)
+    {
+        var fromUri = new Uri(fromPath);
+        var toUri = new Uri(toPath);
+
+        if (fromUri.Scheme != toUri.Scheme)
+        {
+            // Handle different schemes. 
+            // You could throw an exception here or return the `toPath` as is, 
+            // depending on your needs.
+            return toPath;
+        }
+
+        Uri relativeUri = fromUri.MakeRelativeUri(toUri);
+        var relativePath = Uri.UnescapeDataString(relativeUri.ToString());
+
+        return relativePath.Replace('/', System.IO.Path.DirectorySeparatorChar);
+    }
+
+    private static bool ProjectReferenceExists(string mainProjectPath, string referenceProjectPath)
+    {
+        var xDocument = XDocument.Load(mainProjectPath);
+        
+        // Using XPath to search for the ProjectReference with a specific Include path
+        var projectReferenceElements = xDocument.XPathSelectElements($"//ProjectReference[@Include='{referenceProjectPath}']").Any();
+        var any = xDocument.Descendants("ProjectReference").Any(p => p.Attribute("Include")?.Value == referenceProjectPath);
+        return projectReferenceElements || any;
+    }
+
+    private static void AddProjectReference(string mainProjectPath, string referenceProjectPath)
+    {
+        if (ProjectReferenceExists(mainProjectPath, referenceProjectPath))
+            return;
+
+        Log.Logger.Information($"Adding project reference '{referenceProjectPath}' to '{mainProjectPath}'");
+
+        using (var process = new Process())
+        {
+            process.StartInfo.WorkingDirectory = new FileInfo(mainProjectPath).DirectoryName;
+            process.StartInfo.FileName = "dotnet";
+            process.StartInfo.Arguments = $"add \"{mainProjectPath}\" reference \"{referenceProjectPath}\"";
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+
+            process.OutputDataReceived += (sender, data) => { if (!string.IsNullOrEmpty(data.Data)) { Console.WriteLine(data.Data); } };
+            process.ErrorDataReceived += (sender, data) => { if (!string.IsNullOrEmpty(data.Data)) { Console.WriteLine(data.Data); } };
+
+            process.Start();
+
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+            process.WaitForExit();
+            process.WaitForExit();
+        }
+    }
+
+    private static bool PackageReferenceExists(string projectFilePath, string packageName, string version)
+    {
+        var xDocument = XDocument.Load(projectFilePath);
+
+        var package
+            = PackageReference.GetVersionFromCentralPackageManagement(projectFilePath)?
+                .FirstOrDefault(p => p.include == packageName);
+
+        var hasWithVersion = xDocument.XPathSelectElements($"//PackageReference[@Include='{packageName}' and @Version='{version}']").Any();
+
+        var hasVersionInCentralPackageManagement = (xDocument.XPathSelectElements(
+            $"//PackageReference[@Include='{packageName}']").Any() && package != null && package?.version == version);
+
+        return hasWithVersion || hasVersionInCentralPackageManagement;
+
+    }
+
+    private static void AddNuGetPackageReference(string projectPath, string packageName, string version = null)
+    {
+
+        if (PackageReferenceExists(projectPath, packageName, version))
+            return;
+
+        using (var process = new Process())
+        {
+            process.StartInfo.WorkingDirectory = new FileInfo(projectPath).DirectoryName;
+            process.StartInfo.FileName = "dotnet";
+            process.StartInfo.Arguments = $"add \"{projectPath}\" package {packageName}" + (string.IsNullOrEmpty(version) ? "" : $" --version {version}");
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+
+            process.OutputDataReceived += (sender, data) => { if (!string.IsNullOrEmpty(data.Data)) { Console.WriteLine(data.Data); } };
+            process.ErrorDataReceived += (sender, data) => { if (!string.IsNullOrEmpty(data.Data)) { Console.WriteLine(data.Data); } };
+
+            process.Start();
+
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+            process.WaitForExit();
+            process.WaitForExit();
+        }
+    }
+
+    /// <summary>
+    /// Installs dependencies to the companion twin project from using dependencies from `apax.yml` file of a given AX project.
+    /// </summary>
+    /// <param name="dependencies"></param>
+    public void InstallAXSharpDependencies(IEnumerable<object> dependencies)
+    {
+        var compilerOptions = this.AxSharpProject.CompilerOptions;
+        if (compilerOptions != null && compilerOptions.NoDependencyUpdate) return;
+
+        var compilerOptionsProjectFile = this.AxSharpProject.CompilerOptions?.ProjectFile;
+
+        if (compilerOptionsProjectFile != null)
+        {
+            var dependent = Path.Combine(this.AxSharpProject.OutputFolder, compilerOptionsProjectFile);
+
+            if (!File.Exists(dependent))
+            {
+                throw new Exception("Missing dependency file.");
+            }
+            
+            foreach (var dependency in dependencies)
+            {
+               
+                switch (dependency)
+                {
+                    case CompanionInfo package:
+                        AddNuGetPackageReference(dependent, package.Id, package.Version);
+
+                        if (!string.IsNullOrEmpty(package.UiId) && !string.IsNullOrEmpty(package.UiVersion))
+                        {
+                            var targetApp = this.AxSharpProject.CompilerOptions?.UiHostProject;
+                            if (!string.IsNullOrEmpty(targetApp))
+                            {
+                                var resolvedTargetApp = Path.IsPathRooted(targetApp)
+                                    ? targetApp
+                                    : Path.GetFullPath(Path.Combine(this.AxSharpProject.AxProject.ProjectFolder, targetApp));
+
+                                if (File.Exists(resolvedTargetApp))
+                                    AddNuGetPackageReference(resolvedTargetApp, package.UiId, package.UiVersion);
+                                else
+                                    Log.Logger.Warning($"UiHostProject '{resolvedTargetApp}' not found. UI package '{package.UiId}' was not installed.");
+                            }
+                            else
+                            {
+                                Log.Logger.Information($"Companion '{package.Id}' has UI package '{package.UiId}' but no UiHostProject is configured. Skipping UI package installation.");
+                            }
+                        }
+                        break;
+                    case AXSharpConfig project:
+                        var projectPath = Path.GetFullPath(Path.Combine(project.AxProjectFolder, project.OutputProjectFolder, project.ProjectFile));
+                        AddProjectReference(dependent, GetRelativePath(dependent, projectPath));
+
+                        if (!string.IsNullOrEmpty(project.UiHostProject))
+                        {
+                            var uiHostProject = this.AxSharpProject.CompilerOptions?.UiHostProject;
+                            if (!string.IsNullOrEmpty(uiHostProject))
+                            {
+                                var resolvedUiHost = Path.IsPathRooted(uiHostProject)
+                                    ? uiHostProject
+                                    : Path.GetFullPath(Path.Combine(this.AxSharpProject.AxProject.ProjectFolder, uiHostProject));
+
+                                var resolvedDepUiProject = Path.IsPathRooted(project.UiHostProject)
+                                    ? project.UiHostProject
+                                    : Path.GetFullPath(Path.Combine(project.AxProjectFolder, project.UiHostProject));
+
+                                if (File.Exists(resolvedUiHost) && File.Exists(resolvedDepUiProject))
+                                    AddProjectReference(resolvedUiHost, GetRelativePath(resolvedUiHost, resolvedDepUiProject));
+                                else if (!File.Exists(resolvedUiHost))
+                                    Log.Logger.Warning($"UiHostProject '{resolvedUiHost}' not found. UI project reference '{resolvedDepUiProject}' was not installed.");
+                                else
+                                    Log.Logger.Warning($"Dependency UI project '{resolvedDepUiProject}' not found. UI project reference was not installed.");
+                            }
+                            else
+                            {
+                                Log.Logger.Information($"Dependency '{project.ProjectFile}' has UI project '{project.UiHostProject}' but no UiHostProject is configured in this project. Skipping UI project reference.");
+                            }
+                        }
+                        break;
+                }
+            }            
+        }
+    }
+
     /// <summary>
     ///     Retrieves references from csproj file associated with given project.
     /// </summary>
     /// <returns>List of references.</returns>
     public IEnumerable<IReference> LoadReferences()
     {
-        var directDependencies = GetDirectDependencies(IxProjectFile).ToList();
+        var directDependencies = GetDirectDependencies(CsProjectFile).ToList();
 
         var referenceDependencies = new List<IReference>();
 
         foreach (var dependency in directDependencies)
             GetReferenceDependencies(dependency, referenceDependencies);
 
-        return DistinctBy(referenceDependencies, p => p.ReferencePath);
+        var distinct = DistinctBy(referenceDependencies, p => p.ReferencePath);
+
+        distinct.ToList().ForEach(p => Log.Logger.Debug($"Dependency metadata {this.AxSharpProject.AxProject.ProjectFolder}: \n {string.Join(";", p)}"));
+
+        return distinct;
     }
 
     private static string FileDirectory(string path)
@@ -195,14 +470,16 @@ namespace {this.ProjectRootNamespace}
     {
         var projectPath = projectFile;
 
-        if (!File.Exists(projectPath)) return new List<IReference>();
+        if (!File.Exists(projectPath)) throw new FileNotFoundException(projectFile);
 
         try
         {
             var csproj = XDocument.Load(projectPath);
             var csprojDir = FileDirectory(projectFile);
-            var nugets = PackageReferences(csproj, projectFile);
-            var projects = ProjectReferences(csproj, csprojDir);
+            // Collect MSBuild properties (Directory.Build.props + project)
+            var (baseProperties, targetFrameworks) = MsBuildConditionEvaluator.CollectBaseProperties(projectPath, csproj);
+            var nugets = PackageReferences(csproj, projectPath, targetFrameworks, baseProperties);
+            var projects = ProjectReferences(csproj, csprojDir, targetFrameworks, baseProperties);
             return nugets.Concat(projects);
         }
         catch (Exception ex)
@@ -273,8 +550,9 @@ namespace {this.ProjectRootNamespace}
         {
             var csproj = XDocument.Load(project.ProjectFilePath);
             var csprojDir = FileDirectory(project.ProjectFilePath);
-            var nugets = PackageReferences(csproj, project.ProjectFilePath);
-            var projects = ProjectReferences(csproj, csprojDir);
+            var (baseProps, tfs) = MsBuildConditionEvaluator.CollectBaseProperties(project.ProjectFilePath, csproj);
+            var nugets = PackageReferences(csproj, project.ProjectFilePath, tfs, baseProps);
+            var projects = ProjectReferences(csproj, csprojDir, tfs, baseProps);
             project.References = nugets.Concat(projects);
             return project.References;
         }
@@ -286,13 +564,31 @@ namespace {this.ProjectRootNamespace}
         }
     }
 
-    private static IEnumerable<IReference> PackageReferences(XDocument csproj, string projectFile)
+    private static IEnumerable<IReference> PackageReferences(XDocument csproj, string projectFile, IEnumerable<string> targetFrameworks, Dictionary<string,string> baseProperties)
     {
-        return csproj
-            .Root!
-            .Elements("ItemGroup")
-            .SelectMany(ig => ig.Elements("PackageReference"))
-            .Select(pr => PackageReference.CreateFromReferenceNode(pr, projectFile));
+        var result = new List<IReference>();
+        var itemGroups = csproj.Root!.Elements("ItemGroup");
+        foreach (var ig in itemGroups)
+        {
+            var tf = targetFrameworks.First();
+            
+            if (!MsBuildConditionEvaluator.ItemGroupConditionPasses(ig, baseProperties, tf)) continue;
+            
+            foreach (var pr in ig.Elements("PackageReference"))
+            {
+                if (!MsBuildConditionEvaluator.ElementConditionPasses(pr, baseProperties, tf)) continue;
+                try
+                {
+                    result.Add(PackageReference.CreateFromReferenceNode(pr, projectFile));
+                }
+                catch (Exception e)
+                {
+                    Log.Logger.Warning(e, $"Failed to parse PackageReference '{pr}' in '{projectFile}'");
+                }
+            }
+            
+        }
+        return result;
     }
 
     private static string PackageReferenceNugetPath(PackageReference package)
@@ -326,14 +622,398 @@ namespace {this.ProjectRootNamespace}
        
     }
 
-    private static IEnumerable<IReference> ProjectReferences(XDocument csproj, string directory)
+    private static IEnumerable<IReference> ProjectReferences(XDocument csproj, string directory, IEnumerable<string> targetFrameworks, Dictionary<string,string> baseProperties)
     {
-        return csproj
-            .Root!
-            .Elements("ItemGroup")
-            .SelectMany(ig => ig.Elements("ProjectReference"))
-            .Select(pr => new ProjectReference(directory, pr.Attribute("Include")!.Value.Replace("\\",Path.DirectorySeparatorChar.ToString())));
+        // Optimized: de-duplicate includes, avoid redundant TF loops for unconditional groups/elements,
+        // and short-circuit once a condition passes for any TF.
+        var result = new List<IReference>();
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var itemGroups = csproj.Root!.Elements("ItemGroup");
+
+        foreach (var ig in itemGroups)
+        {
+            var igCondition = ig.Attribute("Condition")?.Value;
+            var igHasCondition = !string.IsNullOrWhiteSpace(igCondition);
+
+            if (!igHasCondition)
+            {
+                // Unconditional ItemGroup – process elements smartly
+                foreach (var pr in ig.Elements("ProjectReference"))
+                {
+                    var includeRaw = pr.Attribute("Include")?.Value;
+                    if (string.IsNullOrWhiteSpace(includeRaw)) continue;
+
+                    var include = includeRaw.Replace("\\", Path.DirectorySeparatorChar.ToString());
+                    var prCondition = pr.Attribute("Condition")?.Value;
+                    var prHasCondition = !string.IsNullOrWhiteSpace(prCondition);
+
+                    var shouldInclude = false;
+                    if (!prHasCondition)
+                    {
+                        shouldInclude = true;
+                    }
+                    else
+                    {
+                        // Evaluate once per TF until first pass
+                        var tf = targetFrameworks.First();
+                        if (MsBuildConditionEvaluator.ElementConditionPasses(pr, baseProperties, tf))
+                        {
+                            shouldInclude = true;
+                            break;
+                        }
+                        
+                    }
+
+                    if (shouldInclude && seen.Add(include))
+                    {
+                        result.Add(new ProjectReference(directory, include));
+                    }
+                }
+
+                continue; // done with this ItemGroup
+            }
+
+            // Conditional ItemGroup – we must evaluate per TF, but still de-duplicate and short-circuit per element
+            foreach (var pr in ig.Elements("ProjectReference"))
+            {
+                var includeRaw = pr.Attribute("Include")?.Value;
+                if (string.IsNullOrWhiteSpace(includeRaw)) continue;
+                var include = includeRaw.Replace("\\", Path.DirectorySeparatorChar.ToString());
+
+                foreach (var tf in targetFrameworks)
+                {
+                    if (!MsBuildConditionEvaluator.ItemGroupConditionPasses(ig, baseProperties, tf)) continue;
+                    if (!MsBuildConditionEvaluator.ElementConditionPasses(pr, baseProperties, tf)) continue;
+
+                    if (seen.Add(include))
+                    {
+                        result.Add(new ProjectReference(directory, include));
+                    }
+                    break; // Once added for any TF, don't re-evaluate for others
+                }
+            }
+        }
+        return result;
     }
 
     #endregion
+
+    static string GetPackageId(string csprojPath)
+    {
+        XDocument xDocument = XDocument.Load(csprojPath);
+
+        var packageIdElement = xDocument.Descendants("PackageId").FirstOrDefault();
+
+        if (packageIdElement != null)
+        {
+            return packageIdElement.Value;
+        }
+
+        // If PackageId element is not found, default to the project's name
+        return Path.GetFileNameWithoutExtension(csprojPath);
+    }
+
+    private string? ResolveUiId(string? uiHostProject)
+    {
+        if (string.IsNullOrEmpty(uiHostProject))
+            return null;
+
+        var resolved = Path.IsPathRooted(uiHostProject)
+            ? uiHostProject
+            : Path.GetFullPath(Path.Combine(this.AxSharpProject.AxProject.ProjectFolder, uiHostProject));
+
+        if (File.Exists(resolved))
+            return GetPackageId(resolved);
+
+        return (this.AxSharpProject.AxProject.ProjectInfo.Name ?? Path.GetFileNameWithoutExtension(resolved)) + ".UI";
+    }
+
+    public void GenerateCompanionData()
+    {
+        var compilerOptions = this.AxSharpProject.CompilerOptions;
+        if (compilerOptions != null)
+        {
+            if (compilerOptions.ProjectFile != null)
+            {
+                var packageId = GetPackageId(Path.Combine(this.AxSharpProject.OutputFolder,
+                    compilerOptions.ProjectFile));
+
+                var version = this.AxSharpProject.AxProject.ProjectInfo.Version ?? string.Empty;
+                var uiId = ResolveUiId(compilerOptions.UiHostProject);
+                CompanionInfo.ToFile(
+                    new CompanionInfo()
+                    {
+                        Id = packageId,
+                        Version = version,
+                        UiId = uiId,
+                        UiVersion = uiId != null ? version : null
+                    },
+                    Path.Combine(this.AxSharpProject.AxProject.ProjectFolder, CompanionInfo.COMPANIONS_FILE_NAME));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Helper class for naïve MSBuild condition evaluation for dependency discovery.
+    /// Supports equality/inequality with $(Property) and logical AND/OR operators.
+    /// Only properties needed for typical ItemGroup conditions are handled (TargetFramework / Configuration etc.).
+    /// </summary>
+    private static class MsBuildConditionEvaluator
+    {
+        // Precompiled regex for faster evaluation
+        private static readonly Regex SimpleTfEqRegex = new(
+            pattern: "^\\s*'\\$\\(TargetFramework\\)'\\s*==\\s*'([^']+)'\\s*$",
+            options: RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex SimpleTfNeRegex = new(
+            pattern: "^\\s*'\\$\\(TargetFramework\\)'\\s*!=\\s*'([^']+)'\\s*$",
+            options: RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex PropertyRefRegex = new(
+            pattern: "\\$\\(([^)]+)\\)",
+            options: RegexOptions.Compiled);
+
+        internal static (Dictionary<string,string> properties, List<string> targetFrameworks) CollectBaseProperties(string projectFile, XDocument csproj)
+        {
+            var props = new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase);
+
+            // Walk up directories gathering Directory.Build.props (outermost first)
+            var dir = Path.GetDirectoryName(projectFile)!;
+            var stack = new Stack<string>();
+            var current = dir;
+            while (!string.IsNullOrEmpty(current))
+            {
+                var dbp = Path.Combine(current, "Directory.Build.props");
+                if (File.Exists(dbp)) stack.Push(dbp);
+                var parent = Directory.GetParent(current);
+                if (parent == null) break;
+                current = parent.FullName;
+            }
+
+            foreach (var dbp in stack)
+            {
+                TryLoadProps(dbp, props);
+            }
+
+            // Project properties override
+            TryLoadProjectProperties(csproj, props);
+
+            // Derive target frameworks (TargetFramework overrides TargetFrameworks if present)
+            var frameworks = new List<string>();
+            if (props.TryGetValue("TargetFramework", out var singleTf) && !string.IsNullOrWhiteSpace(singleTf))
+            {
+                frameworks.Add(singleTf.Trim());
+            }
+            else if (props.TryGetValue("TargetFrameworks", out var tfs) && !string.IsNullOrWhiteSpace(tfs))
+            {
+                frameworks.AddRange(tfs.Split(new[]{';'}, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+            }
+            if (frameworks.Count == 0)
+            {
+                // default fallback
+                frameworks.Add("net10.0");
+            }
+            return (props, frameworks);
+        }
+
+        private static void TryLoadProps(string file, Dictionary<string,string> props)
+        {
+            try
+            {
+                var x = XDocument.Load(file);
+                TryLoadProjectProperties(x, props);
+            }
+            catch { /* ignore */ }
+        }
+
+        private static void TryLoadProjectProperties(XDocument xdoc, Dictionary<string,string> props)
+        {
+            foreach (var pg in xdoc.Root!.Elements("PropertyGroup"))
+            {
+                // Ignore conditional property groups for now (most TF definitions are unconditional in props files)
+                foreach (var el in pg.Elements())
+                {
+                    if (!el.HasElements && !string.IsNullOrWhiteSpace(el.Value))
+                    {
+                        props[el.Name.LocalName] = el.Value.Trim();
+                    }
+                }
+            }
+        }
+
+        internal static bool ItemGroupConditionPasses(XElement itemGroup, Dictionary<string,string> baseProps, string targetFramework)
+            => ConditionPasses(itemGroup.Attribute("Condition")?.Value, baseProps, targetFramework);
+
+        internal static bool ElementConditionPasses(XElement element, Dictionary<string,string> baseProps, string targetFramework)
+        {
+            var condition = element.Attribute("Condition")?.Value;
+            var passes = ConditionPasses(condition, baseProps, targetFramework);
+            if (!string.IsNullOrWhiteSpace(condition) && Log.Logger.IsEnabled(LogEventLevel.Debug))
+            {
+                try
+                {
+                    var include = element.Attribute("Include")?.Value;
+                    Log.Logger.Debug("[MsBuildConditionEvaluator] Element '{Elem}' Include='{Include}' condition='{Condition}' tf='{TF}' => {Pass}", element.Name.LocalName, include, condition, targetFramework, passes);
+                }
+                catch { /* ignore */ }
+            }
+            return passes;
+        }
+
+        private static bool ConditionPasses(string? condition, Dictionary<string,string> baseProps, string targetFramework)
+        {
+            if (string.IsNullOrWhiteSpace(condition)) return true;
+            try
+            {
+                // Fast path for simple TF equality/inequality expressions to avoid parser quirks
+                var simpleTfEq = SimpleTfEqRegex.Match(condition);
+                if (simpleTfEq.Success)
+                {
+                    var expected = simpleTfEq.Groups[1].Value.Trim();
+                    var ok = string.Equals(expected, targetFramework, StringComparison.OrdinalIgnoreCase);
+                    if (!ok) return false; // short circuit
+                }
+                var simpleTfNe = SimpleTfNeRegex.Match(condition);
+                if (simpleTfNe.Success)
+                {
+                    var notExpected = simpleTfNe.Groups[1].Value.Trim();
+                    var ok = !string.Equals(notExpected, targetFramework, StringComparison.OrdinalIgnoreCase);
+                    if (!ok) return false; // short circuit
+                }
+
+                // Replace only referenced properties
+                var expanded = condition;
+                var matches = PropertyRefRegex.Matches(condition);
+                if (matches.Count > 0)
+                {
+                    // Use a small set to avoid repeating replaces
+                    var propsToExpand = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                    foreach (Match m in matches)
+                    {
+                        if (m.Success && m.Groups.Count > 1)
+                        {
+                            propsToExpand.Add(m.Groups[1].Value);
+                        }
+                    }
+                    foreach (var key in propsToExpand)
+                    {
+                        string? value = null;
+                        if (string.Equals(key, "TargetFramework", StringComparison.OrdinalIgnoreCase))
+                        {
+                            value = targetFramework;
+                        }
+                        else
+                        {
+                            baseProps.TryGetValue(key, out value);
+                        }
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            expanded = expanded.Replace($"$({key})", value, StringComparison.OrdinalIgnoreCase);
+                        }
+                    }
+                }
+
+                var result = Evaluate(expanded);
+                if (expanded.Contains("=="))
+                {
+                    var parts = expanded.Split(new[]{"=="}, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                    if (parts.Length == 2)
+                    {
+                        var left = NormalizeLiteral(parts[0]);
+                        var right = NormalizeLiteral(parts[1]);
+                        result = string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
+                    }
+                }
+                else if (expanded.Contains("!="))
+                {
+                    var parts = expanded.Split(new[]{"!="}, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                    if (parts.Length == 2)
+                    {
+                        var left = NormalizeLiteral(parts[0]);
+                        var right = NormalizeLiteral(parts[1]);
+                        result = !string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
+                    }
+                }
+                if (Log.Logger.IsEnabled(LogEventLevel.Debug))
+                {
+                    Log.Logger.Debug("[MsBuildConditionEvaluator] expanded='{Expanded}' tf='{TF}' => {Result}", expanded, targetFramework, result);
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                if (Log.Logger.IsEnabled(LogEventLevel.Debug))
+                {
+                    Log.Logger.Debug(e, $"Failed to evaluate MSBuild condition '{condition}'. Assuming false.");
+                }
+                return false;
+            }
+        }
+
+        private static bool Evaluate(string expr)
+        {
+            // Very small parser: handle parentheses removal, quotes, ==, !=, And/Or
+            expr = expr.Trim();
+            if (expr.StartsWith("(") && expr.EndsWith(")"))
+            {
+                expr = expr.Substring(1, expr.Length - 2).Trim();
+            }
+
+            // Split by OR
+            var orParts = Split(expr, new[]{" Or ", " or ", " OR "});
+            if (orParts.Length > 1)
+            {
+                return orParts.Any(p => Evaluate(p));
+            }
+            var andParts = Split(expr, new[]{" And ", " and ", " AND "});
+            if (andParts.Length > 1)
+            {
+                return andParts.All(p => Evaluate(p));
+            }
+
+            // Equality / inequality
+            if (expr.Contains("!="))
+            {
+                var sides = expr.Split(new[]{"!="}, StringSplitOptions.RemoveEmptyEntries);
+                if (sides.Length == 2)
+                {
+                    return !NormalizeLiteral(sides[0]).Equals(NormalizeLiteral(sides[1]), StringComparison.OrdinalIgnoreCase);
+                }
+            }
+            if (expr.Contains("=="))
+            {
+                var sides = expr.Split(new[]{"=="}, StringSplitOptions.RemoveEmptyEntries);
+                if (sides.Length == 2)
+                {
+                    return NormalizeLiteral(sides[0]).Equals(NormalizeLiteral(sides[1]), StringComparison.OrdinalIgnoreCase);
+                }
+            }
+
+            // If cannot parse, default true (MSBuild would treat non-empty?) but safer false.
+            return false;
+        }
+
+        private static string NormalizeLiteral(string val)
+        {
+            val = val.Trim();
+            if (val.StartsWith("'")) val = val.Trim('\'');
+            if (val.StartsWith("\"")) val = val.Trim('"');
+            return val.Trim();
+        }
+
+        private static string[] Split(string expr, string[] separators)
+        {
+            foreach (var sep in separators)
+            {
+                var idx = IndexOfIgnoreCase(expr, sep);
+                if (idx >= 0)
+                {
+                    // simple split (no nested support)
+                    return expr.Split(separators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                }
+            }
+            return new[]{expr};
+        }
+
+        private static int IndexOfIgnoreCase(string source, string value)
+            => source.IndexOf(value, StringComparison.OrdinalIgnoreCase);
+    }
 }

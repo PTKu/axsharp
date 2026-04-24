@@ -1,30 +1,35 @@
 ﻿// AXSharp.Connector
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
+using AXSharp.Connector.Identity;
+using AXSharp.Connector.Localizations;
+using AXSharp.Connector.ValueTypes;
+using Serilog;
+using Serilog.Events;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AXSharp.Connector.Identity;
-using AXSharp.Connector.Localizations;
-using AXSharp.Connector.ValueTypes;
-using Serilog;
+using System.Xml.Linq;
 
 namespace AXSharp.Connector;
 
 #pragma warning disable CS0618
+
 // Type or member is obsolete
 /// <summary>
 ///     <para>Abstract base class provides implementation contract for the PLC connector and basic common underlying logic.</para>
+///     <para>Implements priority-based access control and configurable batch operations for efficient communication.</para>
 /// </summary>
 /// <seealso cref="RootTwinObject" />
 /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
@@ -41,6 +46,8 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
 
     private bool isRwLoopSuspended;
     private int readWriteCycleDealy;
+    private int concurrentRequestDelay;
+    private int concurrentRequestMaxCount;
 
     /// <summary>Creates an instance of Connector class</summary>
     /// <param name="parameters">
@@ -54,7 +61,6 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
     protected Connector(object[] parameters)
     {
         IdentityProvider = new TwinIdentityProvider(this);
-        
     }
 
     /// <summary>
@@ -64,6 +70,34 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
     {
         IdentityProvider = new TwinIdentityProvider(this);
     }
+
+    /// <summary>
+    /// Sets logger for this connector.
+    /// >![NOTE] The default logger is implemented. Default implementation will log into console and in simple text file.
+    /// </summary>
+    /// <param name="logger">Logger</param>
+    public void SetLoggerConfiguration(ILogger logger)
+    {
+        this._logger = logger;
+    }
+
+    /// <summary>
+    /// Gets or sets the batch operation settings for different priority levels.
+    /// Each priority level can have its own chunk size and inter-chunk delay settings.
+    /// </summary>
+    /// <remarks>
+    /// The dictionary maps each priority level to a tuple containing:
+    /// - chunkSize: Maximum number of items to process in a single batch (null uses default)
+    /// - interChunkDelay: Delay in milliseconds between chunks (null uses default)
+    /// </remarks>
+    public Dictionary<eAccessPriority, (int? chunkSize, int? interChunkDelay)> BatchSettings { get; } = new()
+    {
+        { eAccessPriority.Low, (100, 500) },
+        { eAccessPriority.Normal, (null, null) },
+        { eAccessPriority.UserInterface, (null, null) },
+        { eAccessPriority.High, (null, null) },
+        { eAccessPriority.Custom, (null, null) }
+    };
 
     /// <summary>
     ///     Provides logging capability for this connector.
@@ -79,6 +113,7 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
                 .File($"connector{GetType()}.log",
                     outputTemplate: "{Timestamp:yyyy-MMM-dd HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}",
                     fileSizeLimitBytes: 100000)
+                .MinimumLevel.Information()
                 .CreateLogger();
         }
     }
@@ -149,7 +184,6 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
         set => SetField(ref _monitorConnector, value, nameof(MonitorConnector));
     }
 
-
     /// <summary>
     ///     Gets or sets delay between Read/Write cycles.
     /// </summary>
@@ -165,6 +199,36 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
         set => SetField(ref readWriteCycleDealy, value, nameof(ReadWriteCycleDelay));
     }
 
+    /// <summary>
+    ///     Gets delay between concurrent requests.
+    ///     It is applied when <see cref="ConcurrentRequestMaxCount"/> is reached.
+    /// </summary>
+    public int ConcurrentRequestDelay
+    {
+        get => concurrentRequestDelay;
+
+        protected set => SetField(ref concurrentRequestDelay, value, nameof(ConcurrentRequestDelay));
+    }
+
+    /// <summary>
+    ///     Gets maximal count of concurrent requests.
+    ///     Maximum number of simultaneous requests is `4`.
+    ///     >[!NOTE]
+    ///     > The property will be capped to this value if higher value is assigned.
+    ///     >[!IMPORTANT]
+    ///     > When setting this value take into account that other devices may communicate with your target system.
+    /// </summary>
+    public int ConcurrentRequestMaxCount
+    {
+        get
+        {
+            if (concurrentRequestMaxCount > 4) concurrentRequestMaxCount = 4;
+            if (concurrentRequestMaxCount <= 0) concurrentRequestMaxCount = 1;
+            return concurrentRequestMaxCount;
+        }
+
+        protected set => SetField(ref concurrentRequestMaxCount, value, nameof(ConcurrentRequestMaxCount));
+    }
 
     /// <summary>
     ///     Gets online value items tags attached to this connector.
@@ -188,7 +252,6 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
         }
     }
 
-
     internal bool WriteProtectionSuspended { get; private set; }
 
     /// <summary>
@@ -211,16 +274,36 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
     public abstract Connector BuildAndStart();
 
     /// <summary>
-    ///     Reads batch of value items from the plc.
+    /// Reads a batch of primitives asynchronously with specified priority and batch settings.
     /// </summary>
-    /// <param name="primitives">Primitive items to be read.</param>
-    public abstract Task ReadBatchAsync(IEnumerable<ITwinPrimitive> primitives);
+    /// <param name="primitives">Collection of primitives to read.</param>
+    /// <param name="priority">Access priority level that determines batch processing parameters.</param>
+    /// <param name="chunkSize">Override for the number of items to process in each chunk.</param>
+    /// <param name="interChunkDelay">Override for the delay between chunks in milliseconds.</param>
+    /// <returns>A task representing the asynchronous read operation.</returns>
+    /// <remarks>
+    /// The actual batch processing parameters (chunk size and delay) may be determined by the
+    /// priority level rather than the provided parameters, depending on the connector implementation.
+    /// </remarks>
+    public abstract Task ReadBatchAsync(IEnumerable<ITwinPrimitive> primitives, eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250);
+
+    internal abstract Task ReadBatchAsyncCyclic(IEnumerable<ITwinPrimitive> primitives, eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250);
 
     /// <summary>
-    ///     Writes batch of value items to the plc.
+    /// Writes a batch of primitives asynchronously with specified priority and batch settings.
     /// </summary>
-    /// <param name="primitives">Primitive items to be written.</param>
-    public abstract Task WriteBatchAsync(IEnumerable<ITwinPrimitive> primitives);
+    /// <param name="primitives">Collection of primitives to write.</param>
+    /// <param name="priority">Access priority level that determines batch processing parameters.</param>
+    /// <param name="chunkSize">Override for the number of items to process in each chunk.</param>
+    /// <param name="interChunkDelay">Override for the delay between chunks in milliseconds.</param>
+    /// <returns>A task representing the asynchronous write operation.</returns>
+    /// <remarks>
+    /// The actual batch processing parameters (chunk size and delay) may be determined by the
+    /// priority level rather than the provided parameters, depending on the connector implementation.
+    /// </remarks>
+    public abstract Task WriteBatchAsync(IEnumerable<ITwinPrimitive> primitives, eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250);
+
+    internal abstract Task WriteBatchAsyncCyclic(IEnumerable<ITwinPrimitive> primitives, eAccessPriority priority = eAccessPriority.Normal, int chunkSize = 250, int interChunkDelay = 250);
 
     /// <summary>
     ///     Return symbol path combining parent's and member's symbol.
@@ -294,6 +377,7 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
         {
             case null:
                 return;
+
             case
                 "Hoj morho vetvo mojho rodu, kto kramou rukou siahne na tvoju slobodu a co i dusu das v tom boji divokom vol nebyt ako byt otrokom!"
                 :
@@ -321,6 +405,32 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
         NextPeriodicReadSet[primitive.Symbol] = primitive;
     }
 
+    private static CultureInfo desiredCulture = CultureInfo.InvariantCulture;
+
+    /// <summary>
+    /// Sets the culture for this connector.
+    /// </summary>
+    /// <param name="culture">Desired culture</param>
+    public static void SetCulture(CultureInfo culture)
+    {
+        desiredCulture = culture;
+    }
+
+    /// <summary>
+    /// Start polling queue of subscribed items.
+    /// </summary>
+    public void StartSubscriptionPolling(int pollingInterval = 100, int chunkSize = 250, int interChunkDelay = 250)
+    {
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(pollingInterval);
+                await ReadBatchAsync(this.Subscribed.Values, eAccessPriority.Custom, chunkSize, interChunkDelay);
+            }
+        });
+    }
+
     /// <summary>
     ///     Starts cyclical read write operation on this connector.
     /// </summary>
@@ -335,15 +445,22 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
             while (true)
                 if (!IsRwLoopSuspended)
                 {
-                    Thread.Sleep(ReadWriteCycleDelay);
+                    if (desiredCulture.Name != CultureInfo.InvariantCulture.Name
+                        && (Thread.CurrentThread.CurrentUICulture.Name != desiredCulture.Name ||
+                        Thread.CurrentThread.CurrentCulture.Name != desiredCulture.Name))
+                    {
+                        Thread.CurrentThread.CurrentUICulture = desiredCulture;
+                        Thread.CurrentThread.CurrentCulture = desiredCulture;
+                    }
 
+                    await Task.Delay(ReadWriteCycleDelay);
                     sw.Restart();
                     try
                     {
                         await CyclicWrite();
                         await CyclicRead();
                     }
-                    catch 
+                    catch
                     {
                         ReloadConnector();
                     }
@@ -360,7 +477,6 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
         });
     }
 
-    
     /// <summary>
     ///     Reads online variables required to be read.
     /// </summary>
@@ -368,11 +484,19 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
     {
         var primitivesToRead = new List<ITwinPrimitive>();
         primitivesToRead.AddRange(NextPeriodicReadSet.Values);
-        primitivesToRead.AddRange(Subscribed.Values);
-        var distinctPrimitivesToRead = primitivesToRead.Distinct();
-        
-        await ReadBatchAsync(distinctPrimitivesToRead
-            .Where(p => !(p.ReadOnce && p.AccessStatus.LastAccess != OnlinerBase.DefaultDateTime)));
+        //primitivesToRead.AddRange(Subscribed.Values);
+        var distinctPrimitivesToRead = primitivesToRead.Distinct().ToList();
+
+        if (distinctPrimitivesToRead.Any())
+        {
+            if (Logger.IsEnabled(LogEventLevel.Debug))
+            {
+                Logger.Debug("Periodic reading of {itemsCount} items.", distinctPrimitivesToRead.Count());
+            }
+        }
+
+        await ReadBatchAsyncCyclic(distinctPrimitivesToRead
+        .Where(p => !(p.ReadOnce && p.AccessStatus.LastAccess != OnlinerBase.DefaultDateTime)), eAccessPriority.UserInterface);
 
         this.ClearPeriodicReadSet();
     }
@@ -382,7 +506,15 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
     /// </summary>
     protected async Task CyclicWrite()
     {
-        await WriteBatchAsync(NextCycleWriteSet.Values);
+        if (NextCycleWriteSet.Any())
+        {
+            if (Logger.IsEnabled(LogEventLevel.Debug))
+            {
+                Logger.Debug("Periodic writing of {itemsCount} items.", NextCycleWriteSet.Count());
+            }
+        }
+
+        await WriteBatchAsyncCyclic(NextCycleWriteSet.Values, eAccessPriority.UserInterface);
         ClearPeriodicWriteSet();
     }
 
@@ -400,4 +532,9 @@ public abstract class Connector : RootTwinObject, INotifyPropertyChanged
     {
         this.Subscribed[primitive.Symbol] = primitive;
     }
+
+    /// <summary>
+    /// Target platform moniker.
+    /// </summary>
+    public abstract string TargetPlatformMoniker { get; }
 }

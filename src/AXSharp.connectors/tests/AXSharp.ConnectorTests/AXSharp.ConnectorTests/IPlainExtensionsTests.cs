@@ -9,6 +9,7 @@ namespace AXSharp.ConnectorTests
     using Xunit;
     using NSubstitute;
     using System.Threading.Tasks;
+    using System.Globalization;
 
     public class MyPlain : IPlain
     {
@@ -142,7 +143,17 @@ namespace AXSharp.ConnectorTests
             PostConstruct(parent, readableTail, symbolTail);
         }
 
-        public async virtual Task<T> OnlineToPlain<T>()
+        public string GetAttributeName(CultureInfo culture)
+        {
+            return this.Translate(this.AttributeName, culture);
+        }
+
+        public string GetHumanReadable(CultureInfo culture)
+        {
+            return this.Translate(this.HumanReadable, culture);
+        }
+
+        public async virtual Task<T> OnlineToPlain<T>(eAccessPriority priority = eAccessPriority.Normal)
         {
             return await (dynamic)this.OnlineToPlainAsync();
         }
@@ -203,12 +214,12 @@ namespace AXSharp.ConnectorTests
             return plain;
         }
 
-        public async virtual Task PlainToOnline<T>(T plain)
+        public async virtual Task PlainToOnline<T>(T plain, eAccessPriority priority = eAccessPriority.Normal)
         {
-            await this.PlainToOnlineAsync((dynamic)plain);
+            await this.PlainToOnlineAsync((dynamic)plain, priority);
         }
 
-        public async Task<IEnumerable<ITwinPrimitive>> PlainToOnlineAsync(Pocos.all_primitives plain)
+        public async Task<IEnumerable<ITwinPrimitive>> PlainToOnlineAsync(Pocos.all_primitives plain, eAccessPriority priority = eAccessPriority.Normal)
         {
             myBOOL.Cyclic = plain.myBOOL;
             myBYTE.Cyclic = plain.myBYTE;
@@ -298,6 +309,11 @@ namespace AXSharp.ConnectorTests
         public async virtual Task PlainToShadow<T>(T plain)
         {
             await this.PlainToShadowAsync((dynamic)plain);
+        }
+
+        public Task<bool> AnyChangeAsync<T1>(T1 plain)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<ITwinPrimitive>> PlainToShadowAsync(Pocos.all_primitives plain)
@@ -390,7 +406,7 @@ namespace AXSharp.ConnectorTests
         public string Symbol { get; protected set; }
 
         private string _attributeName;
-        public System.String AttributeName { get => string.IsNullOrEmpty(_attributeName) ? SymbolTail : this.Translate(_attributeName).Interpolate(this); set => _attributeName = value; }
+        public System.String AttributeName { get => string.IsNullOrEmpty(_attributeName) ? SymbolTail : _attributeName.Interpolate(this); set => _attributeName = value; }
 
         public string HumanReadable { get; set; }
 

@@ -1,9 +1,9 @@
 // AXSharp.Connector.S71500.WebAPITests
-// Copyright (c) 2023 Peter Kurhajec (PTKu), MTS,  and Contributors. All Rights Reserved.
-// Contributors: https://github.com/ix-ax/axsharp/graphs/contributors
+// Copyright (c) 2023 MTS spol. s r.o.,  and Contributors. All Rights Reserved.
+// Contributors: https://github.com/inxton/axsharp/graphs/contributors
 // See the LICENSE file in the repository root for more information.
-// https://github.com/ix-ax/axsharp/blob/dev/LICENSE
-// Third party licenses: https://github.com/ix-ax/axsharp/blob/master/notices.md
+// https://github.com/inxton/axsharp/blob/dev/LICENSE
+// Third party licenses: https://github.com/inxton/axsharp/blob/master/notices.md
 
 using System;
 using System.Collections;
@@ -43,9 +43,10 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_write_bool()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true).BuildAndStart() as WebApiConnector;
+            var connector = TestConnector.TestApiConnector;
             //await connector.Authenticate(TargetIp, "Everybody", "");
-            var actual = await connector.WriteAsync<bool>("myBOOL", true);
+            var myBOOL = new WebApiBool(connector, "", "myBOOL");
+            var actual = await connector.WriteAsync<bool>(myBOOL, true);
 
             Assert.True(actual);
         }
@@ -53,8 +54,9 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_read_bool()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
-            await connector.WriteAsync<bool>("myBOOL", true);
+            var connector = TestConnector.TestApiConnector;
+            var myBOOL = new WebApiBool(connector, "", "myBOOL");
+            await connector.WriteAsync<bool>(myBOOL, true);
             var response = await connector.ReadAsync<bool>("myBOOL");
             output.WriteLine(response.ToString());
             Assert.Equal(response.result, true);
@@ -63,8 +65,9 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_write_byte()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
-            var actual = await connector.WriteAsync<byte>("myBYTE", 155);
+            var connector = TestConnector.TestApiConnector;
+            var myBYTE = new WebApiByte(connector, "", "myBYTE");
+            var actual = await connector.WriteAsync<byte>(myBYTE, 155);
 
             Assert.True(155 == actual);
         }
@@ -72,8 +75,9 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_read_byte()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
-            await connector.WriteAsync<byte>("myBYTE", 158);
+            var connector = TestConnector.TestApiConnector;
+            var myBYTE = new WebApiByte(connector, "", "myBYTE");
+            await connector.WriteAsync<byte>(myBYTE, 158);
             var response = await connector.ReadAsync<byte>("myBYTE");
             output.WriteLine(response.ToString());
             Assert.Equal(response.result, 158);
@@ -82,8 +86,10 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_read_lint()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
-            await connector.WriteAsync<object>("myLINT", "9223372036854775807");
+            var connector = TestConnector.TestApiConnector;
+            var myLINT = new WebApiLInt(connector, "", "myLINT");
+            await connector.WriteAsync<long>(myLINT, 9223372036854775807);
+
             var response = await connector.ReadAsync<long>("myLINT");
             output.WriteLine(response.ToString());
             Assert.Equal(9223372036854775807, response.result);
@@ -92,11 +98,8 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_batch_read_primitives()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
 
-            await connector.WriteAsync<byte>("myBYTE", 42);
-            await connector.WriteAsync<bool>("myBOOL", true);
-            await connector.WriteAsync<short>("myINT", 43);
 
             var myBOOL = new WebApiBool(connector, "", "myBOOL");
             var myBYTE = new WebApiByte(connector, "", "myBYTE");
@@ -126,6 +129,10 @@ namespace AXSharp.Connector.S71500.WebAPITests
             var mySTRING = new WebApiString(connector, "", "mySTRING");
             //   myWSTRING	    :       WSTRING	      ;
 
+
+            await connector.WriteAsync<byte>(myBYTE, 42);
+            await connector.WriteAsync<bool>(myBOOL, true);
+            await connector.WriteAsync<short>(myINT, 43);
 
             IEnumerable<ITwinPrimitive> primitives = new ITwinPrimitive[]
             {
@@ -162,7 +169,7 @@ namespace AXSharp.Connector.S71500.WebAPITests
             for (int i = 0; i < 10; i++)
             {
                 sw.Restart();
-                await connector.ReadBatchAsync(primitives);
+                await ((Connector)connector).ReadBatchAsync(primitives);
                 output.WriteLine(sw.ElapsedMilliseconds.ToString());
             }
             
@@ -174,7 +181,7 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_batch_write_primitives()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
             
 
             
@@ -699,168 +706,6 @@ namespace AXSharp.Connector.S71500.WebAPITests
                 //   myWCHAR	     
                 mySTRING,
                 //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
             };
             var sw = new Stopwatch();
             output.WriteLine(primitives.Count().ToString());
@@ -893,11 +738,9 @@ namespace AXSharp.Connector.S71500.WebAPITests
 #if RELEASE
     return;
 #endif
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
 
-            await connector.WriteAsync<byte>("myBYTE", 42);
-            await connector.WriteAsync<bool>("myBOOL", true);
-            await connector.WriteAsync<short>("myINT", 43);
+           
 
             var myBOOL = new WebApiBool(connector, "", "myBOOL");
             var myBYTE = new WebApiByte(connector, "", "myBYTE");
@@ -927,6 +770,9 @@ namespace AXSharp.Connector.S71500.WebAPITests
             var mySTRING = new WebApiString(connector, "", "mySTRING");
             //   myWSTRING	    :       WSTRING	      ;
 
+            await connector.WriteAsync<byte>(myBYTE, 42);
+            await connector.WriteAsync<bool>(myBOOL, true);
+            await connector.WriteAsync<short>(myINT, 43);
 
             IEnumerable<ITwinPrimitive> primitives = new ITwinPrimitive[]
             {
@@ -1227,361 +1073,6 @@ namespace AXSharp.Connector.S71500.WebAPITests
                 //   myWCHAR	     
                 mySTRING,
                 //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
-                myLWORD,
-                mySINT ,
-                myINT,
-                myDINT ,
-                myLINT ,
-                myUSINT,
-                myUINT ,
-                myUDINT,
-                myULINT,
-                myREAL ,
-                myLREAL,
-                myTIME ,
-                myLTIME,
-                myDATE ,
-                //   myLDATE	        :
-                myTIME_OF_DAY,
-                //   myLTIME_OF_DAY	:
-                myDATE_AND_TIME,
-                //   myLDATE_AND_TIME
-                //   myCHAR	        :
-                //   myWCHAR	     
-                mySTRING,
-                //   myWSTRING	    :
-                myBOOL ,
-                myBYTE ,
-                myWORD ,
-                //      DWORD  ,
                 myLWORD,
                 mySINT ,
                 myINT,
@@ -1743,16 +1234,36 @@ namespace AXSharp.Connector.S71500.WebAPITests
                 //   myWCHAR	     
                 mySTRING,
                 //   myWSTRING	    :
-
-
-
+                myLWORD,
+                mySINT ,
+                myINT,
+                myDINT ,
+                myLINT ,
+                myUSINT,
+                myUINT ,
+                myUDINT,
+                myULINT,
+                myREAL ,
+                myLREAL,
+                myTIME ,
+                myLTIME,
+                myDATE ,
+                //   myLDATE	        :
+                myTIME_OF_DAY,
+                //   myLTIME_OF_DAY	:
+                myDATE_AND_TIME,
+                //   myLDATE_AND_TIME
+                //   myCHAR	        :
+                //   myWCHAR	     
+                mySTRING,
+                //   myWSTRING	    :
             };
             var sw = new Stopwatch();
             output.WriteLine(primitives.Count().ToString());
             for (int i = 0; i < 9; i++)
             {
                 sw.Restart();
-                await connector.ReadBatchAsync(primitives);
+                await ((Connector)connector).ReadBatchAsync(primitives);
                 output.WriteLine(sw.ElapsedMilliseconds.ToString());
             }
 
@@ -1764,27 +1275,27 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_report_failure_when_unable_to_read_single_item()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
             connector.ExceptionBehaviour = CommExceptionBehaviour.Ignore;
             var myBYTE = new WebApiByte(connector, "", "myBYTE_does_not_exist");
             var response = await connector.ReadAsync<byte>(myBYTE);
 
             Assert.Equal(true, myBYTE.AccessStatus.Failure);
             output.WriteLine(myBYTE.AccessStatus.FailureReason);
-            Assert.Equal("Failed to read item: 'The requested address does not exist or the webserver cannot access the requested address.'", myBYTE.AccessStatus.FailureReason);
+            Assert.Equal("Batch read failed.: 'During Bulk request for 1 there have been 1 Errors:\r\nFor details: Check the Property BulkResponse, errors:{\"Code\":200,\"Message\":\"Address does not exist\"}\r\n' [var : \"TGlobalVariablesDB\".myBYTE_does_not_exist] ", myBYTE.AccessStatus.FailureReason);
         }
 
         [Fact]
         public async Task should_report_failure_when_unable_to_write_single_item()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
             connector.ExceptionBehaviour = CommExceptionBehaviour.Ignore;
             var myBYTE = new WebApiByte(connector, "", "myBYTE_does_not_exist");
             var response = await connector.WriteAsync<byte>(myBYTE,55);
 
             Assert.Equal(true, myBYTE.AccessStatus.Failure);
             output.WriteLine(myBYTE.AccessStatus.FailureReason);
-            Assert.Equal("Failed to write item: 'The requested address does not exist or the webserver cannot access the requested address.'", myBYTE.AccessStatus.FailureReason);
+            Assert.Equal("Batch write failed.: 'During Bulk request for 1 there have been 1 Errors:\r\nFor details: Check the Property BulkResponse, errors:{\"Code\":200,\"Message\":\"Address does not exist\"}\r\n' [var : \"TGlobalVariablesDB\".myBYTE_does_not_exist;value : 55] ", myBYTE.AccessStatus.FailureReason);
         }
 
        
@@ -1792,7 +1303,7 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public async Task should_report_failure_when_unable_to_bulk_read_items()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
             connector.ExceptionBehaviour = CommExceptionBehaviour.Ignore;
             var myBYTE = new WebApiByte(connector, "", "myBYTE_o");
             var myWORD = new WebApiWord(connector, "", "myWORD");
@@ -1805,17 +1316,17 @@ namespace AXSharp.Connector.S71500.WebAPITests
                 myLWORD
             };
 
-            await connector.ReadBatchAsync(primitives);
+            await ((Connector)connector).ReadBatchAsync(primitives);
 
             Assert.Equal(true, myBYTE.AccessStatus.Failure);
             output.WriteLine(myBYTE.AccessStatus.FailureReason);
-            Assert.Equal("Batch read failed.: 'During Bulk request for 3 there have been 1 Errors:\r\nFor details: Check the Property BulkResponse' [var : \"TGlobalVariablesDB\".myBYTE_o] ", myBYTE.AccessStatus.FailureReason);
+            Assert.Equal("Batch read failed.: 'During Bulk request for 3 there have been 1 Errors:\r\nFor details: Check the Property BulkResponse, errors:{\"Code\":200,\"Message\":\"Address does not exist\"}\r\n' [var : \"TGlobalVariablesDB\".myBYTE_o] ", myBYTE.AccessStatus.FailureReason);
         }
 
         [Fact]
         public async Task should_report_failure_when_unable_to_bulk_write_items()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
             connector.ExceptionBehaviour = CommExceptionBehaviour.Ignore;
             var myBYTE = new WebApiByte(connector, "", "myBYTE_o");
             var myWORD = new WebApiWord(connector, "", "myWORD");
@@ -1832,14 +1343,14 @@ namespace AXSharp.Connector.S71500.WebAPITests
 
             Assert.Equal(true, myBYTE.AccessStatus.Failure);
             output.WriteLine(myBYTE.AccessStatus.FailureReason);
-            Assert.Equal("Batch write failed.: 'During Bulk request for 3 there have been 1 Errors:\r\nFor details: Check the Property BulkResponse' [var : \"TGlobalVariablesDB\".myBYTE_o;value : 0] ", myBYTE.AccessStatus.FailureReason);
+            Assert.Equal("Batch write failed.: 'During Bulk request for 3 there have been 1 Errors:\r\nFor details: Check the Property BulkResponse, errors:{\"Code\":200,\"Message\":\"Address does not exist\"}\r\n' [var : \"TGlobalVariablesDB\".myBYTE_o;value : 0] ", myBYTE.AccessStatus.FailureReason);
         }
 
 
         [Fact]
         public void should_rethrow_exception_bulk()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
             connector.ExceptionBehaviour = CommExceptionBehaviour.ReThrow;
             var myBYTE = new WebApiByte(connector, "", "myBYTE_o");
             var myWORD = new WebApiWord(connector, "", "myWORD");
@@ -1852,7 +1363,7 @@ namespace AXSharp.Connector.S71500.WebAPITests
                 myLWORD
             };
 
-           Assert.Throws<System.AggregateException>(() => connector.ReadBatchAsync(primitives).Wait());
+           Assert.Throws<System.AggregateException>(() => ((Connector)connector).ReadBatchAsync(primitives).Wait());
 
            
         }
@@ -1860,13 +1371,223 @@ namespace AXSharp.Connector.S71500.WebAPITests
         [Fact]
         public void should_rethrow_exception_single()
         {
-            var connector = new WebApiConnector(TargetIp, "Everybody", "", true);
+            var connector = TestConnector.TestApiConnector;
             connector.ExceptionBehaviour = CommExceptionBehaviour.ReThrow;
             var myBYTE = new WebApiByte(connector, "", "myBYTE_o");
 
             Assert.Throws<System.AggregateException>(() => connector.ReadAsync<byte>(myBYTE).Result);
 
 
+        }
+
+        [Fact]
+        public async Task should_relogin_to_connector_api()
+        {
+            var connector = TestConnector.TestApiConnector;
+
+            // Simulate a failure scenario that requires re-login
+            connector.ExceptionBehaviour = CommExceptionBehaviour.Ignore;
+
+            // Trigger re-login
+            await connector.ReLoginToConnectorApi();
+
+            // Verify that the connector is operational after re-login
+            var myBOOL = new WebApiBool(connector, "", "myBOOL");
+            await connector.WriteAsync<bool>(myBOOL, true);
+            var response = await connector.ReadAsync<bool>("myBOOL");
+
+            Assert.True(response.result);
+        }
+
+        [Fact]
+        public async Task should_handle_comm_failure()
+        {
+            var connector = TestConnector.TestApiConnector;
+            connector.ExceptionBehaviour = CommExceptionBehaviour.Ignore;
+
+            var myBYTE = new WebApiByte(connector, "", "myBYTE_does_not_exist");
+            var primitives = new List<ITwinPrimitive> { myBYTE };
+
+            try
+            {
+                await connector.ReadBatchAsync(primitives);
+            }
+            catch (Exception ex)
+            {
+                connector.HandleCommFailure(ex, "Test failure handling", primitives, null, new List<ApiRequestBase>());
+            }
+
+            Assert.True(myBYTE.AccessStatus.Failure);
+            Assert.Contains("Batch read failed", myBYTE.AccessStatus.FailureReason);
+        }
+
+        [Fact]
+        public async Task should_bulk_read_custom_priority_with_alternating_parameters()
+        {
+            var connector = TestConnector.TestApiConnector;
+
+            var myBOOL = new WebApiBool(connector, "", "myBOOL");
+            var myBYTE = new WebApiByte(connector, "", "myBYTE");
+            var myINT = new WebApiInt(connector, "", "myINT");
+
+            await connector.WriteAsync<bool>(myBOOL, true);
+            await connector.WriteAsync<byte>(myBYTE, 42);
+            await connector.WriteAsync<short>(myINT, 43);
+
+            IEnumerable<ITwinPrimitive> primitives = new ITwinPrimitive[]
+            {
+                myBOOL,
+                myBYTE,
+                myINT
+            };
+
+            await connector.ReadBatchAsync(primitives, eAccessPriority.Custom, chunkSize: 100, interChunkDelay: 500);
+
+            Assert.True(myBOOL.Cyclic);
+            Assert.Equal(42, myBYTE.Cyclic);
+            Assert.Equal(43, myINT.Cyclic);
+        }
+
+        [Fact]
+        public async Task should_bulk_write_custom_priority_with_alternating_parameters()
+        {
+            var connector = TestConnector.TestApiConnector;
+
+            var myBOOL = new WebApiBool(connector, "", "myBOOL");
+            var myBYTE = new WebApiByte(connector, "", "myBYTE");
+            var myINT = new WebApiInt(connector, "", "myINT");
+
+            myBOOL.Cyclic = false;
+            myBYTE.Cyclic = 100;
+            myINT.Cyclic = 200;
+
+            IEnumerable<ITwinPrimitive> primitives = new ITwinPrimitive[]
+            {
+                myBOOL,
+                myBYTE,
+                myINT
+            };
+
+            await connector.WriteBatchAsync(primitives, eAccessPriority.Custom, chunkSize: 50, interChunkDelay: 300);
+
+            Assert.False(myBOOL.Cyclic);
+            Assert.Equal(100, myBYTE.Cyclic);
+            Assert.Equal(200, myINT.Cyclic);
+        }
+
+        [Fact]
+        public async Task should_bulk_read_all_priorities()
+        {
+            var connector = TestConnector.TestApiConnector;
+
+            var myBOOL = new WebApiBool(connector, "", "myBOOL");
+            var myBYTE = new WebApiByte(connector, "", "myBYTE");
+            var myINT = new WebApiInt(connector, "", "myINT");
+
+            await connector.WriteAsync<bool>(myBOOL, true);
+            await connector.WriteAsync<byte>(myBYTE, 42);
+            await connector.WriteAsync<short>(myINT, 43);
+
+            IEnumerable<ITwinPrimitive> primitives = new ITwinPrimitive[]
+            {
+                myBOOL,
+                myBYTE,
+                myINT
+            };
+
+            // Test Normal priority
+            await connector.ReadBatchAsync(primitives, eAccessPriority.Normal);
+            Assert.True(myBOOL.Cyclic);
+            Assert.Equal(42, myBYTE.Cyclic);
+            Assert.Equal(43, myINT.Cyclic);
+
+            await connector.WriteAsync<bool>(myBOOL, false);
+            await connector.WriteAsync<byte>(myBYTE, 0);
+            await connector.WriteAsync<short>(myINT, 0);
+
+            // Test Low priority
+            await connector.WriteAsync<bool>(myBOOL, true);
+            await connector.WriteAsync<byte>(myBYTE, 42);
+            await connector.WriteAsync<short>(myINT, 43);
+            await connector.ReadBatchAsync(primitives, eAccessPriority.Low, chunkSize: 100, interChunkDelay: 500);
+            Assert.True(myBOOL.Cyclic);
+            Assert.Equal(42, myBYTE.Cyclic);
+            Assert.Equal(43, myINT.Cyclic);
+
+            await connector.WriteAsync<bool>(myBOOL, false);
+            await connector.WriteAsync<byte>(myBYTE, 0);
+            await connector.WriteAsync<short>(myINT, 0);
+
+            // Test Prioritare priority
+            await connector.WriteAsync<bool>(myBOOL, true);
+            await connector.WriteAsync<byte>(myBYTE, 42);
+            await connector.WriteAsync<short>(myINT, 43);
+            await connector.ReadBatchAsync(primitives, eAccessPriority.High);
+            Assert.True(myBOOL.Cyclic);
+            Assert.Equal(42, myBYTE.Cyclic);
+            Assert.Equal(43, myINT.Cyclic);
+
+            await connector.WriteAsync<bool>(myBOOL, false);
+            await connector.WriteAsync<byte>(myBYTE, 0);
+            await connector.WriteAsync<short>(myINT, 0);
+
+            // Test Custom priority
+            await connector.WriteAsync<bool>(myBOOL, true);
+            await connector.WriteAsync<byte>(myBYTE, 42);
+            await connector.WriteAsync<short>(myINT, 43);
+            await connector.ReadBatchAsync(primitives, eAccessPriority.Custom, chunkSize: 50, interChunkDelay: 300);
+            Assert.True(myBOOL.Cyclic);
+            Assert.Equal(42, myBYTE.Cyclic);
+            Assert.Equal(43, myINT.Cyclic);
+
+            await connector.WriteAsync<bool>(myBOOL, false);
+            await connector.WriteAsync<byte>(myBYTE, 0);
+            await connector.WriteAsync<short>(myINT, 0);
+        }
+
+        [Fact]
+        public async Task should_bulk_write_all_priorities()
+        {
+            var connector = TestConnector.TestApiConnector;
+
+            var myBOOL = new WebApiBool(connector, "", "myBOOL");
+            var myBYTE = new WebApiByte(connector, "", "myBYTE");
+            var myINT = new WebApiInt(connector, "", "myINT");
+
+            myBOOL.Cyclic = false;
+            myBYTE.Cyclic = 100;
+            myINT.Cyclic = 200;
+
+            IEnumerable<ITwinPrimitive> primitives = new ITwinPrimitive[]
+            {
+                myBOOL,
+                myBYTE,
+                myINT
+            };
+
+            // Test Normal priority
+            await connector.WriteBatchAsync(primitives, eAccessPriority.Normal);
+            Assert.False(myBOOL.Cyclic);
+            Assert.Equal(100, myBYTE.Cyclic);
+            Assert.Equal(200, myINT.Cyclic);
+
+            // Test Low priority
+            await connector.WriteBatchAsync(primitives, eAccessPriority.Low, chunkSize: 50, interChunkDelay: 300);
+            Assert.False(myBOOL.Cyclic);
+            Assert.Equal(100, myBYTE.Cyclic);
+            Assert.Equal(200, myINT.Cyclic);
+
+            // Test Prioritare priority
+            await connector.WriteBatchAsync(primitives, eAccessPriority.High);
+            Assert.False(myBOOL.Cyclic);
+            Assert.Equal(100, myBYTE.Cyclic);
+            Assert.Equal(200, myINT.Cyclic);
+
+            // Test Custom priority
+            await connector.WriteBatchAsync(primitives, eAccessPriority.Custom, chunkSize: 25, interChunkDelay: 100);
+            Assert.False(myBOOL.Cyclic);
+            Assert.Equal(100, myBYTE.Cyclic);
+            Assert.Equal(200, myINT.Cyclic);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace AXSharp.ConnectorTests.Localizations
     using Xunit;
     using NSubstitute;
     using AXSharp.Connector;
+    using System.Reflection;
 
     public static class TranslatorExtensionTests
     {
@@ -20,7 +21,7 @@ namespace AXSharp.ConnectorTests.Localizations
             var originalString = "TestValue1961414016";
 
             // Act
-            var result = twin.Translate(originalString);
+            var result = twin.Translate(originalString, CultureInfo.CurrentCulture);
 
             // Assert
             Assert.Equal(originalString, result);
@@ -33,12 +34,12 @@ namespace AXSharp.ConnectorTests.Localizations
             // Arrange
             var twin = Substitute.For<ITwinElement>();
             var interpreter = new Translator();
-            interpreter.SetLocalizationResource(typeof(AXSharp.ConnectorTests.Localizations.Resources.Dictionary));
+            interpreter.SetLocalizationResource(typeof(AXSharp.ConnectorTests.Localizations.Resources.Dictionary), Assembly.GetExecutingAssembly());
             twin.Interpreter.Returns(interpreter);
             var originalString = "<#In the middle of the night#>";
 
             // Act
-            var result = twin.Translate(originalString);
+            var result = twin.Translate(originalString, CultureInfo.CurrentCulture);
 
             // Assert
             Assert.Equal(originalString.CleanUpLocalizationTokens(), result);
@@ -58,7 +59,7 @@ namespace AXSharp.ConnectorTests.Localizations
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
             // Act
-            var result = twin.Translate(originalString);
+            var result = twin.Translate(originalString, CultureInfo.CurrentCulture);
 
             // Assert
             Assert.Equal(expected, result);
@@ -70,7 +71,7 @@ namespace AXSharp.ConnectorTests.Localizations
             // Arrange
             var twin = Substitute.For<ITwinElement>();
             var interpreter = new Translator();
-            interpreter.SetLocalizationResource(typeof(AXSharp.ConnectorTests.Localizations.Resources.Dictionary));
+            interpreter.SetLocalizationResource(typeof(AXSharp.ConnectorTests.Localizations.Resources.Dictionary), Assembly.GetExecutingAssembly());
             twin.Interpreter.Returns(interpreter);
             var originalString = "(A4)<#In the middle of the night#> 1.5";
             var expected = "(A4)Uprostred noci 1.5";
@@ -78,7 +79,7 @@ namespace AXSharp.ConnectorTests.Localizations
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
             // Act
-            var result = twin.Translate(originalString);
+            var result = twin.Translate(originalString, CultureInfo.CurrentCulture);
 
             // Assert
             Assert.Equal(expected, result);
@@ -98,7 +99,7 @@ namespace AXSharp.ConnectorTests.Localizations
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
             // Act
-            var result = twin.Translate(originalString);
+            var result = twin.Translate(originalString, CultureInfo.CurrentCulture);
 
             // Assert
             Assert.Equal(originalString.CleanUpLocalizationTokens(), result);
@@ -110,7 +111,7 @@ namespace AXSharp.ConnectorTests.Localizations
             // Arrange
             var twin = Substitute.For<ITwinElement>();
             var interpreter = new Translator();
-            interpreter.SetLocalizationResource(typeof(AXSharp.ConnectorTests.Localizations.Resources.Dictionary));
+            interpreter.SetLocalizationResource(typeof(AXSharp.ConnectorTests.Localizations.Resources.Dictionary), Assembly.GetExecutingAssembly());
             twin.Interpreter.Returns(interpreter);
             var originalString = "(A4)<#In the middle of the night does not exist#> 1.5";
           
@@ -118,7 +119,7 @@ namespace AXSharp.ConnectorTests.Localizations
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
             // Act
-            var result = twin.Translate(originalString);
+            var result = twin.Translate(originalString, CultureInfo.CurrentCulture);
 
             // Assert
             Assert.Equal(originalString.CleanUpLocalizationTokens(), result);
